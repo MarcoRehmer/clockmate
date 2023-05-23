@@ -1,0 +1,24 @@
+### GET all users
+GET {{host}}/users
+
+### POST login
+POST {{host}}/users/login
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "test123!"
+}
+
+### POST create record
+POST {{host}}/users
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "email": "test mail",
+  "password": "test123!",
+  "firstName": "John",
+  "lastName": "Doe",
+  "role": "user"
+}

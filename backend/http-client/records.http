@@ -1,0 +1,28 @@
+### GET all records
+GET {{host}}/records
+
+### GET record by ID
+GET {{host}}/records/3
+
+### POST create record
+POST {{host}}/records
+Content-Type: application/json
+
+{
+  "title": "Sample Record",
+  "artist": "Sample Artist",
+  "year": 2023
+}
+
+### PUT update record by ID
+PUT {{host}}/records/1
+Content-Type: application/json
+
+{
+  "title": "Updated Record",
+  "artist": "Updated Artist",
+  "year": 2023
+}
+
+### DELETE record by ID
+DELETE {{host}}/records/1

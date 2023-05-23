@@ -1,0 +1,35 @@
+version: '3'
+services:
+#  frontend:
+#    build:
+#      context: ./apps/clockmate
+#      dockerfile: Dockerfile
+#    ports:
+#      - 4200:4200
+#    volumes:
+#      - ./apps/clockmate:/app
+#
+#  backend:
+#    build:
+#      context: ./apps/api
+#      dockerfile: Dockerfile
+#    ports:
+#      - 3000:3000
+#    volumes:
+#      - ./apps/api:/app
+#    depends_on:
+#      - postgres
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: clockmateUser
+      POSTGRES_PASSWORD: ClockMate123!
+      POSTGRES_DB: clockmate_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
