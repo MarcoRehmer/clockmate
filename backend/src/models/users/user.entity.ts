@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BookingEntity } from '../bookings/booking.entity';
 
-@Entity()
+@Entity({ name: 'users' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,4 +23,7 @@ export class UserEntity {
 
   @Column()
   role: 'user' | 'admin';
+
+  @OneToMany(() => BookingEntity, booking => booking.user)
+  bookings: Array<BookingEntity>;
 }

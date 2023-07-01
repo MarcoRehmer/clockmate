@@ -15,7 +15,7 @@ export class UsersService {
 
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
   ) {}
 
   async login(credentials: {
@@ -30,7 +30,7 @@ export class UsersService {
     }
 
     return Promise.resolve(
-      await bcrypt.compare(credentials.password, user.password)
+      await bcrypt.compare(credentials.password, user.password),
     );
   }
 
@@ -58,5 +58,9 @@ export class UsersService {
 
   async delete(id: string): Promise<void> {
     return Promise.resolve(undefined);
+  }
+
+  async findOne(userId: number) {
+    return this.userRepository.findOneBy({ id: userId });
   }
 }

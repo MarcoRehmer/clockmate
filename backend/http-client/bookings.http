@@ -1,0 +1,28 @@
+### GET all bookings
+GET {{host}}/bookings
+
+### GET booking by ID
+GET {{host}}/bookings/3
+
+### POST create booking
+POST {{host}}/bookings
+Content-Type: application/json
+
+{
+  "startedAt": "2023-07-01T14:47:25Z",
+  "remarks": "Test Remarks",
+  "userId": 1
+}
+
+### PUT update booking by ID
+PUT {{host}}/bookings/1
+Content-Type: application/json
+
+{
+  "title": "Updated Record",
+  "artist": "Updated Artist",
+  "year": 2023
+}
+
+### DELETE booking by ID
+DELETE {{host}}/bookings/1

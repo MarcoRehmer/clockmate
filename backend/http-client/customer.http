@@ -1,0 +1,13 @@
+### GET all projects
+GET {{host}}/customers
+
+### GET project by ID
+GET {{host}}/customers/1
+
+### POST create customer
+POST {{host}}/customers
+Content-Type: application/json
+
+{
+  "name": "ACME Inc."
+}

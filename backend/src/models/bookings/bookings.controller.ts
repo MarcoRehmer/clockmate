@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { BookingsEntity } from './bookings.entity';
+import { BookingEntity } from './booking.entity';
 import { BookingsService } from './bookings.service';
 
 @Controller('bookings')
@@ -15,25 +15,25 @@ export class BookingsController {
   constructor(private readonly service: BookingsService) {}
 
   @Get()
-  async findAll(): Promise<BookingsEntity[]> {
+  async findAll(): Promise<Array<BookingEntity>> {
     return await this.service.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<BookingsEntity> {
+  async findOne(@Param('id') id: number): Promise<BookingEntity> {
     return await this.service.findOne(id);
   }
 
   @Post()
-  async create(@Body() bookingDto: BookingsEntity): Promise<BookingsEntity> {
+  async create(@Body() bookingDto: BookingEntity): Promise<BookingEntity> {
     return await this.service.create(bookingDto);
   }
 
   @Put(':id')
   async update(
     @Param('id') id: number,
-    @Body() bookingDto: BookingsEntity
-  ): Promise<BookingsEntity> {
+    @Body() bookingDto: BookingEntity,
+  ): Promise<BookingEntity> {
     return await this.service.update(id, bookingDto);
   }
 

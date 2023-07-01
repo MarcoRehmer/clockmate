@@ -1,0 +1,15 @@
+### all projects
+GET {{host}}/projects
+
+### project by ID
+GET {{host}}/projects/1
+
+### create project
+POST {{host}}/projects
+Content-Type: application/json
+
+{
+  "name": "Web Design",
+  "description": "Web Design for the client",
+  "customerId": 3
+}
