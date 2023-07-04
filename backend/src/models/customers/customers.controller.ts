@@ -8,34 +8,37 @@ import {
   Put,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
-import { CustomerEntity } from './customer.entity';
+import { CustomerDto } from './types/customer.dto';
+import { mapCustomerEntityToDto } from './types/map-customer-dto-to-entity';
 
 @Controller('customers')
 export class CustomersController {
   constructor(private readonly service: CustomersService) {}
 
   @Get()
-  async findAll(): Promise<Array<CustomerEntity>> {
-    return await this.service.findAll();
+  async findAll(): Promise<Array<CustomerDto>> {
+    return (await this.service.findAll()).map(entity =>
+      mapCustomerEntityToDto(entity),
+    );
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number): Promise<CustomerEntity> {
-    return await this.service.findOne(id);
+  async findOne(@Param('id') id: number): Promise<CustomerDto> {
+    return mapCustomerEntityToDto(await this.service.findOne(id));
   }
 
   @Post()
-  async create(@Body() customerDto: CustomerEntity): Promise<CustomerEntity> {
+  async create(@Body() customerDto: CustomerDto): Promise<CustomerDto> {
     console.log(customerDto);
-    return await this.service.create(customerDto);
+    return mapCustomerEntityToDto(await this.service.create(customerDto));
   }
 
   @Put(':id')
   async update(
     @Param('id') id: number,
-    @Body() customerDto: CustomerEntity,
-  ): Promise<CustomerEntity> {
-    return await this.service.update(id, customerDto);
+    @Body() customerDto: CustomerDto,
+  ): Promise<CustomerDto> {
+    return mapCustomerEntityToDto(await this.service.update(id, customerDto));
   }
 
   @Delete(':id')

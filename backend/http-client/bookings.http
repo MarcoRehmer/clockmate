@@ -11,7 +11,8 @@ Content-Type: application/json
 {
   "startedAt": "2023-07-01T14:47:25Z",
   "remarks": "Test Remarks",
-  "userId": 1
+  "userId": 1,
+  "projectId": 6
 }
 
 ### PUT update booking by ID

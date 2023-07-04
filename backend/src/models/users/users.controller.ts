@@ -8,7 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UserEntity } from './user.entity';
+import { UserDto, UserDtoWithPassword } from './user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -20,20 +20,20 @@ export class UsersController {
   }
 
   @Get()
-  findAll(): Promise<ReadonlyArray<UserEntity>> {
+  findAll(): Promise<ReadonlyArray<UserDto>> {
     return this.service.findAll();
   }
 
   @Post()
-  create(@Body() userDto: UserEntity): Promise<UserEntity> {
+  create(@Body() userDto: UserDtoWithPassword): Promise<UserDto> {
     return this.service.create(userDto);
   }
 
   @Put(':id')
   update(
     @Param('id') id: number,
-    @Body() userDto: UserEntity
-  ): Promise<UserEntity> {
+    @Body() userDto: UserDtoWithPassword,
+  ): Promise<UserDto> {
     return this.service.update(id, userDto);
   }
 

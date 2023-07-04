@@ -3,6 +3,7 @@ import { ProjectEntity } from './project.entity';
 import { Repository } from 'typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CustomersService } from '../customers/customers.service';
+import { ProjectDto } from './project.dto';
 
 @Injectable()
 export class ProjectsService {
@@ -20,7 +21,9 @@ export class ProjectsService {
     return this.repository.findOneBy({ id });
   }
 
-  async create(projectDto: ProjectEntity): Promise<ProjectEntity> {
+  async create(projectDto: ProjectDto): Promise<ProjectEntity> {
+    const project = this.repository.create();
+
     if (projectDto.customerId) {
       const customer = await this.customerService.findOne(
         projectDto.customerId,
@@ -31,13 +34,13 @@ export class ProjectsService {
         );
       }
 
-      projectDto.customer = customer;
+      project.customer = customer;
     }
 
     return this.repository.save(projectDto);
   }
 
-  async update(id: number, projectDto: ProjectEntity): Promise<ProjectEntity> {
+  async update(id: number, projectDto: ProjectDto): Promise<ProjectEntity> {
     const project = await this.repository.findOneBy({ id });
     if (!project) {
       throw new NotFoundException('Project not found');

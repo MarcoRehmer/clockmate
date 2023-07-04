@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { CustomersService } from '../customers/customers.service';
 import { ProjectsService } from '../projects/projects.service';
 import { UsersService } from '../users/users.service';
+import { BookingDto } from './booking.dto';
 
 @Injectable()
 export class BookingsService {
@@ -20,25 +21,27 @@ export class BookingsService {
     private readonly userService: UsersService,
   ) {}
 
-  async findAll(): Promise<BookingEntity[]> {
+  async findAll(): Promise<Array<BookingDto>> {
     return this.bookingsRepository.find();
   }
 
-  async findOne(id: number): Promise<BookingEntity> {
+  async findOne(id: number): Promise<BookingDto> {
     return this.bookingsRepository.findOneBy({ id });
   }
 
-  async create(bookingDto: BookingEntity): Promise<BookingEntity> {
+  async create(bookingDto: BookingDto): Promise<BookingDto> {
     if (!bookingDto.userId) {
       throw new BadRequestException('No user given');
     }
+
+    const booking = await this.bookingsRepository.create();
 
     // set user. Throw error, if no user is given
     const user = await this.userService.findOne(bookingDto.userId);
     if (!user) {
       throw new NotFoundException('invalid userID');
     }
-    bookingDto.user = user;
+    booking.user = user;
 
     // set project if given
     if (bookingDto.projectId) {
@@ -46,7 +49,7 @@ export class BookingsService {
       if (!project) {
         throw new NotFoundException('Project not found');
       }
-      bookingDto.project = project;
+      booking.project = project;
     }
 
     // set customer if given
@@ -57,19 +60,19 @@ export class BookingsService {
       if (!customer) {
         throw new NotFoundException('Customer not found');
       }
-      bookingDto.customer = customer;
+      booking.customer = customer;
     }
 
     return this.bookingsRepository.save(bookingDto);
   }
 
-  async update(id: number, bookingDto: BookingEntity): Promise<BookingEntity> {
+  async update(id: number, bookingDto: BookingDto): Promise<BookingDto> {
     const booking = await this.bookingsRepository.findOneBy({ id });
     if (!booking) {
-      throw new NotFoundException('Record not found');
+      throw new NotFoundException('Booking not found');
     }
-    const updatedRecord = { ...booking, ...bookingDto };
-    return this.bookingsRepository.save(updatedRecord);
+    const updatedBooking = { ...booking, ...bookingDto };
+    return this.bookingsRepository.save(updatedBooking);
   }
 
   async delete(id: string): Promise<void> {

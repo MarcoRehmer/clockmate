@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CustomerEntity } from './customer.entity';
 import { Repository } from 'typeorm';
+import { CustomerDto } from './types/customer.dto';
 
 @Injectable()
 export class CustomersService {
@@ -18,14 +19,11 @@ export class CustomersService {
     return this.repository.findOneBy({ id });
   }
 
-  async create(customerDto: CustomerEntity): Promise<CustomerEntity> {
+  async create(customerDto: CustomerDto): Promise<CustomerEntity> {
     return this.repository.save(customerDto);
   }
 
-  async update(
-    id: number,
-    customerDto: CustomerEntity,
-  ): Promise<CustomerEntity> {
+  async update(id: number, customerDto: CustomerDto): Promise<CustomerEntity> {
     const customer = await this.repository.findOneBy({ id });
     if (!customer) {
       throw new NotFoundException('Record not found');

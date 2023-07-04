@@ -24,7 +24,6 @@ export class ProjectEntity {
 
   @ManyToOne(() => CustomerEntity, customer => customer.projects)
   customer?: CustomerEntity;
-  customerId?: number; // TODO: noch in DTO auslagern
 
   @OneToMany(() => BookingEntity, booking => booking.project)
   bookings: Array<BookingEntity>;
