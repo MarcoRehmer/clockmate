@@ -1,7 +1,8 @@
 export const Stopwatch = () => {
     return (
         <div>
-            Stopwatch
+            <span>01:45:23</span>
+
         </div>
     );
 }
