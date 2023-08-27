@@ -1,5 +1,3 @@
-'use client'
-
 import {
   FormControl,
   InputLabel,
@@ -7,10 +5,10 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 
 export const PageSizeSelect = () => {
-  const [pageSize, setPageSize] = React.useState('25');
+  const [pageSize, setPageSize] = useState('25');
 
   const handlePageSizeChange = (event: SelectChangeEvent) => {
     setPageSize(event.target.value);
