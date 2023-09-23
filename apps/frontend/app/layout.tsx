@@ -1,6 +1,7 @@
-import { AppHeader } from './components/AppHeader';
+import { AppHeader } from './components/AppHeader/AppHeader';
 import { AppFooter } from './components/AppFooter/AppFooter';
 import './global.scss';
+import ReduxProvider from './ReduxProvider';
 
 export const metadata = {
   title: 'Clockmate',
@@ -15,15 +16,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div>
-          <header>
-            <AppHeader />
-          </header>
-          <main>{children}</main>
-          <footer>
-            <AppFooter />
-          </footer>
-        </div>
+        <ReduxProvider>
+          <div>
+            <header>
+              <AppHeader />
+            </header>
+            <main>{children}</main>
+            <footer>
+              <AppFooter />
+            </footer>
+          </div>
+        </ReduxProvider>
       </body>
     </html>
   );

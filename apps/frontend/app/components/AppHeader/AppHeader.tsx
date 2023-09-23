@@ -1,7 +1,8 @@
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Stopwatch } from "./Stopwatch";
+import { Stopwatch } from '../Stopwatch/Stopwatch';
+import { Avatar } from '@mui/material';
 
 export const AppHeader = () => {
   return (
@@ -10,7 +11,8 @@ export const AppHeader = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Clockmate
         </Typography>
-      <Stopwatch />
+        <Stopwatch />
+        <Avatar />
       </Toolbar>
     </AppBar>
   );
