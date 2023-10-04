@@ -5,140 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5bf3756-05a6-4c0f-93e2-0c2afa1a1988" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/extensions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/jest.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/project.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/backend/backend.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/support/global-setup.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/support/global-teardown.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/support/test-setup.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/tsconfig.spec.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/cypress.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/project.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/e2e/app.cy.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/fixtures/example.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/support/app.po.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/support/commands.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/support/e2e.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/components/BookingTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/components/BookingTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/components/PageSizeSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/components/PageSizeSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/components/RangeSelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/components/RangeSelector.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/page.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/page.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/ReduxProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/ReduxProvider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/AppFooter/AppFooter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AppFooter/AppFooter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/AppFooter/app-footer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AppFooter/app-footer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/AppHeader/AppHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AppHeader/AppHeader.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/BookingTableOptions/BookingTableOptions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/BookingTableOptions/BookingTableOptions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/BookingTableOptions/booking-table-options.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/BookingTableOptions/booking-table-options.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/Stopwatch/Stopwatch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/Stopwatch/Stopwatch.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/core/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/global.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/global.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/settings/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/store/mocks/bookings.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/store/mocks/bookings.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/store/slices/bookingsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/store/slices/bookingsSlice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/app/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/store/store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/jest.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/next-env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/next.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/project.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/public/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/frontend/tsconfig.spec.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/.babelrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/.detoxrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/jest.config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/project.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/src/app.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/test-setup.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/tsconfig.e2e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/.eslintrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/Gemfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/debug.keystore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/androidTest/java/com/mobile/DetoxTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/debug/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/debug/java/com/mobile/ReactNativeFlipper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/java/com/mobile/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/java/com/mobile/MainApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/drawable/rn_edit_text_material.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/xml/network_security_config.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/release/java/com/mobile/ReactNativeFlipper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/android/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/babel.config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/.xcode.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile.xcodeproj/project.pbxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile.xcodeproj/xcshareddata/xcschemes/Mobile.xcscheme" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/AppDelegate.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/AppDelegate.mm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/Images.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/Images.xcassets/Contents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/LaunchScreen.storyboard" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/main.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/MobileTests/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/MobileTests/MobileTests.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Podfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/jest.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/metro.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/project.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/src/app/App.spec.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/src/app/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/src/main.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/test-setup.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/tsconfig.app.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/mobile/tsconfig.spec.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.preset.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/nx.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/tsconfig.tools.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.base.json" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/app.controller.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/app.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/app.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/app.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/bookings/booking.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/bookings/booking.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/bookings/bookings.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/bookings/bookings.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/bookings/bookings.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/customers/customer.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/customers/customers.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/customers/customers.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/customers/customers.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/customers/types/customer.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/customers/types/map-customer-dto-to-entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/projects/project.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/projects/project.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/projects/projects.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/projects/projects.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/projects/projects.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/users/user.dto.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/users/user.entity.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/users/users.controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/users/users.module.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/app/models/users/users.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/apps/backend/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,6 +98,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
@@ -226,19 +124,19 @@
       <recent name="$PROJECT_DIR$/apps/backend/src/app" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/src" />
       <recent name="$PROJECT_DIR$/frontend/src/public" />
       <recent name="$PROJECT_DIR$/frontend/src/app" />
       <recent name="$PROJECT_DIR$/apps/frontend/app/core" />
       <recent name="$PROJECT_DIR$/apps/frontend/app" />
-      <recent name="$PROJECT_DIR$/apps/frontend/app/components/Stopwatch" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+    <configuration name="start backend" type="js.build_tools.npm" temporary="true">
+      <package-json value="$PROJECT_DIR$/backend/package.json" />
       <command value="run" />
       <scripts>
-        <script value="dev" />
+        <script value="start:dev" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -246,7 +144,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.dev" />
+        <item itemvalue="npm.start backend" />
       </list>
     </recent_temporary>
   </component>
@@ -270,11 +168,34 @@
       <workItem from="1695492161149" duration="9000" />
       <workItem from="1695492330348" duration="8337000" />
       <workItem from="1695578135581" duration="2201000" />
-      <workItem from="1696418792366" duration="3358000" />
+      <workItem from="1696418792366" duration="4788000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/remove-nx-framework" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
