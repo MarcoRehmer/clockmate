@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a5bf3756-05a6-4c0f-93e2-0c2afa1a1988" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/extensions.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/extensions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/jest.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/project.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/backend/backend.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/support/global-setup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/support/global-teardown.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/src/support/test-setup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/backend-e2e/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/cypress.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/project.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/e2e/app.cy.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/fixtures/example.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/support/app.po.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/support/commands.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/src/support/e2e.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend-e2e/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/components/BookingTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/components/BookingTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/components/PageSizeSelect.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/components/PageSizeSelect.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/components/RangeSelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/components/RangeSelector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/page.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/page.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/(root)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(root)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/ReduxProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/ReduxProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/AppFooter/AppFooter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AppFooter/AppFooter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/AppFooter/app-footer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AppFooter/app-footer.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/AppHeader/AppHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/AppHeader/AppHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/BookingTableOptions/BookingTableOptions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/BookingTableOptions/BookingTableOptions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/BookingTableOptions/booking-table-options.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/BookingTableOptions/booking-table-options.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/components/Stopwatch/Stopwatch.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/components/Stopwatch/Stopwatch.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/core/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/core/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/global.scss" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/global.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/settings/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/store/mocks/bookings.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/store/mocks/bookings.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/store/slices/bookingsSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/store/slices/bookingsSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/app/store/store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/store/store.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/index.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/jest.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/next-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/next.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/project.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/public/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/frontend/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/.babelrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/.detoxrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/jest.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/project.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/src/app.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/test-setup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/tsconfig.e2e.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile-e2e/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/Gemfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/debug.keystore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/androidTest/java/com/mobile/DetoxTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/debug/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/debug/java/com/mobile/ReactNativeFlipper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/java/com/mobile/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/java/com/mobile/MainApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/drawable/rn_edit_text_material.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/main/res/xml/network_security_config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/app/src/release/java/com/mobile/ReactNativeFlipper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/android/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/babel.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/.xcode.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile.xcodeproj/xcshareddata/xcschemes/Mobile.xcscheme" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/AppDelegate.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/AppDelegate.mm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/Images.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/Images.xcassets/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/LaunchScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Mobile/main.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/MobileTests/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/MobileTests/MobileTests.m" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/ios/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/jest.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/metro.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/project.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/src/app/App.spec.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/src/app/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/src/main.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/test-setup.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/tsconfig.app.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/mobile/tsconfig.spec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.config.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.preset.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/nx.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/tsconfig.tools.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.base.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="feature/remove-nx-framework" />
+                    <option name="lastUsedInstant" value="1696420466" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1696420465" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2UJ4w9zqe7IGiOL4ponFi16cwqQ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "feature/remove-nx-framework",
+    "last_opened_file_path": "/home/marco/Source/clockmate/apps/backend/src/app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettier.import.notification.dismissed": "true",
+    "prettierjs.PrettierConfiguration.Package": "/home/marco/Source/clockmate/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "ts.external.directory.path": "/home/marco/Source/clockmate/frontend/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/apps/backend/src/app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/public" />
+      <recent name="$PROJECT_DIR$/frontend/src/app" />
+      <recent name="$PROJECT_DIR$/apps/frontend/app/core" />
+      <recent name="$PROJECT_DIR$/apps/frontend/app" />
+      <recent name="$PROJECT_DIR$/apps/frontend/app/components/Stopwatch" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a5bf3756-05a6-4c0f-93e2-0c2afa1a1988" name="Changes" comment="" />
+      <created>1692644586146</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692644586146</updated>
+      <workItem from="1692644589787" duration="1752000" />
+      <workItem from="1692730044181" duration="408000" />
+      <workItem from="1693064140067" duration="5895000" />
+      <workItem from="1693150739932" duration="8152000" />
+      <workItem from="1693851523861" duration="1040000" />
+      <workItem from="1693909968594" duration="6000" />
+      <workItem from="1693910035473" duration="3328000" />
+      <workItem from="1695320306815" duration="1382000" />
+      <workItem from="1695322092814" duration="1806000" />
+      <workItem from="1695492161149" duration="9000" />
+      <workItem from="1695492330348" duration="8337000" />
+      <workItem from="1695578135581" duration="2201000" />
+      <workItem from="1696418792366" duration="3358000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
