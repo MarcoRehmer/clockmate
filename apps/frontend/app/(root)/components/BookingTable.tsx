@@ -7,41 +7,11 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-
-interface BookingRow {
-  id: number;
-  duration: string;
-  client?: string; // TODO: have to be number / gid
-  project?: string; // TODO: have to be number / gid
-  issue?: string;
-  remarks?: string;
-}
+import { useSelector } from 'react-redux';
+import { selectBookings } from '../../store/slices/bookingsSlice';
 
 export const BookingTable = () => {
-  const rows: ReadonlyArray<BookingRow> = [
-    {
-      id: 1,
-      duration: '1:45', // recalculate to minutes
-      client: 'Kunde 1',
-      project: 'Projekt 1',
-      issue: '1234',
-    },
-    {
-      id: 2,
-      duration: '0:30', // recalculate to minutes
-      client: 'Kunde 1',
-      project: 'Projekt 1',
-      issue: '5500',
-      remarks: 'Support',
-    },
-    {
-      id: 3,
-      duration: '2:30', // recalculate to minutes
-      client: 'Kunde 2',
-      issue: '2304',
-      remarks: 'Refactoring',
-    },
-  ];
+  const bookings = useSelector(selectBookings);
 
   return (
     <TableContainer component={Paper}>
@@ -56,7 +26,7 @@ export const BookingTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {bookings.map((row) => (
             <TableRow
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

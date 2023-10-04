@@ -1,11 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { store } from '../store';
+import { Booking } from '../../core/types';
+
+interface BookingDto {
+  id: number;
+  startedAt: Date;
+  finishedAt?: Date;
+  remarks?: string;
+  activityType?: string;
+  userId: number;
+  projectId?: number;
+  customerId?: number;
+}
+
+type AppState = ReturnType<typeof store.getState>;
 
 export interface BookingsState {
-  stopwatch: number;
+  stopwatch: number; // TODO: improve
+  bookings: ReadonlyArray<Booking>;
 }
 
 const initialState: BookingsState = {
-  stopwatch: 12,
+  stopwatch: 0,
+  bookings: [],
 };
 
 export const bookingsSlice = createSlice({
@@ -13,16 +30,18 @@ export const bookingsSlice = createSlice({
   initialState,
   reducers: {
     incrementStopwatch: (state, action) => {
-      console.log('dispatch increment');
       state.stopwatch += action.payload;
     },
     resetStopwatch: (state) => {
-      console.log('dispatch reset');
       state.stopwatch = 0;
     },
   },
 });
 
 export const { incrementStopwatch, resetStopwatch } = bookingsSlice.actions;
-export const selectStopwatch = (state: any) => state.bookings.stopwatch;
+
+/* selectors */
+export const selectStopwatch = (state: AppState) => state.bookings.stopwatch;
+export const selectBookings = (state: AppState) => state.bookings.bookings;
+
 export default bookingsSlice.reducer;
