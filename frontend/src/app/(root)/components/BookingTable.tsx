@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Paper,
   Table,
@@ -10,15 +9,15 @@ import {
   TableRow,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { AppDispatch } from '@/app/store/store';
 import { selectBookingsState } from '@/app/store/selectors';
+import { AppDispatch } from '@/app/store/store';
+import { useEffect } from 'react';
 import { getBookings } from '@/app/store/bookings/bookingsThunks';
 
 export const BookingTable = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const { bookings, loading } = useSelector(selectBookingsState);
 
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getBookings({ sortBy: 'id' }));
   }, [dispatch]);

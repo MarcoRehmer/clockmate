@@ -1,20 +1,22 @@
 'use client';
-import { RangeSelector } from '../../(root)/components/RangeSelector';
+import { RangeSelector } from '../RangeSelector';
 import { IconButton } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import AddIcon from '@mui/icons-material/Add';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './booking-table-options.module.scss';
+import { CreateBookingDialog } from '@/app/(root)/components/CreateBookingDialog';
+import { Booking } from '@/app/core/types';
 
 export const BookingTableOptions = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const addPopoverOpen = Boolean(anchorEl);
+  const [createBookingOpen, setCreateBookingOpen] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  const handleAddNewBooking = () => setCreateBookingOpen(true);
+  const handleNewBookingClose = (booking: Booking | undefined) => {
+    console.log('new booking', booking);
+    setCreateBookingOpen(false);
   };
 
-  const id = addPopoverOpen ? 'simple-popper' : undefined;
   return (
     <>
       <div className={styles['booking-table-options-container']}>
@@ -31,13 +33,17 @@ export const BookingTableOptions = () => {
             aria-label="add new booking"
             size="large"
             color="inherit"
-            onClick={handleClick}
-            id={id}
+            onClick={handleAddNewBooking}
           >
             <AddIcon />
           </IconButton>
         </div>
       </div>
+
+      <CreateBookingDialog
+        open={createBookingOpen}
+        handleClose={handleNewBookingClose}
+      />
     </>
   );
 };
