@@ -1,8 +1,7 @@
 import { AppHeader } from '@/app/components/AppHeader/AppHeader';
 import { AppFooter } from '@/app/components/AppFooter/AppFooter';
 import '../../../frontend/src/app/global.scss';
-import ReduxProvider from './provider/reduxProvider';
-import { ApiContextProvider } from '@/app/provider/api.context';
+import AppProvider from '@/app/provider/appProvider';
 
 export const metadata = {
   title: 'Clockmate',
@@ -17,19 +16,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReduxProvider>
-          <ApiContextProvider>
-            <div>
-              <header>
-                <AppHeader />
-              </header>
-              <main>{children}</main>
-              <footer>
-                <AppFooter />
-              </footer>
-            </div>
-          </ApiContextProvider>
-        </ReduxProvider>
+        <AppProvider>
+          <div>
+            <header>
+              <AppHeader />
+            </header>
+            <main>{children}</main>
+            <footer>
+              <AppFooter />
+            </footer>
+          </div>
+        </AppProvider>
       </body>
     </html>
   );

@@ -32,7 +32,6 @@ export const BookingTable = () => {
               <TableCell>Duration</TableCell>
               <TableCell align="right">Client</TableCell>
               <TableCell align="right">Project</TableCell>
-              <TableCell align="right">Ticket</TableCell>
               <TableCell align="right">Remarks</TableCell>
             </TableRow>
           </TableHead>
@@ -47,7 +46,6 @@ export const BookingTable = () => {
                 </TableCell>
                 <TableCell align="right">{row.client}</TableCell>
                 <TableCell align="right">{row.project}</TableCell>
-                <TableCell align="right">{row.issue}</TableCell>
                 <TableCell align="right">{row.remarks}</TableCell>
               </TableRow>
             ))}

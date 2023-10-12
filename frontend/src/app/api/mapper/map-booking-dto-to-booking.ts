@@ -9,10 +9,14 @@ export function mapBookingDtoToBooking(
   return bookingsDto.map((bookingDto) => ({
     id: bookingDto.id,
     remarks: bookingDto.remarks,
-    duration: DateTime.fromISO(
-      bookingDto.finishedAt || new Date().toISOString()
-    )
-      .diff(DateTime.fromISO(bookingDto.startedAt))
-      .toFormat('hh:mm'),
+    startedAt: DateTime.fromISO(bookingDto.startedAt).toJSDate(),
+    finishedAt: bookingDto.finishedAt
+      ? DateTime.fromISO(bookingDto.finishedAt).toJSDate()
+      : undefined,
+    // duration: DateTime.fromISO(
+    //   bookingDto.finishedAt || new Date().toISOString()
+    // )
+    //   .diff(DateTime.fromISO(bookingDto.startedAt))
+    //   .toFormat('hh:mm'),
   }));
 }

@@ -4,14 +4,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CloseIcon from '@mui/icons-material/Close';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import { IconButton } from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { useContext } from 'react';
-import { ApiContext } from '@/app/provider/api.context';
 
 export const Stopwatch = () => {
-  const dispatch = useDispatch();
-  const api = useContext(ApiContext);
-
   return (
     <div style={{ display: 'flex' }}>
       <p>00:00:00</p>

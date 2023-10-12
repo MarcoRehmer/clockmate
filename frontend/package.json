@@ -14,6 +14,7 @@
     "@fontsource/roboto": "^5.0.8",
     "@mui/icons-material": "^5.14.6",
     "@mui/material": "^5.14.6",
+    "@mui/x-date-pickers": "^6.16.2",
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.0.0",
     "luxon": "^3.4.3",
@@ -28,10 +29,10 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "redux-devtools-extension": "^2.13.9",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "prettier": "^2.6.2",
+    "redux-devtools-extension": "^2.13.9",
     "sass": "1.62.1",
     "typescript": "^5"
   }
