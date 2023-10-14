@@ -1,23 +1,37 @@
-import { ApiClient, BookingDto } from '@/app/api/types';
+import { ApiClient, BookingDto, CreateBookingDto } from '@/app/api/types';
 import { bookingsMock } from '@/app/api/mocks/bookings.mock';
+
+const bookings: Array<BookingDto> = [...bookingsMock];
 
 export const mockClient: ApiClient = {
   bookings: {
     getAll: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
-      return Promise.resolve(bookingsMock);
+      return Promise.resolve(bookings);
     },
-    create: (booking: any) => {
-      console.log(`create booking: ${JSON.stringify(booking)}`);
+    create: (booking: CreateBookingDto): Promise<BookingDto> => {
+      console.debug(`create booking: ${JSON.stringify(booking)}`);
+      const createdBooking = {
+        id: Math.max(...bookings.map((v) => v.id)) + 1,
+        startedAt: booking.startedAt,
+        remarks: booking.remarks,
+        finishedAt: booking.finishedAt,
+        projectId: booking.projectId,
+        customerId: booking.customerId,
+      };
+
+      bookings.push(createdBooking);
+
+      return Promise.resolve(createdBooking);
     },
     update: (bookingId: string, booking: any) => {
-      console.log(
+      console.debug(
         `update booking with ID ${bookingId}, payload: ${JSON.stringify(
           booking
         )}`
       );
     },
     delete: (bookingId: string) => {
-      console.log(`delete booking with ID ${bookingId}`);
+      console.debug(`delete booking with ID ${bookingId}`);
     },
   },
   settings: {},

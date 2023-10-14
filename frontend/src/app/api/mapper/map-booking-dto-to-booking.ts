@@ -2,21 +2,18 @@ import { BookingDto } from '@/app/api/types';
 import { Booking } from '@/app/core/types';
 import { DateTime } from 'luxon';
 
-export function mapBookingDtoToBooking(
-  bookingsDto: ReadonlyArray<BookingDto>
-): ReadonlyArray<Booking> {
-  // TODO: extend mapping
-  return bookingsDto.map((bookingDto) => ({
+export function mapBookingDtoToBooking(bookingDto: BookingDto): Booking {
+  return {
     id: bookingDto.id,
     remarks: bookingDto.remarks,
-    startedAt: DateTime.fromISO(bookingDto.startedAt).toJSDate(),
+    startedAt: DateTime.fromISO(bookingDto.startedAt),
     finishedAt: bookingDto.finishedAt
-      ? DateTime.fromISO(bookingDto.finishedAt).toJSDate()
+      ? DateTime.fromISO(bookingDto.finishedAt)
       : undefined,
     // duration: DateTime.fromISO(
     //   bookingDto.finishedAt || new Date().toISOString()
     // )
     //   .diff(DateTime.fromISO(bookingDto.startedAt))
     //   .toFormat('hh:mm'),
-  }));
+  };
 }

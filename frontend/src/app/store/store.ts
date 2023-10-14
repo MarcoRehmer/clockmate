@@ -9,4 +9,6 @@ export const store = configureStore({
     [bookingsSlice.name]: bookingsSlice.reducer,
   },
   devTools: true,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
 });

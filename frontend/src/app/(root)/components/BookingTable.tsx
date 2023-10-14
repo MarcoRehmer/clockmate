@@ -17,6 +17,7 @@ import { getBookings } from '@/app/store/bookings/bookingsThunks';
 export const BookingTable = () => {
   const { bookings, loading } = useSelector(selectBookingsState);
 
+  // TODO: move to better init location
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getBookings({ sortBy: 'id' }));
@@ -42,10 +43,10 @@ export const BookingTable = () => {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.duration}
+                  {/*{row.duration}*/}
                 </TableCell>
-                <TableCell align="right">{row.client}</TableCell>
-                <TableCell align="right">{row.project}</TableCell>
+                <TableCell align="right">{row.clientId}</TableCell>
+                <TableCell align="right">{row.projectId}</TableCell>
                 <TableCell align="right">{row.remarks}</TableCell>
               </TableRow>
             ))}

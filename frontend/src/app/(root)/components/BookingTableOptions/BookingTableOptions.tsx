@@ -7,13 +7,20 @@ import React, { useState } from 'react';
 import styles from './booking-table-options.module.scss';
 import { CreateBookingDialog } from '@/app/(root)/components/CreateBookingDialog/CreateBookingDialog';
 import { Booking } from '@/app/core/types';
+import { useDispatch } from 'react-redux';
+import { addBooking } from '@/app/store/bookings/bookingsThunks';
+import { AppDispatch } from '@/app/store/store';
 
 export const BookingTableOptions = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [createBookingOpen, setCreateBookingOpen] = useState(false);
 
   const handleAddNewBooking = () => setCreateBookingOpen(true);
   const handleNewBookingClose = (booking: Omit<Booking, 'id'> | undefined) => {
-    console.log('new booking', booking);
+    if (booking) {
+      dispatch(addBooking(booking));
+    }
+
     setCreateBookingOpen(false);
   };
 
