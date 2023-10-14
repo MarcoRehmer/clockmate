@@ -1,5 +1,6 @@
 'use client';
 import {
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -11,11 +12,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { selectBookingsState } from '@/app/store/selectors';
 import { AppDispatch } from '@/app/store/store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getBookings } from '@/app/store/bookings/bookingsThunks';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { RowMenu } from './RowMenu';
 
 export const BookingTable = () => {
   const { bookings, loading } = useSelector(selectBookingsState);
+  const [rowMenuAnchor, setRowMenuAnchor] = useState<HTMLElement | null>(null);
 
   // TODO: move to better init location
   const dispatch = useDispatch<AppDispatch>();
@@ -26,14 +30,17 @@ export const BookingTable = () => {
   return (
     <>
       <p>Loading: {loading.toString()}</p>
+      <RowMenu anchor={rowMenuAnchor} />
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
               <TableCell>Duration</TableCell>
-              <TableCell align="right">Client</TableCell>
-              <TableCell align="right">Project</TableCell>
-              <TableCell align="right">Remarks</TableCell>
+              <TableCell>Client</TableCell>
+              <TableCell>Project</TableCell>
+              <TableCell>Remarks</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -42,12 +49,20 @@ export const BookingTable = () => {
                 key={row.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
+                <TableCell>
+                  <IconButton
+                    aria-label="menu"
+                    onClick={(event) => setRowMenuAnchor(event.currentTarget)}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                </TableCell>
                 <TableCell component="th" scope="row">
                   {/*{row.duration}*/}
                 </TableCell>
-                <TableCell align="right">{row.clientId}</TableCell>
-                <TableCell align="right">{row.projectId}</TableCell>
-                <TableCell align="right">{row.remarks}</TableCell>
+                <TableCell>{row.clientId}</TableCell>
+                <TableCell>{row.projectId}</TableCell>
+                <TableCell>{row.remarks}</TableCell>
               </TableRow>
             ))}
           </TableBody>
