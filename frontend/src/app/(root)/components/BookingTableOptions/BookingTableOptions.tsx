@@ -46,11 +46,13 @@ export const BookingTableOptions = () => {
           </IconButton>
         </div>
       </div>
-
-      <CreateBookingDialog
-        open={createBookingOpen}
-        handleClose={handleNewBookingClose}
-      />
+      {
+        createBookingOpen && 
+        <CreateBookingDialog
+          open={createBookingOpen}
+          handleClose={handleNewBookingClose}
+        />
+      }
     </>
   );
 };
