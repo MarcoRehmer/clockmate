@@ -29,7 +29,6 @@ export const BookingTable = () => {
 
   return (
     <>
-      <p>Loading: {loading.toString()}</p>
       <RowMenu anchor={rowMenuAnchor} />
 
       <TableContainer component={Paper}>
@@ -37,7 +36,8 @@ export const BookingTable = () => {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell>Duration</TableCell>
+              <TableCell>From</TableCell>
+              <TableCell>To</TableCell>
               <TableCell>Client</TableCell>
               <TableCell>Project</TableCell>
               <TableCell>Remarks</TableCell>
@@ -58,8 +58,12 @@ export const BookingTable = () => {
                   </IconButton>
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {/*{row.duration}*/}
+                  {row.startedAt.toFormat('HH:mm')}
                 </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.finishedAt?.toFormat('HH:mm') || ''}
+                </TableCell>
+
                 <TableCell>{row.clientId}</TableCell>
                 <TableCell>{row.projectId}</TableCell>
                 <TableCell>{row.remarks}</TableCell>
