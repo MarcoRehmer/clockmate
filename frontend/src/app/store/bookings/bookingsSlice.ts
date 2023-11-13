@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { Booking } from '../../core/types';
-import { addBooking, getBookings } from '@/app/store/bookings/bookingsThunks';
+import { addBooking, deleteBooking, getBookings } from '@/app/store/bookings/bookingsThunks';
 
 export interface BookingsState {
   bookings: ReadonlyArray<Booking>;
@@ -41,6 +41,18 @@ export const bookingsSlice = createSlice({
     builder.addCase(addBooking.rejected, (state, { error }) => {
       state.loading = false;
       console.error('Error (addBooking):', error.message);
+    });
+
+    builder.addCase(deleteBooking.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteBooking.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.bookings = state.bookings.filter((booking) => booking.id !== payload);
+    });
+    builder.addCase(deleteBooking.rejected, (state, { error }) => {
+      state.loading = false;
+      console.error('Error (deleteBooking):', error.message);
     });
   },
 });

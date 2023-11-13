@@ -1,25 +1,19 @@
 'use client';
-import {
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
+import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectBookingsState } from '@/app/store/selectors';
 import { AppDispatch } from '@/app/store/store';
 import { useEffect, useState } from 'react';
-import { getBookings } from '@/app/store/bookings/bookingsThunks';
+import { deleteBooking, getBookings } from '@/app/store/bookings/bookingsThunks';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { RowMenu } from './RowMenu';
+import { Menu, MenuItem } from '@mui/material';
+import { DeleteBookingDialog } from './DeleteBookingDialog';
 
 export const BookingTable = () => {
-  const { bookings, loading } = useSelector(selectBookingsState);
+  const { bookings } = useSelector(selectBookingsState);
   const [rowMenuAnchor, setRowMenuAnchor] = useState<HTMLElement | null>(null);
+  const [selectedRowId, setSelectedRowId] = useState<number | undefined>(undefined);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
 
   // TODO: move to better init location
   const dispatch = useDispatch<AppDispatch>();
@@ -27,10 +21,26 @@ export const BookingTable = () => {
     dispatch(getBookings({ sortBy: 'id' }));
   }, [dispatch]);
 
+  const open = Boolean(rowMenuAnchor);
+
+  const handleClose = () => {
+    setRowMenuAnchor(null);
+  };
+
+  const handleEdit = () => {
+    handleClose();
+  };
+  const handleDelete = () => {
+    setDeleteDialogOpen(true);
+    handleClose();
+  };
+
+  const handleDeleteBooking = (confirmed: boolean) => {
+    selectedRowId && confirmed && dispatch(deleteBooking(selectedRowId));
+  };
+
   return (
     <>
-      <RowMenu anchor={rowMenuAnchor} />
-
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -45,14 +55,14 @@ export const BookingTable = () => {
           </TableHead>
           <TableBody>
             {bookings.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
+              <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell>
                   <IconButton
                     aria-label="menu"
-                    onClick={(event) => setRowMenuAnchor(event.currentTarget)}
+                    onClick={(event) => {
+                      setRowMenuAnchor(event.currentTarget);
+                      setSelectedRowId(row.id);
+                    }}
                   >
                     <MoreVertIcon />
                   </IconButton>
@@ -72,6 +82,27 @@ export const BookingTable = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Menu
+        anchorEl={rowMenuAnchor}
+        open={open}
+        id="row-menu"
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleEdit}>Edit</MenuItem>
+        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+      </Menu>
+
+      {selectedRowId && (
+        <DeleteBookingDialog
+          openDialog={deleteDialogOpen}
+          setOpenDialog={setDeleteDialogOpen}
+          rowId={selectedRowId}
+          handleDeleteBooking={handleDeleteBooking}
+        />
+      )}
     </>
   );
 };

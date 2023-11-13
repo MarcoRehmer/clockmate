@@ -23,15 +23,22 @@ export const mockClient: ApiClient = {
 
       return Promise.resolve(createdBooking);
     },
-    update: (bookingId: string, booking: any) => {
-      console.debug(
-        `update booking with ID ${bookingId}, payload: ${JSON.stringify(
-          booking
-        )}`
-      );
+    update: (bookingId: number, booking: Partial<BookingDto>) => {
+      console.debug(`update booking with ID ${bookingId}, payload: ${JSON.stringify(booking)}`);
+      const existingBooking = bookings.find((b) => b.id === bookingId);
+      if (!existingBooking) {
+        throw new Error(`booking with ID ${bookingId} not found`);
+      }
+
+      return Promise.resolve(existingBooking);
     },
-    delete: (bookingId: string) => {
-      console.debug(`delete booking with ID ${bookingId}`);
+    delete: (bookingId: number) => {
+      console.log('delete booking with ID', bookingId);
+      bookings.slice(
+        bookings.findIndex((b) => b.id === bookingId),
+        1
+      );
+      return Promise.resolve(bookingId);
     },
   },
   settings: {},

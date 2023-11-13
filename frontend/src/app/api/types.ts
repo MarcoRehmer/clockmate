@@ -2,8 +2,8 @@ export interface ApiClient {
   bookings: {
     getAll: (filter?: any) => Promise<ReadonlyArray<BookingDto>>;
     create(booking: CreateBookingDto): Promise<BookingDto>;
-    update(bookingId: number, booking: UpdateBookingDto): Promise<BookingDto>;
-    delete(bookingId: number): void;
+    update(bookingId: number, booking: Partial<UpdateBookingDto>): Promise<BookingDto>;
+    delete(bookingId: number): Promise<number>;
   };
   settings: {};
 }
