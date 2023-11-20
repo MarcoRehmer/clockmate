@@ -8,6 +8,7 @@ import { deleteBooking, getBookings } from '@/app/store/bookings/bookingsThunks'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Menu, MenuItem } from '@mui/material';
 import { DeleteBookingDialog } from './DeleteBookingDialog';
+import { BookingRowMenu } from './BookingRowMenu';
 
 export const BookingTable = () => {
   const { bookings } = useSelector(selectBookingsState);
@@ -21,18 +22,17 @@ export const BookingTable = () => {
     dispatch(getBookings({ sortBy: 'id' }));
   }, [dispatch]);
 
-  const open = Boolean(rowMenuAnchor);
-
-  const handleClose = () => {
-    setRowMenuAnchor(null);
-  };
-
-  const handleEdit = () => {
-    handleClose();
-  };
-  const handleDelete = () => {
-    setDeleteDialogOpen(true);
-    handleClose();
+  const handleRowAction = (action: 'edit' | 'delete') => {
+    switch (action) {
+      case 'edit':
+        console.log('edit');
+        break;
+      case 'delete':
+        setDeleteDialogOpen(true);
+        break;
+      default:
+        console.log('unknown action');
+    }
   };
 
   const handleDeleteBooking = (confirmed: boolean) => {
@@ -83,17 +83,9 @@ export const BookingTable = () => {
         </Table>
       </TableContainer>
 
-      <Menu
-        anchorEl={rowMenuAnchor}
-        open={open}
-        id="row-menu"
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleEdit}>Edit</MenuItem>
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
-      </Menu>
+      {selectedRowId && (
+        <BookingRowMenu anchorEl={rowMenuAnchor} setAnchor={setRowMenuAnchor} handleRowAction={handleRowAction} />
+      )}
 
       {selectedRowId && (
         <DeleteBookingDialog
