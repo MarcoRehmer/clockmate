@@ -32,27 +32,18 @@ export const BookingTableOptions = () => {
         </div>
 
         <div>
-          <IconButton aria-label="open filter" size="large" color="inherit">
-            <FilterListIcon />
-          </IconButton>
+          {false && (
+            <IconButton aria-label="open filter" size="large" color="inherit">
+              <FilterListIcon />
+            </IconButton>
+          )}
 
-          <IconButton
-            aria-label="add new booking"
-            size="large"
-            color="inherit"
-            onClick={handleAddNewBooking}
-          >
+          <IconButton aria-label="add new booking" size="large" color="inherit" onClick={handleAddNewBooking}>
             <AddIcon />
           </IconButton>
         </div>
       </div>
-      {
-        createBookingOpen && 
-        <CreateBookingDialog
-          open={createBookingOpen}
-          handleClose={handleNewBookingClose}
-        />
-      }
+      {createBookingOpen && <CreateBookingDialog open={createBookingOpen} handleClose={handleNewBookingClose} />}
     </>
   );
 };

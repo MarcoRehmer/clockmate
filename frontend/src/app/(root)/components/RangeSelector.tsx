@@ -6,9 +6,11 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 export const RangeSelector = () => {
   return (
     <div>
-      <IconButton aria-label="column config" size="large" color="inherit">
-        <MoreVertIcon />
-      </IconButton>
+      {false && (
+        <IconButton aria-label="column config" size="large" color="inherit">
+          <MoreVertIcon />
+        </IconButton>
+      )}
       <IconButton aria-label="previous entry" size="large" color="inherit">
         <ChevronLeftIcon />
       </IconButton>
