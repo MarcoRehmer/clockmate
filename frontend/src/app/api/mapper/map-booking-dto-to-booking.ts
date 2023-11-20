@@ -7,9 +7,7 @@ export function mapBookingDtoToBooking(bookingDto: BookingDto): Booking {
     id: bookingDto.id,
     remarks: bookingDto.remarks,
     startedAt: DateTime.fromISO(bookingDto.startedAt),
-    finishedAt: bookingDto.finishedAt
-      ? DateTime.fromISO(bookingDto.finishedAt)
-      : undefined,
+    finishedAt: bookingDto.finishedAt ? DateTime.fromISO(bookingDto.finishedAt) : undefined,
     // duration: DateTime.fromISO(
     //   bookingDto.finishedAt || new Date().toISOString()
     // )

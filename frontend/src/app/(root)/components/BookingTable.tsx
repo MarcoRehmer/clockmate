@@ -4,17 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectBookingsState } from '@/app/store/selectors';
 import { AppDispatch } from '@/app/store/store';
 import { useEffect, useState } from 'react';
-import { deleteBooking, getBookings } from '@/app/store/bookings/bookingsThunks';
+import { deleteBooking, editBooking, getBookings } from '@/app/store/bookings/bookingsThunks';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Menu, MenuItem } from '@mui/material';
 import { DeleteBookingDialog } from './DeleteBookingDialog';
 import { BookingRowMenu } from './BookingRowMenu';
+import { EditBookingDialog } from './EditBookingDialog/EditBookingDialog';
+import { Booking } from '@/app/core/types';
 
 export const BookingTable = () => {
   const { bookings } = useSelector(selectBookingsState);
   const [rowMenuAnchor, setRowMenuAnchor] = useState<HTMLElement | null>(null);
-  const [selectedRowId, setSelectedRowId] = useState<number | undefined>(undefined);
+  const [selectedBooking, setSelectedBooking] = useState<Booking | undefined>(undefined);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
+  const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
 
   // TODO: move to better init location
   const dispatch = useDispatch<AppDispatch>();
@@ -25,7 +27,7 @@ export const BookingTable = () => {
   const handleRowAction = (action: 'edit' | 'delete') => {
     switch (action) {
       case 'edit':
-        console.log('edit');
+        setEditDialogOpen(true);
         break;
       case 'delete':
         setDeleteDialogOpen(true);
@@ -35,8 +37,12 @@ export const BookingTable = () => {
     }
   };
 
-  const handleDeleteBooking = (confirmed: boolean) => {
-    selectedRowId && confirmed && dispatch(deleteBooking(selectedRowId));
+  const handleDeleteBooking = () => {
+    selectedBooking && dispatch(deleteBooking(selectedBooking.id));
+  };
+
+  const handleEditBooking = (booking: Booking) => {
+    dispatch(editBooking(booking));
   };
 
   return (
@@ -61,7 +67,7 @@ export const BookingTable = () => {
                     aria-label="menu"
                     onClick={(event) => {
                       setRowMenuAnchor(event.currentTarget);
-                      setSelectedRowId(row.id);
+                      setSelectedBooking(row);
                     }}
                   >
                     <MoreVertIcon />
@@ -83,16 +89,25 @@ export const BookingTable = () => {
         </Table>
       </TableContainer>
 
-      {selectedRowId && (
+      {selectedBooking && (
         <BookingRowMenu anchorEl={rowMenuAnchor} setAnchor={setRowMenuAnchor} handleRowAction={handleRowAction} />
       )}
 
-      {selectedRowId && (
+      {selectedBooking && deleteDialogOpen && (
         <DeleteBookingDialog
           openDialog={deleteDialogOpen}
           setOpenDialog={setDeleteDialogOpen}
-          rowId={selectedRowId}
+          rowId={selectedBooking.id}
           handleDeleteBooking={handleDeleteBooking}
+        />
+      )}
+
+      {selectedBooking && editDialogOpen && (
+        <EditBookingDialog
+          openDialog={editDialogOpen}
+          setOpenDialog={setEditDialogOpen}
+          booking={selectedBooking}
+          onBookingEdited={handleEditBooking}
         />
       )}
     </>

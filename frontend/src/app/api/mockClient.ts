@@ -1,4 +1,4 @@
-import { ApiClient, BookingDto, CreateBookingDto } from '@/app/api/types';
+import { ApiClient, BookingDto, CreateBookingDto, UpdateBookingDto } from '@/app/api/types';
 import { bookingsMock } from '@/app/api/mocks/bookings.mock';
 
 const bookings: Array<BookingDto> = [...bookingsMock];
@@ -23,14 +23,15 @@ export const mockClient: ApiClient = {
 
       return Promise.resolve(createdBooking);
     },
-    update: (bookingId: number, booking: Partial<BookingDto>) => {
+    update: (bookingId: number, booking: UpdateBookingDto) => {
       console.debug(`update booking with ID ${bookingId}, payload: ${JSON.stringify(booking)}`);
       const existingBooking = bookings.find((b) => b.id === bookingId);
       if (!existingBooking) {
         throw new Error(`booking with ID ${bookingId} not found`);
       }
 
-      return Promise.resolve(existingBooking);
+      bookings.splice(bookings.indexOf(existingBooking), 1, { ...existingBooking, ...booking });
+      return Promise.resolve({ ...existingBooking, ...booking });
     },
     delete: (bookingId: number) => {
       console.log('delete booking with ID', bookingId);

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 export const DeleteBookingDialog = ({
   openDialog,
@@ -9,15 +9,10 @@ export const DeleteBookingDialog = ({
   openDialog: boolean;
   setOpenDialog: (open: boolean) => void;
   rowId: number;
-  handleDeleteBooking: (confirmed: boolean) => void;
+  handleDeleteBooking: () => void;
 }) => {
   const handleConfirm = () => {
-    handleDeleteBooking(true);
-    handleClose();
-  };
-
-  const handleAbort = () => {
-    handleDeleteBooking(false);
+    handleDeleteBooking();
     handleClose();
   };
 
@@ -26,11 +21,12 @@ export const DeleteBookingDialog = ({
   return (
     <>
       <Dialog open={openDialog} onClose={handleClose}>
+        <DialogTitle>Delete Booking</DialogTitle>
         <DialogContent>
           <DialogContentText>Do you really want delete booking with id {rowId}?</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleAbort}>Abort</Button>
+          <Button onClick={handleClose}>Abort</Button>
           <Button onClick={handleConfirm} autoFocus>
             Yes, delete
           </Button>

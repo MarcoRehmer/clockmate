@@ -27,3 +27,12 @@ export const addBooking = createAsyncThunk('bookings/addBooking', async (booking
 export const deleteBooking = createAsyncThunk('bookings/deleteBooking', async (bookingId: number) => {
   return await api.bookings.delete(bookingId);
 });
+
+export const editBooking = createAsyncThunk('bookings/editBooking', async (booking: Booking) => {
+  const updatedBooking = await api.bookings.update(booking.id, {
+    remarks: booking.remarks,
+    startedAt: booking.startedAt.toISO() || undefined,
+    finishedAt: booking.finishedAt?.toISO() || undefined,
+  });
+  return mapBookingDtoToBooking(updatedBooking);
+});
