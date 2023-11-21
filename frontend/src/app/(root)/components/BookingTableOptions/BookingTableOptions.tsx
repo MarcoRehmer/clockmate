@@ -1,5 +1,5 @@
 'use client';
-import { RangeSelector } from '../RangeSelector';
+import { RangeSelector } from '../RangeSelector/RangeSelector';
 import { IconButton } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import AddIcon from '@mui/icons-material/Add';

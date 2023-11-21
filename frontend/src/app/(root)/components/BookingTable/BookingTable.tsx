@@ -6,9 +6,9 @@ import { AppDispatch } from '@/app/store/store';
 import { useEffect, useState } from 'react';
 import { deleteBooking, editBooking, getBookings } from '@/app/store/bookings/bookingsThunks';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { DeleteBookingDialog } from './DeleteBookingDialog';
-import { BookingRowMenu } from './BookingRowMenu';
-import { EditBookingDialog } from './EditBookingDialog/EditBookingDialog';
+import { DeleteBookingDialog } from '../DeleteBookingDialog/DeleteBookingDialog';
+import { BookingRowMenu } from '../BookingRowMenu/BookingRowMenu';
+import { EditBookingDialog } from '../EditBookingDialog/EditBookingDialog';
 import { Booking } from '@/app/core/types';
 
 export const BookingTable = () => {
