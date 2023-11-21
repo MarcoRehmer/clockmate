@@ -8,8 +8,8 @@ import styles from './booking-table-options.module.scss';
 import { CreateBookingDialog } from '@/app/(root)/components/CreateBookingDialog/CreateBookingDialog';
 import { Booking } from '@/app/core/types';
 import { useDispatch } from 'react-redux';
-import { addBooking } from '@/app/store/bookings/bookingsThunks';
 import { AppDispatch } from '@/app/store/store';
+import { addBooking } from '@/app/store/bookings/slices/addBooking';
 
 export const BookingTableOptions = () => {
   const dispatch = useDispatch<AppDispatch>();

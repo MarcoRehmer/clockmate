@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { bookingsSlice } from '@/app/store/bookings/bookingsSlice';
+import { bookingsSlice } from './bookings/bookingState';
 
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -9,6 +9,5 @@ export const store = configureStore({
     [bookingsSlice.name]: bookingsSlice.reducer,
   },
   devTools: true,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 });
