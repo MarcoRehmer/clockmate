@@ -25,10 +25,4 @@ export interface CreateBookingDto {
   customerId?: number;
 }
 
-export type UpdateBookingDto = Partial<{
-  startedAt: string;
-  finishedAt: string;
-  remarks: string;
-  projectId: number;
-  customerId: number;
-}>;
+export type UpdateBookingDto = Partial<Omit<BookingDto, 'id'>>;

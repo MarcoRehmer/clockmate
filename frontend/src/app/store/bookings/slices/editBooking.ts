@@ -3,6 +3,8 @@ import { BookingsState } from '../bookingState';
 import { Booking } from '@/app/core/types';
 import { api } from '@/app/api/api';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
+import { BookingDto } from '@/app/api/types';
+import { DateTime } from 'luxon';
 
 export const editBookingSlice = (builder: ActionReducerMapBuilder<BookingsState>) => {
   builder.addCase(editBooking.pending, (state) => {
@@ -23,11 +25,18 @@ export const editBookingSlice = (builder: ActionReducerMapBuilder<BookingsState>
   });
 };
 
-export const editBooking = createAsyncThunk('bookings/editBooking', async (booking: Booking) => {
-  const updatedBooking = await api.bookings.update(booking.id, {
-    remarks: booking.remarks,
-    startedAt: booking.startedAt.toISO() || undefined,
-    finishedAt: booking.finishedAt?.toISO() || undefined,
-  });
-  return mapBookingDtoToBooking(updatedBooking);
-});
+export const editBooking = createAsyncThunk(
+  'bookings/editBooking',
+  async ({ bookingId, partialBooking }: { bookingId: number; partialBooking: Partial<Omit<Booking, 'id'>> }, _) => {
+    const updateObj = Object.entries(partialBooking).reduce((acc, [key, value]) => {
+      if ((key === 'startedAt' || key === 'finishedAt') && value instanceof DateTime) {
+        acc[key] = value?.toISO() || undefined;
+      } else {
+        acc[key] = value;
+      }
+      return acc;
+    }, {} as { [key: string]: any });
+    const updatedBooking = await api.bookings.update(bookingId, updateObj);
+    return mapBookingDtoToBooking(updatedBooking);
+  }
+);

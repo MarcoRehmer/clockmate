@@ -1,7 +1,6 @@
 'use client';
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBookingsState } from '@/app/store/selectors';
 import { AppDispatch } from '@/app/store/store';
 import { useEffect, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -12,9 +11,10 @@ import { Booking } from '@/app/core/types';
 import { getBookings } from '@/app/store/bookings/slices/getBookings';
 import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
 import { editBooking } from '@/app/store/bookings/slices/editBooking';
+import { selectCurrentBookings } from '@/app/store/bookings/bookingSelectors';
 
 export const BookingTable = () => {
-  const { bookings } = useSelector(selectBookingsState);
+  const bookings = useSelector(selectCurrentBookings);
   const [rowMenuAnchor, setRowMenuAnchor] = useState<HTMLElement | null>(null);
   const [selectedBooking, setSelectedBooking] = useState<Booking | undefined>(undefined);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export const BookingTable = () => {
   };
 
   const handleEditBooking = (booking: Booking) => {
-    dispatch(editBooking(booking));
+    dispatch(editBooking({ bookingId: booking.id, partialBooking: booking }));
   };
 
   return (
