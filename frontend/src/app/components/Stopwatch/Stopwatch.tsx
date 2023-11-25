@@ -4,7 +4,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CloseIcon from '@mui/icons-material/Close';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import StopIcon from '@mui/icons-material/Stop';
-import { Box, Button, IconButton, Popover, TextField } from '@mui/material';
+import { Box, Button, IconButton, Popover, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/app/store/store';
@@ -21,6 +21,7 @@ export const Stopwatch = () => {
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [popoverAnchorEl, setPopoverAnchorEl] = useState<null | HTMLElement>(null);
   const [remarks, setRemarks] = useState('');
+  const [popoverMode, setPopoverMode] = useState<'start' | 'switch'>('start');
 
   const popoverOpen = Boolean(popoverAnchorEl);
 
@@ -35,11 +36,17 @@ export const Stopwatch = () => {
   }, [currentActiveBooking]);
 
   const handleStartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setRemarks('');
+    resetForm();
+    setPopoverMode('start');
     setPopoverAnchorEl(event.currentTarget);
   };
 
   const handleRunStopwatchClick = () => {
+    // stop current task first
+    currentActiveBooking &&
+      dispatch(editBooking({ bookingId: currentActiveBooking.id, partialBooking: { finishedAt: DateTime.now() } }));
+
+    // start the new task
     dispatch(addBooking({ startedAt: DateTime.now(), remarks }));
     handlePopoverClose();
   };
@@ -53,13 +60,19 @@ export const Stopwatch = () => {
       dispatch(editBooking({ bookingId: currentActiveBooking.id, partialBooking: { finishedAt: DateTime.now() } }));
   };
 
-  const handleSwitchTaskClick = () => {
-    console.log('switch project clicked');
+  const handleSwitchTaskClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    resetForm();
+    setPopoverMode('switch');
+    setPopoverAnchorEl(event.currentTarget);
   };
 
   const handleDiscardClick = () => {
     // TODO: implement confirm dialog
     currentActiveBooking && dispatch(deleteBooking(currentActiveBooking.id));
+  };
+
+  const resetForm = () => {
+    setRemarks('');
   };
 
   return (
@@ -93,9 +106,12 @@ export const Stopwatch = () => {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+        <Typography sx={{ p: 2, pb: 0 }} variant="h6">
+          {popoverMode === 'switch' ? 'Switch Task' : 'Start Task'}
+        </Typography>
+        <Box sx={{ p: 2, pt: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
           <TextField placeholder="Remarks" value={remarks} onChange={(event) => setRemarks(event.target.value)} />
-          <Button onClick={handleRunStopwatchClick}>Start</Button>
+          <Button onClick={handleRunStopwatchClick}>{popoverMode === 'start' ? 'Start' : 'Switch'}</Button>
         </Box>
       </Popover>
     </>
