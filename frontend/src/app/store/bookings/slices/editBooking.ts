@@ -3,7 +3,6 @@ import { BookingsState } from '../bookingState';
 import { Booking } from '@/app/core/types';
 import { api } from '@/app/api/api';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
-import { BookingDto } from '@/app/api/types';
 import { DateTime } from 'luxon';
 
 export const editBookingSlice = (builder: ActionReducerMapBuilder<BookingsState>) => {

@@ -4,7 +4,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CloseIcon from '@mui/icons-material/Close';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import StopIcon from '@mui/icons-material/Stop';
-import { IconButton } from '@mui/material';
+import { Box, Button, IconButton, Popover, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/app/store/store';
@@ -12,17 +12,17 @@ import { addBooking } from '@/app/store/bookings/slices/addBooking';
 import { DateTime } from 'luxon';
 import { selectCurrentActiveBooking } from '@/app/store/bookings/bookingSelectors';
 import { editBooking } from '@/app/store/bookings/slices/editBooking';
+import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
 
 export const Stopwatch = () => {
   const dispatch = useDispatch<AppDispatch>();
   const currentActiveBooking = useSelector(selectCurrentActiveBooking);
 
   const [currentTime, setCurrentTime] = useState('00:00:00');
+  const [popoverAnchorEl, setPopoverAnchorEl] = useState<null | HTMLElement>(null);
+  const [remarks, setRemarks] = useState('');
 
-  const handleStartClick = () => {
-    console.log('start clicked');
-    dispatch(addBooking({ startedAt: DateTime.now(), remarks: 'started from stopwatch' }));
-  };
+  const popoverOpen = Boolean(popoverAnchorEl);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,9 +34,19 @@ export const Stopwatch = () => {
     return () => clearInterval(interval);
   }, [currentActiveBooking]);
 
-  // const handlePauseClick = () => {
-  //   console.log('pause clicked');
-  // };
+  const handleStartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setRemarks('');
+    setPopoverAnchorEl(event.currentTarget);
+  };
+
+  const handleRunStopwatchClick = () => {
+    dispatch(addBooking({ startedAt: DateTime.now(), remarks }));
+    handlePopoverClose();
+  };
+
+  const handlePopoverClose = () => {
+    setPopoverAnchorEl(null);
+  };
 
   const handleStopClick = () => {
     currentActiveBooking &&
@@ -48,33 +58,46 @@ export const Stopwatch = () => {
   };
 
   const handleDiscardClick = () => {
-    console.log('discard clicked');
+    // TODO: implement confirm dialog
+    currentActiveBooking && dispatch(deleteBooking(currentActiveBooking.id));
   };
 
   return (
-    <div style={{ display: 'flex' }}>
-      <p>{currentTime}</p>
-      {currentActiveBooking !== undefined ? (
-        <>
-          {/* <IconButton onClick={handlePauseClick} aria-label="pause" size="large" color="inherit">
-            <PauseIcon />
-          </IconButton> */}
+    <>
+      <div style={{ display: 'flex' }}>
+        {currentActiveBooking !== undefined ? (
+          <>
+            <p>{currentTime}</p>
 
-          <IconButton onClick={handleStopClick} aria-label="stop" size="large" color="inherit">
-            <StopIcon />
+            <IconButton onClick={handleStopClick} aria-label="stop" size="large" color="inherit">
+              <StopIcon />
+            </IconButton>
+            <IconButton onClick={handleSwitchTaskClick} aria-label="change task" size="large" color="inherit">
+              <CallSplitIcon style={{ rotate: '90deg' }} />
+            </IconButton>
+            <IconButton onClick={handleDiscardClick} aria-label="discard" size="large" color="inherit">
+              <CloseIcon />
+            </IconButton>
+          </>
+        ) : (
+          <IconButton onClick={handleStartClick} aria-label="start" size="large" color="inherit">
+            <PlayArrowIcon />
           </IconButton>
-          <IconButton onClick={handleSwitchTaskClick} aria-label="change task" size="large" color="inherit">
-            <CallSplitIcon style={{ rotate: '90deg' }} />
-          </IconButton>
-          <IconButton onClick={handleDiscardClick} aria-label="discard" size="large" color="inherit">
-            <CloseIcon />
-          </IconButton>
-        </>
-      ) : (
-        <IconButton onClick={handleStartClick} aria-label="start" size="large" color="inherit">
-          <PlayArrowIcon />
-        </IconButton>
-      )}
-    </div>
+        )}
+      </div>
+
+      <Popover
+        open={popoverOpen}
+        onClose={handlePopoverClose}
+        anchorEl={popoverAnchorEl}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
+          <TextField placeholder="Remarks" value={remarks} onChange={(event) => setRemarks(event.target.value)} />
+          <Button onClick={handleRunStopwatchClick}>Start</Button>
+        </Box>
+      </Popover>
+    </>
   );
 };
