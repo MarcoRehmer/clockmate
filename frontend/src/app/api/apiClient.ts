@@ -1,13 +1,33 @@
-// import { ApiClient } from '@/app/api/types';
-//
-// export const apiClient: ApiClient = {
-//   bookings: {
-//     create: function (p1: any) {},
-//     delete: function (p1: string) {},
-//     getAll: function (p1: any) {
-//       console.log('real api client');
-//     },
-//     update: function (p1: string, p2: any) {},
-//   },
-//   settings: {},
-// };
+import { ApiClient, BookingDto, CreateBookingDto } from '@/app/api/types';
+import axios from 'axios';
+
+const http = axios.create({
+    baseURL: 'http://localhost:8080',
+    headers: {
+        'Content-type': 'application/json',
+    }
+});
+
+export const apiClient: ApiClient = {
+  bookings: {
+    getAll: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
+      const {data} = await http.get('/bookings');
+      return data;
+
+      // TODO: add error handling
+    },
+    create: async function (booking: CreateBookingDto): Promise<BookingDto> {
+        const {data} = await http.post('/bookings', booking);
+        return data;
+
+        // TODO: add error handling
+    },
+    update: function (bookingId: number, booking: Partial<Omit<BookingDto, 'id'>>): Promise<BookingDto> {
+      throw new Error('Function not implemented.');
+    },
+    delete: function (bookingId: number): Promise<number> {
+      throw new Error('Function not implemented.');
+    },
+  },
+  settings: {},
+};

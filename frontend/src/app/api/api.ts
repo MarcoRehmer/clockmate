@@ -1,5 +1,5 @@
 import { ApiClient } from '@/app/api/types';
-import { mockClient } from '@/app/api/mockClient';
+import {apiClient} from "@/app/api/apiClient";
 
-export const api: ApiClient = mockClient;
+export const api: ApiClient = apiClient;
 

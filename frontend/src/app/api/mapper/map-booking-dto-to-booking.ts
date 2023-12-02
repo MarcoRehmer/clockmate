@@ -8,10 +8,5 @@ export function mapBookingDtoToBooking(bookingDto: BookingDto): Booking {
     remarks: bookingDto.remarks,
     startedAt: DateTime.fromISO(bookingDto.startedAt),
     finishedAt: bookingDto.finishedAt ? DateTime.fromISO(bookingDto.finishedAt) : undefined,
-    // duration: DateTime.fromISO(
-    //   bookingDto.finishedAt || new Date().toISOString()
-    // )
-    //   .diff(DateTime.fromISO(bookingDto.startedAt))
-    //   .toFormat('hh:mm'),
   };
 }

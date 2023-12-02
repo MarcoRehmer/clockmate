@@ -56,8 +56,8 @@ export const BookingTable = () => {
               <TableCell></TableCell>
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
-              <TableCell>Client</TableCell>
-              <TableCell>Project</TableCell>
+              {/*<TableCell>Client</TableCell>*/}
+              {/*<TableCell>Project</TableCell>*/}
               <TableCell>Remarks</TableCell>
             </TableRow>
           </TableHead>
@@ -82,8 +82,8 @@ export const BookingTable = () => {
                   {row.finishedAt?.toFormat('HH:mm') || ''}
                 </TableCell>
 
-                <TableCell>{row.clientId}</TableCell>
-                <TableCell>{row.projectId}</TableCell>
+                {/*<TableCell>{row.clientId}</TableCell>*/}
+                {/*<TableCell>{row.projectId}</TableCell>*/}
                 <TableCell>{row.remarks}</TableCell>
               </TableRow>
             ))}

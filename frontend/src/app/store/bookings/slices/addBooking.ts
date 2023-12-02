@@ -22,8 +22,10 @@ export const addBookingSlice = (builder: ActionReducerMapBuilder<BookingsState>)
 export const addBooking = createAsyncThunk('bookings/addBooking', async (booking: Omit<Booking, 'id'>, _) => {
   const startedAtISO = booking.startedAt.toISO();
   if (!startedAtISO) {
-    throw new Error(`booking startetAt could not be serialized to ISO format (value: ${booking.startedAt})`);
+    throw new Error(`booking startedAt could not be serialized to ISO format (value: ${booking.startedAt})`);
   }
+  console.log('booking', booking);
+
   const payload: CreateBookingDto = {
     startedAt: startedAtISO,
     finishedAt: booking.finishedAt?.toISO() || undefined,

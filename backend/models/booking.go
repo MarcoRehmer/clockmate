@@ -5,12 +5,18 @@ import "time"
 type Booking struct {
 	ID         uint      `json:"id" gorm:"primaryKey"`
 	Remarks    string    `json:"remarks"`
-	StartedAt  time.Time `json:"started_at"`
-	FinishedAt time.Time `json:"finished_at"`
+	StartedAt  time.Time `json:"startedAt"`
+	FinishedAt time.Time `json:"finishedAt"`
 }
 
 type CreateBookingInput struct {
-	Remarks    string    `json:"remarks" binding:"required"`
-	StartedAt  time.Time `json:"started_at" binding:"required"`
-	FinishedAt time.Time `json:"finished_at"`
+	Remarks    string    `json:"remarks"`
+	StartedAt  time.Time `json:"startedAt" binding:"required"`
+	FinishedAt time.Time `json:"finishedAt,omitempty"`
+}
+
+type UpdateBookingInput struct {
+	Remarks    string    `json:"remarks"`
+	StartedAt  time.Time `json:"startedAt"`
+	FinishedAt time.Time `json:"finishedAt"`
 }
