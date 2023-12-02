@@ -22,11 +22,17 @@ export const apiClient: ApiClient = {
 
         // TODO: add error handling
     },
-    update: function (bookingId: number, booking: Partial<Omit<BookingDto, 'id'>>): Promise<BookingDto> {
-      throw new Error('Function not implemented.');
+    update: async function (bookingId: number, booking: Partial<Omit<BookingDto, 'id'>>): Promise<BookingDto> {
+       const { data } = await http.put(`/bookings/${bookingId}`, booking);
+       return data;
     },
-    delete: function (bookingId: number): Promise<number> {
-      throw new Error('Function not implemented.');
+    delete: async function (bookingId: number): Promise<number> {
+       const {data} = await http.delete(`/bookings/${bookingId}`);
+       if (data === true) {
+           return bookingId;
+       }else {
+           throw new Error(`error while deleting booking with ID ${bookingId}`)
+       }
     },
   },
   settings: {},

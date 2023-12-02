@@ -49,7 +49,7 @@ func UpdateBooking(c *gin.Context) {
 	}
 	models.DB.Model(&booking).Updates(input)
 
-	c.JSON(http.StatusOK, gin.H{"data": booking})
+	c.JSON(http.StatusOK, booking)
 }
 
 // DELETE /bookings/:id
@@ -63,5 +63,5 @@ func DeleteBooking(c *gin.Context) {
 
 	models.DB.Delete(&booking)
 
-	c.JSON(http.StatusOK, gin.H{"data": true})
+	c.JSON(http.StatusOK, true)
 }

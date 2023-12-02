@@ -20,6 +20,8 @@ func main() {
 
 	r.GET("/bookings", controllers.FindBookings)
 	r.POST("/bookings", controllers.CreateBooking)
+	r.PUT("/bookings/:id", controllers.UpdateBooking)
+	r.DELETE("/bookings/:id", controllers.DeleteBooking)
 
 	err := r.Run("localhost:8080")
 	if err != nil {
