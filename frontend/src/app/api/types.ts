@@ -1,10 +1,14 @@
 export interface ApiClient {
   bookings: {
-    getAll: (filter?: any) => Promise<ReadonlyArray<BookingDto>>;
+    getAll(filter?: any): Promise<ReadonlyArray<BookingDto>>;
     create(booking: CreateBookingDto): Promise<BookingDto>;
     update(bookingId: number, booking: UpdateBookingDto): Promise<BookingDto>;
     delete(bookingId: number): Promise<number>;
   };
+  auth: {
+    login(username: string, passwordHash: string): Promise<boolean>;
+    logout(): Promise<void>;
+  }
   settings: {};
 }
 

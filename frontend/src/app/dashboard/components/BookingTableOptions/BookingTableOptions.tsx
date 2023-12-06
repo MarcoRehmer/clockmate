@@ -5,7 +5,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
 import styles from './booking-table-options.module.scss';
-import { CreateBookingDialog } from '@/app/(root)/components/CreateBookingDialog/CreateBookingDialog';
+import { CreateBookingDialog } from '@/app/dashboard/components/CreateBookingDialog/CreateBookingDialog';
 import { Booking } from '@/app/core/types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store/store';

@@ -4,6 +4,14 @@ import { bookingsMock } from '@/app/api/mocks/bookings.mock';
 const bookings: Array<BookingDto> = [...bookingsMock];
 
 export const mockClient: ApiClient = {
+  auth: {
+    login: function (p1: string, p2: string) {
+      return Promise.resolve(true);
+    },
+    logout: function () {
+      return Promise.resolve();
+    },
+  },
   bookings: {
     getAll: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
       return Promise.resolve(bookings);
