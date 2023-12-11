@@ -16,11 +16,11 @@ export const apiClient: ApiClient = {
       const resp = await http.post('/login', { email, password });
       // TODO: dont send token in clear text through the network!!!
 
-      if (resp.status !== 204) {
+      if (resp.status !== 200) {
         return false;
       }
-
-      await setSession('');
+      
+      await setSession(resp.data);
 
       return true;
     },

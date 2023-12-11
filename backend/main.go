@@ -4,11 +4,17 @@ import (
 	"clockmate/backend/controllers"
 	models "clockmate/backend/models"
 	"github.com/gin-contrib/cors"
-
 	"github.com/gin-gonic/gin"
+	"github.com/lpernett/godotenv"
+	"log"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env File")
+	}
+
 	r := gin.Default()
 
 	corsConfig := cors.DefaultConfig()
@@ -30,7 +36,7 @@ func main() {
 		v1.POST("/login", controllers.Login)
 	}
 
-	err := r.Run("localhost:8080")
+	err = r.Run("localhost:8080")
 	if err != nil {
 		return
 	}

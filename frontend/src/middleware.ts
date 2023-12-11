@@ -11,7 +11,6 @@ export async function middleware(request: NextRequest) {
   }
   
   if (token === undefined) {
-    console.log('no token');
     return NextResponse.redirect(new URL('/login', request.nextUrl.origin));
   }
 
@@ -21,8 +20,7 @@ export async function middleware(request: NextRequest) {
 
 async function validateToken(token: string): Promise<boolean> {
   try {
-    const { payload } = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWT_PUB_KEY), {});
-    console.log('payload', payload);
+    const { payload } = await jose.jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET_KEY), {});
     return (payload && payload.exp && payload.exp > Date.now() / 1000) || false;
   } catch (error: any) {
     console.log('error', error);
