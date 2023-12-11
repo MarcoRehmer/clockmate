@@ -18,10 +18,17 @@ func main() {
 
 	models.ConnectDatabase()
 
-	r.GET("/bookings", controllers.FindBookings)
-	r.POST("/bookings", controllers.CreateBooking)
-	r.PUT("/bookings/:id", controllers.UpdateBooking)
-	r.DELETE("/bookings/:id", controllers.DeleteBooking)
+	// bookings
+	v1 := r.Group("/api")
+	{
+		v1.GET("/bookings", controllers.FindBookings)
+		v1.POST("/bookings", controllers.CreateBooking)
+		v1.PUT("/bookings/:id", controllers.UpdateBooking)
+		v1.DELETE("/bookings/:id", controllers.DeleteBooking)
+
+		// auth
+		v1.POST("/login", controllers.Login)
+	}
 
 	err := r.Run("localhost:8080")
 	if err != nil {

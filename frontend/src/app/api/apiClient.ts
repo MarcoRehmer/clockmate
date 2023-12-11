@@ -1,8 +1,9 @@
 import { ApiClient, BookingDto, CreateBookingDto } from '@/app/api/types';
 import axios from 'axios';
+import { setSession } from '@/app/auth/session';
 
 const http = axios.create({
-  baseURL: 'http://localhost:8080',
+  baseURL: 'http://localhost:8080/api',
   headers: {
     'Content-type': 'application/json',
   },
@@ -10,12 +11,18 @@ const http = axios.create({
 
 export const apiClient: ApiClient = {
   auth: {
-    login: function (username: string, passwordHash: string) {
-      if (username === 'admin' && passwordHash === 'admin') {
-        return Promise.resolve(true);
-      } else {
-        return Promise.resolve(false);
+    login: async (email: string, password: string) => {
+      // TODO hash password here
+      const resp = await http.post('/login', { email, password });
+      // TODO: dont send token in clear text through the network!!!
+
+      if (resp.status !== 204) {
+        return false;
       }
+
+      await setSession('');
+
+      return true;
     },
     logout: function () {
       return Promise.resolve();
@@ -27,6 +34,7 @@ export const apiClient: ApiClient = {
       return data;
 
       // TODO: add error handling
+      // TODO: error handling with redirect to login page if not authenticated
     },
     create: async function (booking: CreateBookingDto): Promise<BookingDto> {
       const { data } = await http.post('/bookings', booking);

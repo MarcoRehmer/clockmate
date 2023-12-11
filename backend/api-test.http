@@ -1,0 +1,10 @@
+### Login
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "email": "foo@bar.com",
+  "password": "1234"
+}
+
+###

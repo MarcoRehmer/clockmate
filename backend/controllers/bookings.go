@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GET /bookings
+// FindBookings GET /bookings
 func FindBookings(c *gin.Context) {
 	var bookings []models.Booking
 
@@ -16,7 +16,7 @@ func FindBookings(c *gin.Context) {
 	c.JSON(http.StatusOK, bookings)
 }
 
-// POST /bookings
+// CreateBooking POST /bookings
 func CreateBooking(c *gin.Context) {
 	// validate input
 	var input models.CreateBookingInput
@@ -32,7 +32,7 @@ func CreateBooking(c *gin.Context) {
 	c.JSON(http.StatusOK, booking)
 }
 
-// PUT /bookings/:id
+// UpdateBooking PUT /bookings/:id
 func UpdateBooking(c *gin.Context) {
 	// Get model if exist
 	var booking models.Booking
@@ -52,7 +52,7 @@ func UpdateBooking(c *gin.Context) {
 	c.JSON(http.StatusOK, booking)
 }
 
-// DELETE /bookings/:id
+// DeleteBooking DELETE /bookings/:id
 func DeleteBooking(c *gin.Context) {
 	// Get model if exist
 	var booking models.Booking
