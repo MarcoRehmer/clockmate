@@ -12,6 +12,7 @@ import { getBookings } from '@/app/store/bookings/slices/getBookings';
 import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
 import { editBooking } from '@/app/store/bookings/slices/editBooking';
 import { selectCurrentBookings } from '@/app/store/bookings/bookingSelectors';
+import {DateTime} from "luxon";
 
 export const BookingTable = () => {
   const bookings = useSelector(selectCurrentBookings);
@@ -25,9 +26,9 @@ export const BookingTable = () => {
   useEffect(() => {
     dispatch(
       getBookings({
-        orderBy: { prop: 'startedAt', direction: 'desc' },
-        visibleValues: ['foo', 'bar'],
-        clientId: 1234,
+        orderBy: { prop: 'remarks', direction: 'desc' },
+        // rangeFrom: DateTime.fromFormat('2023-12-03', 'yyyy-MM-dd')?.toFormat('yyyy-MM-dd') || '',
+        rangeTo: DateTime.fromFormat('2023-12-04', 'yyyy-MM-dd')?.toFormat('yyyy-MM-dd') || '',
       })
     );
   }, [dispatch]);

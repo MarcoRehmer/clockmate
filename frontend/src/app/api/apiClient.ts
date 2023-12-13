@@ -52,7 +52,7 @@ export const apiClient: ApiClient = {
               if (Array.isArray(value)) {
                 // Behandlung von Arrays
                 value.forEach((val, i) => {
-                  serializedParams.push(`${key}[${i}]=${encodeURIComponent(val)}`);
+                  serializedParams.push(`${key}=${encodeURIComponent(val)}`);
                 });
               } else if (typeof value === 'object') {
                 // Behandlung von orderBy
