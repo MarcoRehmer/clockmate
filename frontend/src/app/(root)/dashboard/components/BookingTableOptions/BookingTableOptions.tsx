@@ -5,11 +5,11 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
 import styles from './booking-table-options.module.scss';
-import { CreateBookingDialog } from '@/app/dashboard/components/CreateBookingDialog/CreateBookingDialog';
 import { Booking } from '@/app/core/types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store/store';
 import { addBooking } from '@/app/store/bookings/slices/addBooking';
+import { CreateBookingDialog } from '../CreateBookingDialog/CreateBookingDialog';
 
 export const BookingTableOptions = () => {
   const dispatch = useDispatch<AppDispatch>();

@@ -1,6 +1,6 @@
 'use client';
 
-import { LoginForm } from '@/app/login/LoginForm';
+import { LoginForm } from '@/app/(auth)/login/LoginForm';
 import { redirect, useRouter } from 'next/navigation';
 import { api } from '@/app/api/api';
 import {isAuthenticated} from "@/app/auth/Auth";
