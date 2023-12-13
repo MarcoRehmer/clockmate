@@ -13,7 +13,7 @@ export const mockClient: ApiClient = {
     },
   },
   bookings: {
-    getAll: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
+    getBookings: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
       return Promise.resolve(bookings);
     },
     create: (booking: CreateBookingDto): Promise<BookingDto> => {
@@ -24,7 +24,7 @@ export const mockClient: ApiClient = {
         remarks: booking.remarks,
         finishedAt: booking.finishedAt,
         projectId: booking.projectId,
-        customerId: booking.customerId,
+        customerId: booking.clientId,
       };
 
       bookings.push(createdBooking);

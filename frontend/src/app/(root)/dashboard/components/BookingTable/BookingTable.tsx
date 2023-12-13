@@ -23,7 +23,13 @@ export const BookingTable = () => {
   // TODO: move to better init location
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getBookings({ sortBy: 'id' }));
+    dispatch(
+      getBookings({
+        orderBy: { prop: 'startedAt', direction: 'desc' },
+        visibleValues: ['foo', 'bar'],
+        clientId: 1234,
+      })
+    );
   }, [dispatch]);
 
   const handleRowAction = (action: 'edit' | 'delete') => {

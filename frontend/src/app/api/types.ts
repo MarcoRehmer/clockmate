@@ -1,6 +1,6 @@
 export interface ApiClient {
   bookings: {
-    getAll(filter?: any): Promise<ReadonlyArray<BookingDto>>;
+    getBookings(query?: BookingsQueryDto): Promise<ReadonlyArray<BookingDto>>;
     create(booking: CreateBookingDto): Promise<BookingDto>;
     update(bookingId: number, booking: UpdateBookingDto): Promise<BookingDto>;
     delete(bookingId: number): Promise<number>;
@@ -8,8 +8,17 @@ export interface ApiClient {
   auth: {
     login(username: string, passwordHash: string): Promise<boolean>;
     logout(): Promise<void>;
-  }
+  };
   settings: {};
+}
+
+export interface BookingsQueryDto {
+  rangeFrom?: string;
+  rangeTo?: string;
+  orderBy?: { prop: string; direction: 'asc' | 'desc' };
+  visibleValues?: ReadonlyArray<string>;
+  projectId?: number;
+  clientId?: number;
 }
 
 export interface BookingDto {
@@ -18,7 +27,7 @@ export interface BookingDto {
   finishedAt?: string;
   remarks?: string;
   projectId?: number;
-  customerId?: number;
+  clientId?: number;
 }
 
 export interface CreateBookingDto {
@@ -26,7 +35,7 @@ export interface CreateBookingDto {
   finishedAt?: string;
   remarks?: string;
   projectId?: number;
-  customerId?: number;
+  clientId?: number;
 }
 
 export type UpdateBookingDto = Partial<Omit<BookingDto, 'id'>>;

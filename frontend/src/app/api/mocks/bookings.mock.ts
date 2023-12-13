@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
 export const bookingsMock: ReadonlyArray<BookingDto> = [
   {
     id: 1,
-    customerId: 1,
+    clientId: 1,
     projectId: 1,
     remarks: 'My very first booking',
     startedAt: DateTime.now().minus({ hour: 1, minute: 30 }).toISODate() || '',
@@ -12,7 +12,7 @@ export const bookingsMock: ReadonlyArray<BookingDto> = [
   },
   {
     id: 2,
-    customerId: 1,
+    clientId: 1,
     projectId: 1,
     remarks: 'My second booking',
     startedAt: DateTime.now().minus({ hour: 1, minute: 30 }).toISODate() || '',

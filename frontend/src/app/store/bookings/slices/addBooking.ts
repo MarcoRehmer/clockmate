@@ -30,7 +30,7 @@ export const addBooking = createAsyncThunk('bookings/addBooking', async (booking
     startedAt: startedAtISO,
     finishedAt: booking.finishedAt?.toISO() || undefined,
     projectId: booking.projectId,
-    customerId: booking.clientId,
+    clientId: booking.clientId,
     remarks: booking.remarks,
   };
   const createdBooking = await api.bookings.create(payload);
