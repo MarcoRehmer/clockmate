@@ -16,7 +16,7 @@ export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogPr
   const [startedAt, setStartedAt] = useState<DateTime>(DateTime.now());
   const [finishedAt, setFinishedAt] = useState<DateTime | undefined>(undefined);
 
-  const combineDateWithTime = (date: DateTime, time: DateTime): DateTime =>  {
+  const combineDateWithTime = (date: DateTime, time: DateTime): DateTime => {
     return DateTime.fromObject({
       year: date.year,
       month: date.month,
@@ -24,7 +24,7 @@ export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogPr
       hour: time.hour,
       minute: time.minute,
     });
-  }
+  };
 
   return (
     <Dialog open={open} onClose={() => handleClose(undefined)}>
@@ -66,7 +66,7 @@ export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogPr
             handleClose({
               startedAt: combineDateWithTime(bookingDate, startedAt),
               finishedAt: finishedAt ? combineDateWithTime(bookingDate, finishedAt) : undefined,
-              remarks,
+              remarks: remarks.length > 0 ? remarks : undefined,
             })
           }
         >
