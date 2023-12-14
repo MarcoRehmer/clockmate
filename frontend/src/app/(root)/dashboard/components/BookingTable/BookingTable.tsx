@@ -13,6 +13,7 @@ import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
 import { editBooking } from '@/app/store/bookings/slices/editBooking';
 import { selectCurrentBookings } from '@/app/store/bookings/bookingSelectors';
 import { DateTime } from 'luxon';
+import React from 'react';
 
 export const BookingTable = () => {
   const bookings = useSelector(selectCurrentBookings);
@@ -24,13 +25,7 @@ export const BookingTable = () => {
   // TODO: move to better init location
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(
-      getBookings({
-        orderBy: { prop: 'remarks', direction: 'desc' },
-        // rangeFrom: DateTime.fromFormat('2023-12-03', 'yyyy-MM-dd')?.toFormat('yyyy-MM-dd') || '',
-        rangeTo: DateTime.fromFormat('2023-12-04', 'yyyy-MM-dd')?.toFormat('yyyy-MM-dd') || '',
-      })
-    );
+    dispatch(getBookings());
   }, [dispatch]);
 
   const handleRowAction = (action: 'edit' | 'delete') => {
@@ -67,27 +62,38 @@ export const BookingTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {bookings.map((row) => (
-              <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell component="th" scope="row">
-                  {row.startedAt.toFormat('HH:mm')}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.finishedAt?.toFormat('HH:mm') || ''}
-                </TableCell>
-                <TableCell>{row.remarks}</TableCell>
-                <TableCell>
-                  <IconButton
-                    aria-label="menu"
-                    onClick={(event) => {
-                      setRowMenuAnchor(event.currentTarget);
-                      setSelectedBooking(row);
-                    }}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
+            {bookings.map((row, index) => (
+              <React.Fragment key={row.id}>
+                {index > 0 && (
+                  row.startedAt.day !== bookings[index - 1].startedAt.day
+                ) && (
+                  <TableRow>
+                    <TableCell colSpan={4}>
+                      {row.startedAt.toFormat('EEEE, dd.MM.yyyy')}
+                    </TableCell>
+                  </TableRow>
+                )}
+                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {row.startedAt.toFormat('HH:mm')}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {row.finishedAt?.toFormat('HH:mm') || ''}
+                  </TableCell>
+                  <TableCell>{row.remarks}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      aria-label="menu"
+                      onClick={(event) => {
+                        setRowMenuAnchor(event.currentTarget);
+                        setSelectedBooking(row);
+                      }}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              </React.Fragment>
             ))}
           </TableBody>
         </Table>
