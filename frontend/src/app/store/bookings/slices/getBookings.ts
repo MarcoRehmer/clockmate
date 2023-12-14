@@ -33,12 +33,3 @@ export const getBookings = createAsyncThunk<Array<Booking>, void, { state: AppSt
     return (await api.bookings.getBookings(query)).map((booking) => mapBookingDtoToBooking(booking));
   }
 );
-
-
-
-// export function changeRange(args: {from: string, to: string }) {
-//   return (dispatch: ThunkDispatch<{ bookings: BookingsState }, undefined, AnyAction>) => {
-//
-//     dispatch(getBookings());
-//   };
-// }

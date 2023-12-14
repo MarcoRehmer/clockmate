@@ -9,43 +9,38 @@ import (
 	"time"
 )
 
+func parseDateParam(c *gin.Context, queryKey string, defaultDate time.Time) (string, bool) {
+	param, ok := c.GetQuery(queryKey)
+	if !ok {
+		return defaultDate.Format(time.RFC3339), false
+	}
+
+	parsed, err := time.Parse("2006-01-02", param)
+	if err != nil {
+		fmt.Println(err)
+		return "", false
+	}
+
+	return parsed.Format(time.RFC3339), true
+}
+
 // FindBookings GET /bookings
 func FindBookings(c *gin.Context) {
 	var bookings []models.Booking
 	dbQuery := models.DB
 
-	// TODO: Needs Code refactoring!
-
-	// check if range from exist and parse to correct format
-	rangeFromParam, fromOk := c.GetQuery("rangeFrom")
-
-	// check if range to exist and parse to correct format
-	rangeToParam, toOk := c.GetQuery("rangeTo")
-
-	toVal := ""
-	if toOk {
-		parsedTo, err := time.Parse("2006-01-02", rangeToParam)
-		if err != nil {
-			toOk = false
-			fmt.Println(err)
-		}
-		toVal = parsedTo.Format(time.RFC3339)
-	} else {
-		toVal = time.Now().Format(time.RFC3339)
+	fromVal, fromOk := parseDateParam(c, "rangeFrom", time.Time{})
+	if !fromOk {
+		fromVal = time.Time{}.Format(time.RFC3339) // assign default value
 	}
 
-	if fromOk {
-		parsedFrom, err := time.Parse("2006-01-02", rangeFromParam)
-		if err != nil {
-			fromOk = false
-			fmt.Println(err)
-		}
+	toVal, toOk := parseDateParam(c, "rangeTo", time.Now())
+	if !toOk {
+		toVal = time.Now().Format(time.RFC3339) // assign default value
+	}
 
-		fromVal := parsedFrom.Format(time.RFC3339)
-
+	if fromOk || toOk {
 		dbQuery = dbQuery.Where("started_at BETWEEN ? AND ?", fromVal, toVal)
-	} else if toOk {
-		dbQuery = dbQuery.Where("started_at BETWEEN ? AND ?", time.Time{}.Format(time.RFC3339), toVal)
 	}
 
 	//visibleValuesParam, _ := c.GetQueryArray("visibleValues")
