@@ -2,6 +2,8 @@ import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import { BookingsState } from '../bookingState';
 import { api } from '@/app/api/api';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
+import { Booking } from '@/app/core/types';
+import { AppState } from '@/app/store/store';
 import { BookingsQueryDto } from '@/app/api/types';
 
 export const getBookingsSlice = (builder: ActionReducerMapBuilder<BookingsState>) => {
@@ -18,6 +20,25 @@ export const getBookingsSlice = (builder: ActionReducerMapBuilder<BookingsState>
   });
 };
 
-export const getBookings = createAsyncThunk('bookings/getBookings', async (query: BookingsQueryDto | undefined, _) =>
-  (await api.bookings.getBookings(query)).map((booking) => mapBookingDtoToBooking(booking))
+export const getBookings = createAsyncThunk<Array<Booking>, void, { state: AppState }>(
+  'bookings/getBookings',
+  async (_, { getState }) => {
+    const { bookings } = getState();
+
+    const query: BookingsQueryDto = {
+      rangeFrom: bookings.query.selectedRange?.from,
+      rangeTo: bookings.query.selectedRange?.to,
+    };
+
+    return (await api.bookings.getBookings(query)).map((booking) => mapBookingDtoToBooking(booking));
+  }
 );
+
+
+
+// export function changeRange(args: {from: string, to: string }) {
+//   return (dispatch: ThunkDispatch<{ bookings: BookingsState }, undefined, AnyAction>) => {
+//
+//     dispatch(getBookings());
+//   };
+// }

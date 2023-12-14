@@ -12,7 +12,7 @@ import { getBookings } from '@/app/store/bookings/slices/getBookings';
 import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
 import { editBooking } from '@/app/store/bookings/slices/editBooking';
 import { selectCurrentBookings } from '@/app/store/bookings/bookingSelectors';
-import {DateTime} from "luxon";
+import { DateTime } from 'luxon';
 
 export const BookingTable = () => {
   const bookings = useSelector(selectCurrentBookings);
@@ -60,15 +60,22 @@ export const BookingTable = () => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
               <TableCell>From</TableCell>
               <TableCell>To</TableCell>
               <TableCell>Remarks</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {bookings.map((row) => (
               <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  {row.startedAt.toFormat('HH:mm')}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.finishedAt?.toFormat('HH:mm') || ''}
+                </TableCell>
+                <TableCell>{row.remarks}</TableCell>
                 <TableCell>
                   <IconButton
                     aria-label="menu"
@@ -80,13 +87,6 @@ export const BookingTable = () => {
                     <MoreVertIcon />
                   </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.startedAt.toFormat('HH:mm')}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.finishedAt?.toFormat('HH:mm') || ''}
-                </TableCell>
-                <TableCell>{row.remarks}</TableCell>
               </TableRow>
             ))}
           </TableBody>
