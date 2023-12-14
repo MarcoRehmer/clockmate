@@ -64,14 +64,12 @@ export const BookingTable = () => {
           <TableBody>
             {bookings.map((row, index) => (
               <React.Fragment key={row.id}>
-                {index > 0 && (
-                  row.startedAt.day !== bookings[index - 1].startedAt.day
-                ) && (
+                {index === 0 || (index > 0 && row.startedAt.day !== bookings[index - 1].startedAt.day) ? (
                   <TableRow>
-                    <TableCell colSpan={4}>
-                      {row.startedAt.toFormat('EEEE, dd.MM.yyyy')}
-                    </TableCell>
+                    <TableCell colSpan={4}>{row.startedAt.toFormat('EEEE, dd.MM.yyyy')}</TableCell>
                   </TableRow>
+                ) : (
+                  <></>
                 )}
                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
