@@ -95,9 +95,8 @@ export const BookingTable = () => {
                     {row.finishedAt?.toFormat('HH:mm') || ''}
                   </TableCell>
                   <TableCell sx={{ color: 'text.secondary' }}>{row.remarks}</TableCell>
-                  <TableCell sx={{ width: '0.5rem' }}>
+                  <TableCell sx={{ padding: 0, width: '1rem' }}>
                     <IconButton
-                      style={{ padding: 0 }}
                       aria-label="menu"
                       onClick={(event) => {
                         setRowMenuAnchor(event.currentTarget);

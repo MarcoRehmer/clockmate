@@ -80,20 +80,25 @@ export const Stopwatch = () => {
       <div style={{ display: 'flex' }}>
         {currentActiveBooking !== undefined ? (
           <>
-            <Typography sx={{alignSelf: 'center'}}>{currentTime}</Typography>
+            <Typography sx={{ alignSelf: 'center', color: 'primary.main' }}>{currentTime}</Typography>
 
-            <IconButton onClick={handleStopClick} aria-label="stop" size="large" color="inherit">
+            <IconButton sx={{ color: 'text.primary' }} onClick={handleStopClick} aria-label="stop" >
               <StopIcon />
             </IconButton>
-            <IconButton onClick={handleSwitchTaskClick} aria-label="change task" size="large" color="inherit">
+            <IconButton
+              sx={{ color: 'text.primary' }}
+              onClick={handleSwitchTaskClick}
+              aria-label="change task"
+              size="large"
+            >
               <CallSplitIcon style={{ rotate: '90deg' }} />
             </IconButton>
-            <IconButton onClick={handleDiscardClick} aria-label="discard" size="large" color="inherit">
+            <IconButton sx={{ color: 'text.primary' }} onClick={handleDiscardClick} aria-label="discard">
               <CloseIcon />
             </IconButton>
           </>
         ) : (
-          <IconButton onClick={handleStartClick} aria-label="start" size="large" color="inherit">
+          <IconButton sx={{ color: 'text.primary' }} onClick={handleStartClick} aria-label="start">
             <PlayArrowIcon />
           </IconButton>
         )}

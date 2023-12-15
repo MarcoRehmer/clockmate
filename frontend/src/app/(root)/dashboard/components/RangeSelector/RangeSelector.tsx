@@ -27,14 +27,14 @@ export const RangeSelector = ({
 
   return (
     <div className="flex">
-      <IconButton aria-label="previous entry" size="large" color="inherit" onClick={previousMonth}>
+      <IconButton aria-label="previous entry" onClick={previousMonth}>
         <ChevronLeftIcon />
       </IconButton>
-      <Typography sx={{ alignSelf: 'center', color: 'text.secondary' }}>
+      <Typography sx={{ alignSelf: 'center', textAlign: 'center', color: 'text.secondary', width: 124 }}>
         {selectedMonth.toFormat('LLLL yyyy')}
       </Typography>
 
-      <IconButton aria-label="next entry" size="large" color="inherit" onClick={nextMonth}>
+      <IconButton aria-label="next entry" onClick={nextMonth}>
         <ChevronRightIcon />
       </IconButton>
     </div>

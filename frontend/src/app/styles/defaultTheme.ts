@@ -20,6 +20,7 @@ export const defaultTheme = createTheme({
     },
     divider: '#BDBDBD',
   },
+
   components: {
     MuiAppBar: {
       styleOverrides: {
@@ -33,10 +34,20 @@ export const defaultTheme = createTheme({
         root: {
           borderRadius: 20,
           boxShadow: 'rgba(0, 0, 0, 0.08) 0px 3.5px 5.5px 0px',
-          paddingLeft: 32,
-          paddingRight: 32,
-          paddingTop: 16,
-          paddingBottom: 16,
+
+          '@media (max-width:600px)': {
+            paddingLeft: 16,
+            paddingRight: 16,
+            paddingTop: 8,
+            paddingBottom: 8,
+          },
+
+          '@media (min-width:601px)': {
+            paddingLeft: 32,
+            paddingRight: 32,
+            paddingTop: 16,
+            paddingBottom: 16,
+          },
         },
       },
     },

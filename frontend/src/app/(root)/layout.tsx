@@ -1,7 +1,6 @@
 import { AppHeader } from '@/app/(root)/components/AppHeader/AppHeader';
-import { AppFooter } from '@/app/(root)/components/AppFooter/AppFooter';
-import styles from './styles.module.scss';
 import React from 'react';
+import { Box } from '@mui/system';
 
 export const metadata = {
   title: 'Clockmate',
@@ -14,10 +13,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <header>
         <AppHeader />
       </header>
-      <div className={styles.rootContainer}>{children}</div>
-      <footer>
-        <AppFooter />
-      </footer>
+      <Box
+        sx={{
+          margin: '2rem 4rem',
+          '@media (max-width:600px)': {
+            margin: '1rem 2rem',
+          },
+        }}
+      >
+        {children}
+      </Box>
     </>
   );
 }
