@@ -1,15 +1,11 @@
 import React from 'react';
+import { Box } from '@mui/material';
 
 export const metadata = {
-    title: 'Clockmate | Login',
-    description: 'Your Time Tracking Buddy',
+  title: 'Clockmate | Login',
+  description: 'Your Time Tracking Buddy',
 };
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
-  return (
-      <>
-          <div>Welcome to Clockmate</div>
-          {children}
-      </>
-  );
+  return <Box sx={{ margin: 4 }}>{children}</Box>;
 }
