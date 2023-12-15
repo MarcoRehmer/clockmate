@@ -40,5 +40,20 @@ export const defaultTheme = createTheme({
         },
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          paddingLeft: 12,
+          paddingRight: 12,
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          padding: 12,
+        },
+      },
+    },
   },
 });

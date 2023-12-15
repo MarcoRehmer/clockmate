@@ -95,7 +95,7 @@ export const BookingTable = () => {
                     {row.finishedAt?.toFormat('HH:mm') || ''}
                   </TableCell>
                   <TableCell sx={{ color: 'text.secondary' }}>{row.remarks}</TableCell>
-                  <TableCell sx={{ padding: '1rem', width: '1rem' }}>
+                  <TableCell sx={{ width: '0.5rem' }}>
                     <IconButton
                       style={{ padding: 0 }}
                       aria-label="menu"

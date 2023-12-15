@@ -80,7 +80,7 @@ export const Stopwatch = () => {
       <div style={{ display: 'flex' }}>
         {currentActiveBooking !== undefined ? (
           <>
-            <p>{currentTime}</p>
+            <Typography sx={{alignSelf: 'center'}}>{currentTime}</Typography>
 
             <IconButton onClick={handleStopClick} aria-label="stop" size="large" color="inherit">
               <StopIcon />

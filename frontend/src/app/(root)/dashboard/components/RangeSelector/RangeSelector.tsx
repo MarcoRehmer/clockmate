@@ -3,6 +3,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { IconButton } from '@mui/material';
 import { useState } from 'react';
 import { DateTime } from 'luxon';
+import Typography from '@mui/material/Typography';
 
 export const RangeSelector = ({
   selectedRangeChanged,
@@ -25,11 +26,14 @@ export const RangeSelector = ({
   };
 
   return (
-    <div>
+    <div className="flex">
       <IconButton aria-label="previous entry" size="large" color="inherit" onClick={previousMonth}>
         <ChevronLeftIcon />
       </IconButton>
-      {selectedMonth.toFormat('LLLL yyyy')}
+      <Typography sx={{ alignSelf: 'center', color: 'text.secondary' }}>
+        {selectedMonth.toFormat('LLLL yyyy')}
+      </Typography>
+
       <IconButton aria-label="next entry" size="large" color="inherit" onClick={nextMonth}>
         <ChevronRightIcon />
       </IconButton>
