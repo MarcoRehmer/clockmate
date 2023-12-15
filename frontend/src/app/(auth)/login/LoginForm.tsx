@@ -1,5 +1,7 @@
 import {
+  Box,
   Button,
+  CircularProgress,
   FilledInput,
   FormControl,
   IconButton,
@@ -18,33 +20,41 @@ export const LoginForm = ({ loginRequested }: { loginRequested: (email: string, 
 
   return (
     <>
-      <div style={{ display: 'flex', flexDirection: 'column', rowGap: '1rem' }}>
-        <FormControl variant="standard">
-          <InputLabel htmlFor="email">E-Mail</InputLabel>
-          <Input id="email" onChange={(event) => setEmail(event.target.value)} value={email} />
-        </FormControl>
-        <FormControl variant="standard">
-          <InputLabel htmlFor="password">Password</InputLabel>
-          <Input
-            id="password"
-            type={showPassword ? 'text' : 'password'}
-            onChange={(event) => setPassword(event.target.value)}
-            value={password}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => setShowPassword(!showPassword)}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          ></Input>
-        </FormControl>
-        <Button onClick={() => loginRequested(email, password)}>Login</Button>
-      </div>
+      <form>
+        <div style={{ display: 'flex', flexDirection: 'column', rowGap: '1rem' }}>
+          <FormControl variant="standard">
+            <InputLabel htmlFor="email">E-Mail</InputLabel>
+            <Input
+              id="email"
+              autoComplete="username"
+              onChange={(event) => setEmail(event.target.value)}
+              value={email}
+            />
+          </FormControl>
+          <FormControl variant="standard">
+            <InputLabel htmlFor="password">Password</InputLabel>
+            <Input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              onChange={(event) => setPassword(event.target.value)}
+              value={password}
+              autoComplete="current-password"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            ></Input>
+          </FormControl>
+            <Button onClick={() => loginRequested(email, password)}>Login</Button>
+        </div>
+      </form>
     </>
   );
 };

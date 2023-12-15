@@ -1,19 +1,30 @@
 'use client';
 
 import { LoginForm } from '@/app/(auth)/login/LoginForm';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { api } from '@/app/api/api';
-import { Box, Card, Container } from '@mui/material';
+import { Box, Card, CircularProgress, Fade } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import React, { useState } from 'react';
+import { sleep } from '@/app/utils/sleep';
 
 export default function Index() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const loginRedirect = async (email: string, password: string) => {
-    const response = await api.auth.login(email, password);
+    setLoading(true);
+    try {
+      await sleep(1000);
+      const response = await api.auth.login(email, password);
 
-    if (response) {
-      router.replace('/dashboard');
+      if (response) {
+        router.replace('/dashboard');
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -28,12 +39,19 @@ export default function Index() {
         alignItems: 'center',
       }}
     >
-      <Card style={{ padding: 24 }}>
-        <Typography variant="h6" sx={{ color: 'primary.main', textAlign: 'center', mb: 2 }}>
-          Welcome to Clockmate
-        </Typography>
-        <LoginForm loginRequested={loginRedirect} />
-      </Card>
+      <Fade in={true} timeout={600}>
+        <Card style={{ padding: 24 }}>
+          <Typography variant="h6" sx={{ color: 'primary.main', textAlign: 'center', mb: 2 }}>
+            Welcome to Clockmate
+          </Typography>
+          <LoginForm loginRequested={loginRedirect} />
+          {loading && (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress />
+            </Box>
+          )}
+        </Card>
+      </Fade>
     </Box>
   );
 }
