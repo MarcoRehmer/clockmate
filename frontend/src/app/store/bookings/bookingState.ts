@@ -16,7 +16,7 @@ export interface BookingsState {
 const initialState: BookingsState = {
   bookings: [],
   loading: false,
-  query: { selectedRange: { from: '2023-12-01', to: '2023-12-14' } },
+  query: { selectedRange: { from: '2023-12-01', to: '2023-12-15' } },
 };
 
 export const bookingsSlice = createSlice({

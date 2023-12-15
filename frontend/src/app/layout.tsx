@@ -1,6 +1,4 @@
-import { AppHeader } from '@/app/(root)/components/AppHeader/AppHeader';
-import { AppFooter } from '@/app/(root)/components/AppFooter/AppFooter';
-import './global.scss';
+import './styles/globals.scss';
 import AppProvider from '@/app/provider/appProvider';
 import React from 'react';
 

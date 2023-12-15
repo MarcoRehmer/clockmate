@@ -14,6 +14,8 @@ import { editBooking } from '@/app/store/bookings/slices/editBooking';
 import { selectCurrentBookings } from '@/app/store/bookings/bookingSelectors';
 import { DateTime } from 'luxon';
 import React from 'react';
+import { createTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 
 export const BookingTable = () => {
   const bookings = useSelector(selectCurrentBookings);
@@ -51,8 +53,8 @@ export const BookingTable = () => {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <TableContainer>
+        <Table style={{ tableLayout: 'auto' }}>
           <TableHead>
             <TableRow>
               <TableCell>From</TableCell>
@@ -66,21 +68,36 @@ export const BookingTable = () => {
               <React.Fragment key={row.id}>
                 {index === 0 || (index > 0 && row.startedAt.day !== bookings[index - 1].startedAt.day) ? (
                   <TableRow>
-                    <TableCell colSpan={4}>{row.startedAt.toFormat('EEEE, dd.MM.yyyy')}</TableCell>
+                    <TableCell colSpan={4}>
+                      <Typography sx={{ color: 'text.primary' }}>
+                        {row.startedAt.toFormat('EEEE, dd.MM.yyyy')}
+                      </Typography>
+                    </TableCell>
                   </TableRow>
                 ) : (
                   <></>
                 )}
-                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
+                <TableRow>
+                  <TableCell
+                    sx={{
+                      color: 'text.secondary',
+                      width: 80,
+                    }}
+                  >
                     {row.startedAt.toFormat('HH:mm')}
                   </TableCell>
-                  <TableCell component="th" scope="row">
+                  <TableCell
+                    sx={{
+                      color: 'text.secondary',
+                      width: 80,
+                    }}
+                  >
                     {row.finishedAt?.toFormat('HH:mm') || ''}
                   </TableCell>
-                  <TableCell>{row.remarks}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ color: 'text.secondary' }}>{row.remarks}</TableCell>
+                  <TableCell sx={{ padding: '1rem', width: '1rem' }}>
                     <IconButton
+                      style={{ padding: 0 }}
                       aria-label="menu"
                       onClick={(event) => {
                         setRowMenuAnchor(event.currentTarget);

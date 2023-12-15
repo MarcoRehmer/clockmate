@@ -3,7 +3,6 @@ import { RangeSelector } from '../RangeSelector/RangeSelector';
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
-import styles from './booking-table-options.module.scss';
 import { Booking } from '@/app/core/types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store/store';
@@ -40,13 +39,13 @@ export const BookingTableOptions = () => {
 
   return (
     <>
-      <div className={styles['booking-table-options-container']}>
+      <div className="flex justify-between">
         <div>
           <RangeSelector selectedRangeChanged={changeRange} />
         </div>
 
         <div>
-          <IconButton aria-label="add new booking" size="large" color="inherit" onClick={handleAddNewBooking}>
+          <IconButton aria-label="add new booking" size="large" onClick={handleAddNewBooking}>
             <AddIcon />
           </IconButton>
         </div>

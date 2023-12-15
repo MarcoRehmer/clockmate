@@ -19,7 +19,7 @@ export const addBookingSlice = (builder: ActionReducerMapBuilder<BookingsState>)
   });
 };
 
-export const addBooking = createAsyncThunk<void, Booking, { state: AppState }>(
+export const addBooking = createAsyncThunk<void, Omit<Booking, "id">, { state: AppState }>(
   'bookings/addBooking',
   async (booking: Omit<Booking, 'id'>, { dispatch }) => {
     const startedAtISO = booking.startedAt.toISO();
