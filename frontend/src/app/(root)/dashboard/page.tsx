@@ -3,6 +3,7 @@ import { BookingTable } from './components/BookingTable/BookingTable';
 import { Card } from '@mui/material';
 import { BookingTableOptions } from './components/BookingTableOptions/BookingTableOptions';
 import { UserSummaryCard } from '@/app/(root)/dashboard/components/UserSummaryCard';
+import {CurrentRunningCard} from "@/app/(root)/dashboard/components/CurrentRunningCard";
 
 export default async function Index() {
   return (
@@ -12,7 +13,7 @@ export default async function Index() {
           <UserSummaryCard />
         </div>
         <div>
-          <UserSummaryCard />
+          <CurrentRunningCard />
         </div>
       </div>
 

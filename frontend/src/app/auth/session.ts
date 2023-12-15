@@ -7,6 +7,7 @@ export async function setToken(token: string): Promise<void> {
   cookies().set('token', token, { httpOnly: true });
 }
 
-export async function removeToken(): Promise<void> {
-  cookies().delete('token');
+export async function deleteToken(): Promise<void> {
+  cookies().has('token') && cookies().delete('token');
+
 }

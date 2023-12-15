@@ -8,7 +8,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { removeToken } from '@/app/auth/session';
+import { deleteToken } from '@/app/auth/session';
 
 export const AppHeader = () => {
   const router = useRouter();
@@ -18,23 +18,23 @@ export const AppHeader = () => {
   };
 
   const logOut = async () => {
-    await removeToken();
+    await deleteToken();
     router.replace('/login');
   };
 
   return (
     <AppBar position="static" sx={{ height: 96, p: 1 }}>
       <Toolbar>
-        <Typography variant="h4" component="div" sx={{ alignSelf: 'baseline', color: 'white', mr: 4 }}>
+        <Typography variant="h4" component="div" sx={{ color: 'white', flexGrow: 1 }}>
           Clockmate
         </Typography>
-        <Typography component="div" sx={{ alignSelf: 'baseline', flexGrow: 1 }} color="white">
-          Dashboard
-        </Typography>
+        {/*<Typography component="div" sx={{ alignSelf: 'baseline', flexGrow: 1 }} color="white">*/}
+        {/*  Dashboard*/}
+        {/*</Typography>*/}
         <IconButton sx={{ color: 'white' }} onClick={() => navigateToSettings()}>
           <SettingsIcon />
         </IconButton>
-        <IconButton sx={{ color: 'white' }} onClick={() => logOut}>
+        <IconButton sx={{ color: 'white' }} onClick={() => logOut()}>
           <LogoutIcon />
         </IconButton>
       </Toolbar>
