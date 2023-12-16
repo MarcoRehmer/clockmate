@@ -1,0 +1,4 @@
+**/.env
+test.db
+api-test.http
+/tmp

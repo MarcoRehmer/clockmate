@@ -1,0 +1,39 @@
+version: '3'
+services:
+  backend:
+    image: clockmate-backend
+    build: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-db
+    environment:
+      GIN_MODE: release
+      JWT_SECRET_KEY: SuperSecretKeyThatIsLongEnough!!
+      DB_HOST: postgres-db
+      DB_NAME: clockmate
+      DB_USER: exampleUser
+      DB_PASSWORD: examplePassword
+      DB_PORT: 5432
+  frontend:
+    image: clockmate-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      JWT_SECRET_KEY: SuperSecretKeyThatIsLongEnough!!
+  postgres-db:
+    image: postgres:16.1-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST: postgres-db
+      POSTGRES_PASSWORD: examplePassword
+      POSTGRES_USER: exampleUser
+      POSTGRES_DB: clockmate
+
+volumes:
+  db_data:
