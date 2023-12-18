@@ -1,23 +1,21 @@
-# Use an official Node.js runtime as the base image
-FROM node:18.17.1-alpine
-
-# Set the working directory in the container to /app
+FROM node:18.17.1-alpine AS deps
 WORKDIR /app
-
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
-
-# Install the application dependencies
+COPY package*.json .
 RUN npm install
 
-# Copy the rest of the application code to the working directory
-COPY . .
+FROM node:18.17.1-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY src ./src
+COPY public ./public
+COPY package.json next.config.js tailwind.config.js postcss.config.js tsconfig.json ./
 
-# Build the application
 RUN npm run build
 
-# Expose port 3000
-EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
+FROM node:18.17.1-alpine
+WORKDIR /app
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+CMD ["npm", "run", "start"]

@@ -6,6 +6,8 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/lpernett/godotenv"
+	"log"
+	"os"
 )
 
 func main() {
@@ -13,8 +15,13 @@ func main() {
 
 	r := gin.Default()
 
+	corsOrigin := os.Getenv("CORS_ORIGIN")
+	if len(corsOrigin) == 0 {
+		log.Fatal("no allowed cors origin in environment found")
+	}
+
 	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"http://localhost:3000"}
+	corsConfig.AllowOrigins = []string{corsOrigin}
 
 	r.Use(cors.New(corsConfig))
 

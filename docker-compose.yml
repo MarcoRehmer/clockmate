@@ -15,6 +15,7 @@ services:
       DB_USER: exampleUser
       DB_PASSWORD: examplePassword
       DB_PORT: 5432
+      CORS_ORIGIN: "http://localhost:3000"
   frontend:
     image: clockmate-frontend
     ports:
@@ -23,6 +24,9 @@ services:
       - backend
     environment:
       JWT_SECRET_KEY: SuperSecretKeyThatIsLongEnough!!
+      API_URL: "http://localhost:8080/api"
+      NODE_ENV: development
+
   postgres-db:
     image: postgres:16.1-alpine
     ports:
