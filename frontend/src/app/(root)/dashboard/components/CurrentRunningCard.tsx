@@ -10,7 +10,7 @@ export const CurrentRunningCard = () => {
       <Stopwatch />
       <div className="flex">
         <Typography sx={{ alignSelf: 'center', color: 'text.secondary' }} className="grow">
-          Lorem Ipsum again
+          Lorem Ipsum again.
         </Typography>
         <IconButton>
           <KeyboardArrowDown />
