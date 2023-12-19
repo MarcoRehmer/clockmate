@@ -1,0 +1,15 @@
+name: Docker Image CI for GHCR
+
+on:
+  push
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push the frontend image
+        run: |
+          docker login --username marcorehmer --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build ./frontend --tag ghcr.io/marcorehmer/clockmate-frontend:latest
+          docker push ghcr.io/marcorehmer/clockmate-frontend:latest
