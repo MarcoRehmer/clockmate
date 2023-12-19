@@ -4,7 +4,7 @@ on:
   push
 
 jobs:
-  build_and_publish:
+  build_and_publish_frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,3 +13,8 @@ jobs:
           docker login --username marcorehmer --password ${{ secrets.GH_PAT }} ghcr.io
           docker build ./frontend --tag ghcr.io/marcorehmer/clockmate-frontend:latest
           docker push ghcr.io/marcorehmer/clockmate-frontend:latest
+      - name: Build and push the backend image
+        run: |
+          docker login --username marcorehmer --password ${{ secrets.GH_PAT }} ghcr.io
+          docker build ./backend --tag ghcr.io/marcorehmer/clockmate-backend:latest
+          docker push ghcr.io/marcorehmer/clockmate-backend:latest
