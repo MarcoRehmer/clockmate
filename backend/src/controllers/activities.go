@@ -4,7 +4,6 @@ import (
 	"clockmate/backend/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -63,7 +62,6 @@ func FindActivities(c *gin.Context) {
 	dbQuery = dbQuery.Where("user_id = ?", userId)
 	dbQuery.Find(&activities)
 
-	log.Println("activities", activities)
 	c.JSON(http.StatusOK, activities)
 	return
 }
@@ -72,16 +70,32 @@ func FindActivities(c *gin.Context) {
 func CreateActivity(c *gin.Context) {
 	// validate input
 	var input models.CreateActivityInput
+
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// create activity
-	activity := models.Activity{Remarks: input.Remarks, StartedAt: input.StartedAt, FinishedAt: input.FinishedAt}
-	models.DB.Create(&activity)
+	userId, err := ExtractTokenUserID(c)
+	if err != nil {
+		return
+	}
 
-	c.JSON(http.StatusOK, activity)
+	tx := models.DB.Model(&models.Activity{}).Create(map[string]interface{}{
+		"Remarks":    input.Remarks,
+		"StartedAt":  input.StartedAt,
+		"FinishedAt": input.FinishedAt,
+		"ClientID":   input.ClientID,
+		"ProjectID":  input.ProjectID,
+		"UserID":     userId,
+	})
+
+	if tx.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "cannot create entity"})
+		return
+	}
+
+	c.Status(http.StatusOK)
 }
 
 // UpdateActivity PUT /activities/:id

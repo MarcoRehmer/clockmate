@@ -22,6 +22,8 @@ type CreateActivityInput struct {
 	Remarks    *string    `json:"remarks"`
 	StartedAt  time.Time  `json:"startedAt" binding:"required"`
 	FinishedAt *time.Time `json:"finishedAt"`
+	ClientID   *uint      `json:"clientID"`
+	ProjectID  *uint      `json:"projectID"`
 }
 
 type UpdateActivityInput struct {

@@ -1,0 +1,12 @@
+POST http://localhost:8080/api/activities
+Content-Type: application/json
+Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDM3OTQzMjUsImlzcyI6IjIifQ.HdRrQ6Esv-XX7SMqT5w9KJFNZdfrpg_yBnnfyG2q_rk;
+
+{
+  "remarks": "foo bar",
+  "startedAt": "2023-12-15T21:32:00+01:00",
+  "finishedAt": "2023-12-15T22:32:00+01:00",
+  "projectID": 1
+}
+
+###
