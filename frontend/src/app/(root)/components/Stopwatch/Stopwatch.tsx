@@ -77,26 +77,28 @@ export const Stopwatch = () => {
 
   return (
     <>
-      <div style={{ display: 'flex' }}>
+      <div>
         {currentActiveBooking !== undefined ? (
-          <>
+          <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography sx={{ alignSelf: 'center', color: 'primary.main' }}>{currentTime}</Typography>
 
-            <IconButton sx={{ color: 'text.primary' }} onClick={handleStopClick} aria-label="stop" >
-              <StopIcon />
-            </IconButton>
-            <IconButton
-              sx={{ color: 'text.primary' }}
-              onClick={handleSwitchTaskClick}
-              aria-label="change task"
-              size="large"
-            >
-              <CallSplitIcon style={{ rotate: '90deg' }} />
-            </IconButton>
-            <IconButton sx={{ color: 'text.primary' }} onClick={handleDiscardClick} aria-label="discard">
-              <CloseIcon />
-            </IconButton>
-          </>
+            <Box>
+              <IconButton sx={{ color: 'text.primary' }} onClick={handleStopClick} aria-label="stop">
+                <StopIcon />
+              </IconButton>
+              <IconButton
+                sx={{ color: 'text.primary' }}
+                onClick={handleSwitchTaskClick}
+                aria-label="change task"
+                size="large"
+              >
+                <CallSplitIcon style={{ rotate: '90deg' }} />
+              </IconButton>
+              <IconButton sx={{ color: 'text.primary' }} onClick={handleDiscardClick} aria-label="discard">
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Box>
         ) : (
           <IconButton sx={{ color: 'text.primary' }} onClick={handleStartClick} aria-label="start">
             <PlayArrowIcon />

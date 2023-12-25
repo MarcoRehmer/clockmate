@@ -31,9 +31,9 @@ export const AppHeader = () => {
         {/*<Typography component="div" sx={{ alignSelf: 'baseline', flexGrow: 1 }} color="white">*/}
         {/*  Dashboard*/}
         {/*</Typography>*/}
-        <IconButton sx={{ color: 'white' }} onClick={() => navigateToSettings()}>
-          <SettingsIcon />
-        </IconButton>
+        {/*<IconButton sx={{ color: 'white' }} onClick={() => navigateToSettings()}>*/}
+        {/*  <SettingsIcon />*/}
+        {/*</IconButton>*/}
         <IconButton sx={{ color: 'white' }} onClick={() => logOut()}>
           <LogoutIcon />
         </IconButton>

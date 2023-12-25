@@ -4,8 +4,9 @@ on:
   push
 
 jobs:
-  build_and_publish_frontend:
+  build_and_publish:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/head/main'
     steps:
       - uses: actions/checkout@v3
       - name: Build and push the frontend image
