@@ -35,7 +35,7 @@ export const addBooking = createAsyncThunk<void, Omit<Booking, "id">, { state: A
       remarks: booking.remarks,
     };
     try {
-      await api.bookings.create(payload);
+      await api.activities.create(payload);
 
       dispatch(getBookings());
     } catch (err) {

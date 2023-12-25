@@ -12,8 +12,8 @@ export const mockClient: ApiClient = {
       return Promise.resolve();
     },
   },
-  bookings: {
-    getBookings: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
+  activities: {
+    getActivities: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
       return Promise.resolve(bookings);
     },
     create: (booking: CreateBookingDto): Promise<BookingDto> => {

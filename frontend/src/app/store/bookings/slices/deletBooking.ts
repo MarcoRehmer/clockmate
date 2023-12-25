@@ -17,5 +17,5 @@ export const deleteBookingSlice = (builder: ActionReducerMapBuilder<BookingsStat
 };
 
 export const deleteBooking = createAsyncThunk('bookings/deleteBooking', async (bookingId: number) => {
-  return await api.bookings.delete(bookingId);
+  return await api.activities.delete(bookingId);
 });

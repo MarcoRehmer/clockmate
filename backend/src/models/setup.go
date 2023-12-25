@@ -21,18 +21,16 @@ func ConnectDatabase() {
 
 	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
-	// Rest of the code as in the original question
-
 	if err != nil {
 		panic("Failed to connect to database!")
 	}
 
-	err = database.AutoMigrate(&Booking{})
-	if err != nil {
-		return
-	}
-
-	err = database.AutoMigrate(&User{})
+	err = database.AutoMigrate(
+		&Activity{},
+		&User{},
+		&Client{},
+		&Project{},
+	)
 	if err != nil {
 		return
 	}

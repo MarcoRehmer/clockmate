@@ -24,9 +24,9 @@ func parseDateParam(c *gin.Context, queryKey string, defaultDate time.Time) (str
 	return parsed.Format(time.RFC3339), true
 }
 
-// FindBookings GET /bookings
-func FindBookings(c *gin.Context) {
-	var bookings []models.Booking
+// FindActivities GET /activities
+func FindActivities(c *gin.Context) {
+	var activities []models.Activity
 	dbQuery := models.DB
 
 	fromVal, fromOk := parseDateParam(c, "rangeFrom", time.Time{})
@@ -51,60 +51,60 @@ func FindBookings(c *gin.Context) {
 	if orderByParam, orderOk := c.GetQueryMap("orderBy"); orderOk {
 		dbQuery = dbQuery.Order(orderByParam["prop"] + " " + strings.ToUpper(orderByParam["direction"]))
 	} else {
-		dbQuery = dbQuery.Order("id DESC")
+		dbQuery = dbQuery.Order("activity_id DESC")
 	}
 
-	dbQuery.Find(&bookings)
+	dbQuery.Find(&activities)
 
-	c.JSON(http.StatusOK, bookings)
+	c.JSON(http.StatusOK, activities)
 }
 
-// CreateBooking POST /bookings
-func CreateBooking(c *gin.Context) {
+// CreateActivity POST /activities
+func CreateActivity(c *gin.Context) {
 	// validate input
-	var input models.CreateBookingInput
+	var input models.CreateActivityInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// create booking
-	booking := models.Booking{Remarks: input.Remarks, StartedAt: input.StartedAt, FinishedAt: input.FinishedAt}
-	models.DB.Create(&booking)
+	// create activity
+	activity := models.Activity{Remarks: input.Remarks, StartedAt: input.StartedAt, FinishedAt: input.FinishedAt}
+	models.DB.Create(&activity)
 
-	c.JSON(http.StatusOK, booking)
+	c.JSON(http.StatusOK, activity)
 }
 
-// UpdateBooking PUT /bookings/:id
-func UpdateBooking(c *gin.Context) {
+// UpdateActivity PUT /activities/:id
+func UpdateActivity(c *gin.Context) {
 	// Get model if exist
-	var booking models.Booking
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&booking).Error; err != nil {
+	var activity models.Activity
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&activity).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 
 	// validate input
-	var input models.UpdateBookingInput
+	var input models.UpdateActivityInput
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	models.DB.Model(&booking).Updates(input)
+	models.DB.Model(&activity).Updates(input)
 
-	c.JSON(http.StatusOK, booking)
+	c.JSON(http.StatusOK, activity)
 }
 
-// DeleteBooking DELETE /bookings/:id
-func DeleteBooking(c *gin.Context) {
+// DeleteActivity DELETE /activities/:id
+func DeleteActivity(c *gin.Context) {
 	// Get model if exist
-	var booking models.Booking
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&booking).Error; err != nil {
+	var activity models.Activity
+	if err := models.DB.Where("id = ?", c.Param("id")).First(&activity).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 
-	models.DB.Delete(&booking)
+	models.DB.Delete(&activity)
 
 	c.JSON(http.StatusOK, true)
 }

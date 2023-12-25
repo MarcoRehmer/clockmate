@@ -30,6 +30,6 @@ export const getBookings = createAsyncThunk<Array<Booking>, void, { state: AppSt
       rangeTo: bookings.query.selectedRange?.to,
     };
 
-    return (await api.bookings.getBookings(query)).map((booking) => mapBookingDtoToBooking(booking));
+    return (await api.activities.getActivities(query)).map((booking) => mapBookingDtoToBooking(booking));
   }
 );

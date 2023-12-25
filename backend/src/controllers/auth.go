@@ -3,7 +3,6 @@ package controllers
 import (
 	"clockmate/backend/models"
 	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"log"
@@ -23,7 +22,6 @@ func Login(c *gin.Context) {
 
 	// try to log in
 	var user models.User
-	fmt.Println(c.Params)
 
 	if err := models.DB.Where("email = ?", input.Email).First(&user).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "invalid credentials"})
@@ -35,7 +33,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	token, err := generateJWT(user.ID)
+	token, err := generateJWT(user.UserID)
 	if err != nil {
 		c.Status(http.StatusInternalServerError)
 		log.Println("Error while generating JWT: ", err)

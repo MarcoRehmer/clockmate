@@ -1,21 +1,30 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
-type Booking struct {
-	ID         uint       `json:"id" gorm:"primaryKey"`
+// Activity database model
+type Activity struct {
+	ActivityID uint       `json:"activityID" gorm:"primaryKey"`
 	Remarks    *string    `json:"remarks"`
-	StartedAt  time.Time  `json:"startedAt"`
+	StartedAt  time.Time  `json:"startedAt" gorm:"not null"`
 	FinishedAt *time.Time `json:"finishedAt"`
+	User       User
+	UserID     uint
+	Client     Client
+	ClientID   uint
+	Project    Project
+	ProjectID  uint
 }
 
-type CreateBookingInput struct {
+type CreateActivityInput struct {
 	Remarks    *string    `json:"remarks"`
 	StartedAt  time.Time  `json:"startedAt" binding:"required"`
 	FinishedAt *time.Time `json:"finishedAt"`
 }
 
-type UpdateBookingInput struct {
+type UpdateActivityInput struct {
 	Remarks    *string    `json:"remarks"`
 	StartedAt  *time.Time `json:"startedAt"`
 	FinishedAt *time.Time `json:"finishedAt"`

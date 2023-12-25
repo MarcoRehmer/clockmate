@@ -35,7 +35,7 @@ export const editBooking = createAsyncThunk(
       }
       return acc;
     }, {} as { [key: string]: any });
-    const updatedBooking = await api.bookings.update(bookingId, updateObj);
+    const updatedBooking = await api.activities.update(bookingId, updateObj);
     return mapBookingDtoToBooking(updatedBooking);
   }
 );

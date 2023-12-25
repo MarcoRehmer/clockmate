@@ -54,7 +54,7 @@ export const CurrentRunningCard = () => {
         anchorEl={detailAnchorEl}
         onClose={closeDetails}
       >
-        <Box sx={{ p: 2, width: 400, display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ p: 2, minWidth: 300, display: 'flex', flexDirection: 'column' }}>
           <Typography sx={{ color: 'text.main' }} className="grow">
             Remarks
           </Typography>

@@ -30,10 +30,10 @@ func main() {
 	// bookings
 	v1 := r.Group("/api")
 	{
-		v1.GET("/bookings", controllers.FindBookings)
-		v1.POST("/bookings", controllers.CreateBooking)
-		v1.PUT("/bookings/:id", controllers.UpdateBooking)
-		v1.DELETE("/bookings/:id", controllers.DeleteBooking)
+		v1.GET("/activities", controllers.FindActivities)
+		v1.POST("/activities", controllers.CreateActivity)
+		v1.PUT("/activities/:id", controllers.UpdateActivity)
+		v1.DELETE("/activities/:id", controllers.DeleteActivity)
 
 		// auth
 		v1.POST("/login", controllers.Login)

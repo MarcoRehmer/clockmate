@@ -21,8 +21,8 @@ export const apiClient: ApiClient = {
       return Promise.resolve();
     },
   },
-  bookings: {
-    getBookings: async (params?: BookingsQueryDto): Promise<ReadonlyArray<BookingDto>> => {
+  activities: {
+    getActivities: async (params?: BookingsQueryDto): Promise<ReadonlyArray<BookingDto>> => {
       // query.clientId && params.push(['clientId', query.clientId.toString()]);
 
       // query.clientId && params.append('clientId', query.clientId.toString());
@@ -33,7 +33,7 @@ export const apiClient: ApiClient = {
 
       const { data } = await (
         await getAxiosClient()
-      ).get('/bookings', {
+      ).get('/activities', {
         params,
         paramsSerializer: (params) => {
           const serializedParams: string[] = [];
@@ -71,17 +71,17 @@ export const apiClient: ApiClient = {
       // TODO: error handling with redirect to login page if not authenticated
     },
     create: async function (booking: CreateBookingDto): Promise<BookingDto> {
-      const { data } = await (await getAxiosClient()).post('/bookings', booking);
+      const { data } = await (await getAxiosClient()).post('/activities', booking);
       return data;
 
       // TODO: add error handling
     },
     update: async function (bookingId: number, booking: Partial<Omit<BookingDto, 'id'>>): Promise<BookingDto> {
-      const { data } = await (await getAxiosClient()).put(`/bookings/${bookingId}`, booking);
+      const { data } = await (await getAxiosClient()).put(`/activities/${bookingId}`, booking);
       return data;
     },
     delete: async function (bookingId: number): Promise<number> {
-      const { data } = await (await getAxiosClient()).delete(`/bookings/${bookingId}`);
+      const { data } = await (await getAxiosClient()).delete(`/activities/${bookingId}`);
       if (data === true) {
         return bookingId;
       } else {

@@ -1,6 +1,6 @@
 export interface ApiClient {
-  bookings: {
-    getBookings(query?: BookingsQueryDto): Promise<ReadonlyArray<BookingDto>>;
+  activities: {
+    getActivities(query?: BookingsQueryDto): Promise<ReadonlyArray<BookingDto>>;
     create(booking: CreateBookingDto): Promise<BookingDto>;
     update(bookingId: number, booking: UpdateBookingDto): Promise<BookingDto>;
     delete(bookingId: number): Promise<number>;
