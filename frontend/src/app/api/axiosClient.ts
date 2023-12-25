@@ -7,5 +7,6 @@ export async function getAxiosClient() {
     headers: {
       'Content-type': 'application/json',
     },
+    withCredentials: true,
   });
 }

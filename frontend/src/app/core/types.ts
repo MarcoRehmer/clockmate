@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 
-export interface Booking {
+export interface Activity {
   id: number;
   startedAt: DateTime;
   finishedAt?: DateTime;
@@ -12,6 +12,7 @@ export interface Booking {
 export interface Client {
   id: number;
   name: string;
+  clientNumber?: string;
   projects: ReadonlyArray<Project>;
 }
 

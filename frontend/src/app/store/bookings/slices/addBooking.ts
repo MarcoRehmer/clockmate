@@ -1,8 +1,8 @@
 import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import { BookingsState } from '../bookingState';
-import { CreateBookingDto } from '@/app/api/types';
+import { CreateActivityDto } from '@/app/api/types';
 import { api } from '@/app/api/api';
-import { Booking } from '@/app/core/types';
+import { Activity } from '@/app/core/types';
 import { getBookings } from '@/app/store/bookings/slices/getBookings';
 import { AppState } from '@/app/store/store';
 
@@ -19,15 +19,15 @@ export const addBookingSlice = (builder: ActionReducerMapBuilder<BookingsState>)
   });
 };
 
-export const addBooking = createAsyncThunk<void, Omit<Booking, "id">, { state: AppState }>(
+export const addBooking = createAsyncThunk<void, Omit<Activity, "id">, { state: AppState }>(
   'bookings/addBooking',
-  async (booking: Omit<Booking, 'id'>, { dispatch }) => {
+  async (booking: Omit<Activity, 'id'>, { dispatch }) => {
     const startedAtISO = booking.startedAt.toISO();
     if (!startedAtISO) {
       throw new Error(`booking startedAt could not be serialized to ISO format (value: ${booking.startedAt})`);
     }
 
-    const payload: CreateBookingDto = {
+    const payload: CreateActivityDto = {
       startedAt: startedAtISO,
       finishedAt: booking.finishedAt?.toISO() || undefined,
       projectId: booking.projectId,

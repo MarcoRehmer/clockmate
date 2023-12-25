@@ -1,7 +1,7 @@
-import { ApiClient, BookingDto, CreateBookingDto, UpdateBookingDto } from '@/app/api/types';
-import { bookingsMock } from '@/app/api/mocks/bookings.mock';
+import { ActivityDto, ApiClient, CreateActivityDto, UpdateActivityDto } from '@/app/api/types';
+import { activitiesMock } from '@/app/api/mocks/activitiesMock';
 
-const bookings: Array<BookingDto> = [...bookingsMock];
+const activities: Array<ActivityDto> = [...activitiesMock];
 
 export const mockClient: ApiClient = {
   auth: {
@@ -13,41 +13,41 @@ export const mockClient: ApiClient = {
     },
   },
   activities: {
-    getActivities: async (filter?: unknown): Promise<ReadonlyArray<BookingDto>> => {
-      return Promise.resolve(bookings);
+    getActivities: async (filter?: unknown): Promise<ReadonlyArray<ActivityDto>> => {
+      return Promise.resolve(activities);
     },
-    create: (booking: CreateBookingDto): Promise<BookingDto> => {
-      console.debug(`create booking: ${JSON.stringify(booking)}`);
-      const createdBooking = {
-        id: Math.max(...bookings.map((v) => v.id)) + 1,
-        startedAt: booking.startedAt,
-        remarks: booking.remarks,
-        finishedAt: booking.finishedAt,
-        projectId: booking.projectId,
-        customerId: booking.clientId,
+    create: (activity: CreateActivityDto): Promise<ActivityDto> => {
+      console.debug(`create activity: ${JSON.stringify(activity)}`);
+      const createdActivity = {
+        id: Math.max(...activities.map((v) => v.activityID)) + 1,
+        startedAt: activity.startedAt,
+        remarks: activity.remarks,
+        finishedAt: activity.finishedAt,
+        projectId: activity.projectId,
+        customerId: activity.clientId,
       };
 
-      bookings.push(createdBooking);
+      activities.push(createdActivity);
 
-      return Promise.resolve(createdBooking);
+      return Promise.resolve(createdActivity);
     },
-    update: (bookingId: number, booking: UpdateBookingDto) => {
-      console.debug(`update booking with ID ${bookingId}, payload: ${JSON.stringify(booking)}`);
-      const existingBooking = bookings.find((b) => b.id === bookingId);
-      if (!existingBooking) {
-        throw new Error(`booking with ID ${bookingId} not found`);
+    update: (activityID: number, activity: UpdateActivityDto) => {
+      console.debug(`update activity with ID ${activityID}, payload: ${JSON.stringify(activity)}`);
+      const existingActivity = activities.find((b) => b.activityID === activityID);
+      if (!existingActivity) {
+        throw new Error(`activity with ID ${activityID} not found`);
       }
 
-      bookings.splice(bookings.indexOf(existingBooking), 1, { ...existingBooking, ...booking });
-      return Promise.resolve({ ...existingBooking, ...booking });
+      activities.splice(activities.indexOf(existingActivity), 1, { ...existingActivity, ...activity });
+      return Promise.resolve({ ...existingActivity, ...activity });
     },
-    delete: (bookingId: number) => {
-      console.log('delete booking with ID', bookingId);
-      bookings.slice(
-        bookings.findIndex((b) => b.id === bookingId),
+    delete: (activityID: number) => {
+      console.log('delete activity with ID', activityID);
+      activities.slice(
+        activities.findIndex((b) => b.activityID === activityID),
         1
       );
-      return Promise.resolve(bookingId);
+      return Promise.resolve(activityID);
     },
   },
   settings: {},

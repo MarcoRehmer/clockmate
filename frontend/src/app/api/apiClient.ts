@@ -1,4 +1,4 @@
-import { ApiClient, BookingDto, BookingsQueryDto, CreateBookingDto } from '@/app/api/types';
+import { ActivitiesQueryDto, ActivityDto, ApiClient, CreateActivityDto } from '@/app/api/types';
 import { setToken } from '../auth/session';
 import { getAxiosClient } from '@/app/api/axiosClient';
 
@@ -6,7 +6,7 @@ export const apiClient: ApiClient = {
   auth: {
     login: async (email: string, password: string) => {
       // TODO hash password here
-      const resp = await (await getAxiosClient()).post('/login', { email, password });
+      const resp = await (await getAxiosClient()).post('/login', { email, password }, { withCredentials: false });
       // TODO: dont send token in clear text through the network!!!
 
       if (resp.status !== 200) {
@@ -22,7 +22,7 @@ export const apiClient: ApiClient = {
     },
   },
   activities: {
-    getActivities: async (params?: BookingsQueryDto): Promise<ReadonlyArray<BookingDto>> => {
+    getActivities: async (params?: ActivitiesQueryDto): Promise<ReadonlyArray<ActivityDto>> => {
       // query.clientId && params.push(['clientId', query.clientId.toString()]);
 
       // query.clientId && params.append('clientId', query.clientId.toString());
@@ -70,13 +70,16 @@ export const apiClient: ApiClient = {
       // TODO: add error handling
       // TODO: error handling with redirect to login page if not authenticated
     },
-    create: async function (booking: CreateBookingDto): Promise<BookingDto> {
+    create: async function (booking: CreateActivityDto): Promise<ActivityDto> {
       const { data } = await (await getAxiosClient()).post('/activities', booking);
       return data;
 
       // TODO: add error handling
     },
-    update: async function (bookingId: number, booking: Partial<Omit<BookingDto, 'id'>>): Promise<BookingDto> {
+    update: async function (
+      bookingId: number,
+      booking: Partial<Omit<ActivityDto, 'activityID'>>
+    ): Promise<ActivityDto> {
       const { data } = await (await getAxiosClient()).put(`/activities/${bookingId}`, booking);
       return data;
     },

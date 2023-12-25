@@ -1,8 +1,8 @@
 export interface ApiClient {
   activities: {
-    getActivities(query?: BookingsQueryDto): Promise<ReadonlyArray<BookingDto>>;
-    create(booking: CreateBookingDto): Promise<BookingDto>;
-    update(bookingId: number, booking: UpdateBookingDto): Promise<BookingDto>;
+    getActivities(query?: ActivitiesQueryDto): Promise<ReadonlyArray<ActivityDto>>;
+    create(booking: CreateActivityDto): Promise<ActivityDto>;
+    update(bookingId: number, booking: UpdateActivityDto): Promise<ActivityDto>;
     delete(bookingId: number): Promise<number>;
   };
   auth: {
@@ -12,7 +12,7 @@ export interface ApiClient {
   settings: {};
 }
 
-export interface BookingsQueryDto {
+export interface ActivitiesQueryDto {
   rangeFrom?: string;
   rangeTo?: string;
   orderBy?: { prop: string; direction: 'asc' | 'desc' };
@@ -21,8 +21,8 @@ export interface BookingsQueryDto {
   clientId?: number;
 }
 
-export interface BookingDto {
-  id: number;
+export interface ActivityDto {
+  activityID: number;
   startedAt: string;
   finishedAt?: string;
   remarks?: string;
@@ -30,7 +30,7 @@ export interface BookingDto {
   clientId?: number;
 }
 
-export interface CreateBookingDto {
+export interface CreateActivityDto {
   startedAt: string;
   finishedAt?: string;
   remarks?: string;
@@ -38,4 +38,4 @@ export interface CreateBookingDto {
   clientId?: number;
 }
 
-export type UpdateBookingDto = Partial<Omit<BookingDto, 'id'>>;
+export type UpdateActivityDto = Partial<Omit<ActivityDto, 'activityID'>>;

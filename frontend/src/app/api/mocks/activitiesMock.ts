@@ -1,9 +1,9 @@
-import { BookingDto } from '@/app/api/types';
+import { ActivityDto } from '@/app/api/types';
 import { DateTime } from 'luxon';
 
-export const bookingsMock: ReadonlyArray<BookingDto> = [
+export const activitiesMock: ReadonlyArray<ActivityDto> = [
   {
-    id: 1,
+    activityID: 1,
     clientId: 1,
     projectId: 1,
     remarks: 'My very first booking',
@@ -11,7 +11,7 @@ export const bookingsMock: ReadonlyArray<BookingDto> = [
     finishedAt: DateTime.now().toISODate() || undefined,
   },
   {
-    id: 2,
+    activityID: 2,
     clientId: 1,
     projectId: 1,
     remarks: 'My second booking',

@@ -7,7 +7,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { DeleteBookingDialog } from '../DeleteBookingDialog/DeleteBookingDialog';
 import { BookingRowMenu } from '../BookingRowMenu/BookingRowMenu';
 import { EditBookingDialog } from '../EditBookingDialog/EditBookingDialog';
-import { Booking } from '@/app/core/types';
+import { Activity } from '@/app/core/types';
 import { getBookings } from '@/app/store/bookings/slices/getBookings';
 import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
 import { editBooking } from '@/app/store/bookings/slices/editBooking';
@@ -18,9 +18,9 @@ import { createTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 export const BookingTable = () => {
-  const bookings = useSelector(selectCurrentBookings);
+  const activities = useSelector(selectCurrentBookings);
   const [rowMenuAnchor, setRowMenuAnchor] = useState<HTMLElement | null>(null);
-  const [selectedBooking, setSelectedBooking] = useState<Booking | undefined>(undefined);
+  const [selectedBooking, setSelectedBooking] = useState<Activity | undefined>(undefined);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
 
@@ -47,7 +47,7 @@ export const BookingTable = () => {
     selectedBooking && dispatch(deleteBooking(selectedBooking.id));
   };
 
-  const handleEditBooking = (booking: Booking) => {
+  const handleEditBooking = (booking: Activity) => {
     dispatch(editBooking({ bookingId: booking.id, partialBooking: booking }));
   };
 
@@ -64,9 +64,9 @@ export const BookingTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {bookings.map((row, index) => (
+            {activities.map((row, index) => (
               <React.Fragment key={row.id}>
-                {index === 0 || (index > 0 && row.startedAt.day !== bookings[index - 1].startedAt.day) ? (
+                {index === 0 || (index > 0 && row.startedAt.day !== activities[index - 1].startedAt.day) ? (
                   <TableRow>
                     <TableCell colSpan={4}>
                       <Typography sx={{ color: 'text.primary' }}>

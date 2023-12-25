@@ -4,6 +4,7 @@ import (
 	"clockmate/backend/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -26,6 +27,11 @@ func parseDateParam(c *gin.Context, queryKey string, defaultDate time.Time) (str
 
 // FindActivities GET /activities
 func FindActivities(c *gin.Context) {
+	userId, err := ExtractTokenUserID(c)
+	if err != nil {
+		return
+	}
+
 	var activities []models.Activity
 	dbQuery := models.DB
 
@@ -54,9 +60,12 @@ func FindActivities(c *gin.Context) {
 		dbQuery = dbQuery.Order("activity_id DESC")
 	}
 
+	dbQuery = dbQuery.Where("user_id = ?", userId)
 	dbQuery.Find(&activities)
 
+	log.Println("activities", activities)
 	c.JSON(http.StatusOK, activities)
+	return
 }
 
 // CreateActivity POST /activities

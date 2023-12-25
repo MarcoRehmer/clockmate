@@ -22,14 +22,15 @@ func main() {
 
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowOrigins = []string{corsOrigin}
+	corsConfig.AllowCredentials = true
 
 	r.Use(cors.New(corsConfig))
 
 	models.ConnectDatabase()
 
-	// bookings
 	v1 := r.Group("/api")
 	{
+		// activities
 		v1.GET("/activities", controllers.FindActivities)
 		v1.POST("/activities", controllers.CreateActivity)
 		v1.PUT("/activities/:id", controllers.UpdateActivity)

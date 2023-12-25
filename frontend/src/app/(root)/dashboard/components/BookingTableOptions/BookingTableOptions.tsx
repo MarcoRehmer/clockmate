@@ -3,7 +3,7 @@ import { RangeSelector } from '../RangeSelector/RangeSelector';
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
-import { Booking } from '@/app/core/types';
+import { Activity } from '@/app/core/types';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/app/store/store';
 import { addBooking } from '@/app/store/bookings/slices/addBooking';
@@ -17,7 +17,7 @@ export const BookingTableOptions = () => {
   const [createBookingOpen, setCreateBookingOpen] = useState(false);
 
   const handleAddNewBooking = () => setCreateBookingOpen(true);
-  const handleNewBookingClose = (booking: Omit<Booking, 'id'> | undefined) => {
+  const handleNewBookingClose = (booking: Omit<Activity, 'id'> | undefined) => {
     if (booking) {
       dispatch(addBooking(booking));
     }

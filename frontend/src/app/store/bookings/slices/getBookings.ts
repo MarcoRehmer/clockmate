@@ -2,9 +2,9 @@ import { ActionReducerMapBuilder, createAsyncThunk } from '@reduxjs/toolkit';
 import { BookingsState } from '../bookingState';
 import { api } from '@/app/api/api';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
-import { Booking } from '@/app/core/types';
+import { Activity } from '@/app/core/types';
 import { AppState } from '@/app/store/store';
-import { BookingsQueryDto } from '@/app/api/types';
+import { ActivitiesQueryDto } from '@/app/api/types';
 
 export const getBookingsSlice = (builder: ActionReducerMapBuilder<BookingsState>) => {
   builder.addCase(getBookings.pending, (state) => {
@@ -20,12 +20,12 @@ export const getBookingsSlice = (builder: ActionReducerMapBuilder<BookingsState>
   });
 };
 
-export const getBookings = createAsyncThunk<Array<Booking>, void, { state: AppState }>(
+export const getBookings = createAsyncThunk<Array<Activity>, void, { state: AppState }>(
   'bookings/getBookings',
   async (_, { getState }) => {
     const { bookings } = getState();
 
-    const query: BookingsQueryDto = {
+    const query: ActivitiesQueryDto = {
       rangeFrom: bookings.query.selectedRange?.from,
       rangeTo: bookings.query.selectedRange?.to,
     };

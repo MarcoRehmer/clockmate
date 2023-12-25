@@ -1,4 +1,4 @@
-import { Booking } from '@/app/core/types';
+import { Activity } from '@/app/core/types';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { TimeField } from '@mui/x-date-pickers';
 import { DateTime } from 'luxon';
@@ -13,8 +13,8 @@ export const EditBookingDialog = ({
 }: {
   openDialog: boolean;
   setOpenDialog: (open: boolean) => void;
-  booking: Booking;
-  onBookingEdited: (booking: Booking) => void;
+  booking: Activity;
+  onBookingEdited: (booking: Activity) => void;
 }) => {
   const [remarks, setRemarks] = useState(booking.remarks);
   const [startedAt, setStartedAt] = useState<DateTime>(booking.startedAt);

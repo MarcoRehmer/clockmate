@@ -43,6 +43,43 @@ func Login(c *gin.Context) {
 	return
 }
 
+func ExtractTokenUserID(c *gin.Context) (uint, error) {
+	tokenString, err := c.Cookie("token")
+	if err != nil {
+		log.Println("Error while extracting token: ", err)
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return 0, err
+	}
+
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		secret := os.Getenv("JWT_SECRET_KEY")
+		if secret == "" {
+			return nil, errors.New("JWT_SECRET_KEY not found in env")
+		}
+		return []byte(secret), nil
+	})
+
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return 0, err
+	}
+
+	claims, ok := token.Claims.(jwt.MapClaims)
+	if !ok || !token.Valid {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return 0, err
+	}
+
+	userId, err := strconv.ParseUint(claims["iss"].(string), 10, 32)
+	if err != nil {
+		log.Println("Error while parsing user ID from token: ", err)
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
+		return 0, err
+	}
+
+	return uint(userId), nil
+}
+
 func generateJWT(userId uint) (string, error) {
 	secret := os.Getenv("JWT_SECRET_KEY")
 	if secret == "" {

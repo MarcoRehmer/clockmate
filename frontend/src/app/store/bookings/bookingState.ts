@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Booking } from '../../core/types';
+import { Activity } from '../../core/types';
 import { getBookingsSlice } from './slices/getBookings';
 import { addBookingSlice } from './slices/addBooking';
 import { deleteBookingSlice } from './slices/deletBooking';
 import { editBookingSlice } from './slices/editBooking';
 
 export interface BookingsState {
-  bookings: ReadonlyArray<Booking>;
+  bookings: ReadonlyArray<Activity>;
   loading: boolean;
   query: {
     selectedRange?: { from: string; to: string };

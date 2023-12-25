@@ -1,4 +1,4 @@
-import { Booking } from '@/app/core/types';
+import { Activity } from '@/app/core/types';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 import { DatePicker, TimeField } from '@mui/x-date-pickers';
 import { useState } from 'react';
@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 
 interface CreateBookingDialogProps {
   open: boolean;
-  handleClose: (booking: Omit<Booking, 'id'> | undefined) => void;
+  handleClose: (booking: Omit<Activity, 'id'> | undefined) => void;
 }
 
 export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogProps) => {
