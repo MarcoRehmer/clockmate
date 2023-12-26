@@ -4,8 +4,8 @@ import (
 	"clockmate/backend/models"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm/clause"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -54,12 +54,15 @@ func FindActivities(c *gin.Context) {
 	//}
 
 	if orderByParam, orderOk := c.GetQueryMap("orderBy"); orderOk {
-		dbQuery = dbQuery.Order(orderByParam["prop"] + " " + strings.ToUpper(orderByParam["direction"]))
+		dbQuery = dbQuery.Order(clause.OrderByColumn{
+			Column: clause.Column{Name: orderByParam["prop"]},
+			Desc:   orderByParam["direction"] == "desc"},
+		)
 	} else {
-		dbQuery = dbQuery.Order("activity_id DESC")
+		dbQuery = dbQuery.Order(clause.OrderByColumn{Column: clause.Column{Name: "started_at"}, Desc: true})
 	}
 
-	dbQuery = dbQuery.Where("user_id = ?", userId)
+	dbQuery = dbQuery.Where(models.Activity{UserID: userId})
 	dbQuery.Find(&activities)
 
 	c.JSON(http.StatusOK, activities)
@@ -100,16 +103,21 @@ func CreateActivity(c *gin.Context) {
 
 // UpdateActivity PUT /activities/:id
 func UpdateActivity(c *gin.Context) {
+	userId, err := ExtractTokenUserID(c)
+	if err != nil {
+		return
+	}
+
 	// Get model if exist
 	var activity models.Activity
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&activity).Error; err != nil {
+	if err = models.DB.Model(models.Activity{UserID: userId}).First(&activity, c.Param("id")).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
 
 	// validate input
 	var input models.UpdateActivityInput
-	if err := c.ShouldBindJSON(&input); err != nil {
+	if err = c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -120,9 +128,14 @@ func UpdateActivity(c *gin.Context) {
 
 // DeleteActivity DELETE /activities/:id
 func DeleteActivity(c *gin.Context) {
+	userId, err := ExtractTokenUserID(c)
+	if err != nil {
+		return
+	}
+
 	// Get model if exist
 	var activity models.Activity
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&activity).Error; err != nil {
+	if err = models.DB.Model(models.Activity{UserID: userId}).First(&activity, c.Param("id")).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}

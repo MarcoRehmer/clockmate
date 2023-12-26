@@ -27,15 +27,15 @@ export const UserSummaryCard = () => {
             <div className="flex gap-x-8 flex-wrap">
               <div className="flex gap-2">
                 <Typography sx={{ color: 'text.primary' }}>Today:</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>3h 50min</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>0:00 h</Typography>
               </div>
               <div className="flex gap-2">
                 <Typography sx={{ color: 'text.primary' }}>Week:</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>25h 30min</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>0:00 h</Typography>
               </div>
               <div className="flex gap-2">
                 <Typography sx={{ color: 'text.primary' }}>Month:</Typography>
-                <Typography sx={{ color: 'text.secondary' }}>120h 45min</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>0:00 h</Typography>
               </div>
             </div>
           </div>
