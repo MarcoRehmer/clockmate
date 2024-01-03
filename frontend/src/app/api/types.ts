@@ -9,6 +9,9 @@ export interface ApiClient {
     login(username: string, passwordHash: string): Promise<boolean>;
     logout(): Promise<void>;
   };
+  users: {
+    current(): Promise<UserInfoDto>;
+  };
   settings: {};
 }
 
@@ -39,3 +42,11 @@ export interface CreateActivityDto {
 }
 
 export type UpdateActivityDto = Partial<Omit<ActivityDto, 'activityID'>>;
+
+export interface UserInfoDto {
+  userID: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  active: boolean;
+}

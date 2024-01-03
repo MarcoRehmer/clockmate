@@ -36,6 +36,9 @@ func main() {
 		v1.PUT("/activities/:id", controllers.UpdateActivity)
 		v1.DELETE("/activities/:id", controllers.DeleteActivity)
 
+		// users
+		v1.GET("/users/current", controllers.CurrentUser)
+
 		// auth
 		v1.POST("/login", controllers.Login)
 	}

@@ -77,19 +77,29 @@ export const apiClient: ApiClient = {
       // TODO: add error handling
     },
     update: async function (
-      bookingId: number,
-      booking: Partial<Omit<ActivityDto, 'activityID'>>
+      activityId: number,
+      activity: Partial<Omit<ActivityDto, 'activityID'>>
     ): Promise<ActivityDto> {
-      const { data } = await (await getAxiosClient()).put(`/activities/${bookingId}`, booking);
+      const { data } = await (await getAxiosClient()).put(`/activities/${activityId}`, activity);
       return data;
     },
-    delete: async function (bookingId: number): Promise<number> {
-      const { data } = await (await getAxiosClient()).delete(`/activities/${bookingId}`);
+    delete: async function (activityId: number): Promise<number> {
+      const { data } = await (await getAxiosClient()).delete(`/activities/${activityId}`);
       if (data === true) {
-        return bookingId;
+        return activityId;
       } else {
-        throw new Error(`error while deleting booking with ID ${bookingId}`);
+        throw new Error(`error while deleting booking with ID ${activityId}`);
       }
+    },
+  },
+  users: {
+    current: async () => {
+      const response = await (await getAxiosClient()).get('/users/current');
+      if (response.status !== 200) {
+        throw new Error('Failed to get current user');
+      }
+
+      return response.data;
     },
   },
   settings: {},
