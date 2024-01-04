@@ -110,7 +110,7 @@ func UpdateActivity(c *gin.Context) {
 
 	// Get model if exist
 	var activity models.Activity
-	if err = models.DB.Model(models.Activity{UserID: userId}).First(&activity, c.Param("id")).Error; err != nil {
+	if err = models.DB.Where(models.Activity{UserID: userId}).First(&activity, c.Param("id")).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -135,7 +135,7 @@ func DeleteActivity(c *gin.Context) {
 
 	// Get model if exist
 	var activity models.Activity
-	if err = models.DB.Model(models.Activity{UserID: userId}).First(&activity, c.Param("id")).Error; err != nil {
+	if err = models.DB.Where(models.Activity{UserID: userId}).First(&activity, c.Param("id")).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
