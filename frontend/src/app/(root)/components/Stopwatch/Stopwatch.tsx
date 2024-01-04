@@ -5,19 +5,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import StopIcon from '@mui/icons-material/Stop';
 import { Box, Button, IconButton, Popover, TextField, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/app/store/store';
-import { addBooking } from '@/app/store/bookings/slices/addBooking';
+import React, { useEffect, useState } from 'react';
+
 import { DateTime } from 'luxon';
-import { selectCurrentActiveBooking } from '@/app/store/bookings/bookingSelectors';
-import { editBooking } from '@/app/store/bookings/slices/editBooking';
-import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
+import { Activity } from '@/app/core/types';
 
-export const Stopwatch = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const currentActiveBooking = useSelector(selectCurrentActiveBooking);
-
+export const Stopwatch = (props: { currentActivity: Activity | undefined }) => {
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [popoverAnchorEl, setPopoverAnchorEl] = useState<null | HTMLElement>(null);
   const [remarks, setRemarks] = useState('');
@@ -25,15 +18,15 @@ export const Stopwatch = () => {
 
   const popoverOpen = Boolean(popoverAnchorEl);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = DateTime.now();
-      const diff = now.diff(currentActiveBooking?.startedAt ?? now, 'seconds');
-      setCurrentTime(diff.toFormat('hh:mm:ss'));
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [currentActiveBooking]);
+  // useEffect(() => {
+  //   // const interval = setInterval(() => {
+  //   //   const now = DateTime.now();
+  //   //   const diff = now.diff(currentActiveBooking?.startedAt ?? now, 'seconds');
+  //   //   setCurrentTime(diff.toFormat('hh:mm:ss'));
+  //   // }, 1000);
+  //
+  //   return () => clearInterval(interval);
+  // }, [currentActiveBooking]);
 
   const handleStartClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     resetForm();
@@ -43,11 +36,11 @@ export const Stopwatch = () => {
 
   const handleRunStopwatchClick = () => {
     // stop current task first
-    currentActiveBooking &&
-      dispatch(editBooking({ bookingId: currentActiveBooking.id, partialBooking: { finishedAt: DateTime.now() } }));
+    // currentActiveBooking &&
+    //   dispatch(editBooking({ bookingId: currentActiveBooking.id, partialBooking: { finishedAt: DateTime.now() } }));
 
     // start the new task
-    dispatch(addBooking({ startedAt: DateTime.now(), remarks }));
+    // dispatch(addBooking({ startedAt: DateTime.now(), remarks }));
     handlePopoverClose();
   };
 
@@ -56,8 +49,8 @@ export const Stopwatch = () => {
   };
 
   const handleStopClick = () => {
-    currentActiveBooking &&
-      dispatch(editBooking({ bookingId: currentActiveBooking.id, partialBooking: { finishedAt: DateTime.now() } }));
+    // currentActiveBooking &&
+    //   dispatch(editBooking({ bookingId: currentActiveBooking.id, partialBooking: { finishedAt: DateTime.now() } }));
   };
 
   const handleSwitchTaskClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -68,7 +61,7 @@ export const Stopwatch = () => {
 
   const handleDiscardClick = () => {
     // TODO: implement confirm dialog
-    currentActiveBooking && dispatch(deleteBooking(currentActiveBooking.id));
+    // currentActiveBooking && dispatch(deleteBooking(currentActiveBooking.id));
   };
 
   const resetForm = () => {
@@ -78,7 +71,7 @@ export const Stopwatch = () => {
   return (
     <>
       <div>
-        {currentActiveBooking !== undefined ? (
+        {props.currentActivity !== undefined ? (
           <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography sx={{ alignSelf: 'center', color: 'primary.main' }}>{currentTime}</Typography>
 

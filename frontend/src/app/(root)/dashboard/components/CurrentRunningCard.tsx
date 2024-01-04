@@ -4,15 +4,13 @@ import { Stopwatch } from '../../components/Stopwatch/Stopwatch';
 import Typography from '@mui/material/Typography';
 import { KeyboardArrowDown } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
-import { selectCurrentActiveBooking } from '@/app/store/bookings/bookingSelectors';
 import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
+import {Activity} from "@/app/core/types";
 
-export const CurrentRunningCard = () => {
+export const CurrentRunningCard = (props: {currentActivity: Activity | undefined}) => {
   const [detailAnchorEl, setDetailAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(detailAnchorEl);
-
-  const currentActiveBooking = useSelector(selectCurrentActiveBooking);
 
   const openDetails = (target: HTMLButtonElement) => {
     setDetailAnchorEl(target);
@@ -59,7 +57,7 @@ export const CurrentRunningCard = () => {
             Remarks
           </Typography>
           <Typography sx={{ color: 'text.secondary' }} className="grow">
-            {currentActiveBooking?.remarks}
+            {props.currentActivity?.remarks}
           </Typography>
 
           <IconButton sx={{ alignSelf: 'flex-end' }} onClick={() => console.log('edit')}>
