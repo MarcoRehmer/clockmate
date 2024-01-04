@@ -1,34 +1,36 @@
 'use client';
 import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/app/store/store';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { DeleteBookingDialog } from '../DeleteBookingDialog/DeleteBookingDialog';
 import { BookingRowMenu } from '../BookingRowMenu/BookingRowMenu';
 import { EditBookingDialog } from '../EditBookingDialog/EditBookingDialog';
 import { Activity } from '@/app/core/types';
-import { getBookings } from '@/app/store/bookings/slices/getBookings';
-import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
-import { editBooking } from '@/app/store/bookings/slices/editBooking';
-import { selectCurrentBookings } from '@/app/store/bookings/bookingSelectors';
-import { DateTime } from 'luxon';
 import React from 'react';
-import { createTheme } from '@mui/material/styles';
+
 import Typography from '@mui/material/Typography';
+import { ApiContext } from '@/app/provider/appProvider';
+import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
 
 export const BookingTable = () => {
-  const activities = useSelector(selectCurrentBookings);
+  // const activities = useSelector(selectCurrentBookings);
+  const [activities, setActivities] = useState<Array<Activity>>([]);
   const [rowMenuAnchor, setRowMenuAnchor] = useState<HTMLElement | null>(null);
   const [selectedBooking, setSelectedBooking] = useState<Activity | undefined>(undefined);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
+  const api = useContext(ApiContext);
 
-  // TODO: move to better init location
-  const dispatch = useDispatch<AppDispatch>();
+  // const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    dispatch(getBookings());
-  }, [dispatch]);
+    const fetchData = async () => {
+      return (await api.activities.getActivities()).map((activity) => mapBookingDtoToBooking(activity));
+    };
+
+    fetchData()
+      .then((res) => setActivities(res))
+      .catch((err) => console.error('error while fetching data', err));
+  }, [api.activities]);
 
   const handleRowAction = (action: 'edit' | 'delete') => {
     switch (action) {
@@ -44,11 +46,13 @@ export const BookingTable = () => {
   };
 
   const handleDeleteBooking = () => {
-    selectedBooking && dispatch(deleteBooking(selectedBooking.id));
+    // selectedBooking && dispatch(deleteBooking(selectedBooking.id));
+    console.log('delete booking');
   };
 
   const handleEditBooking = (booking: Activity) => {
-    dispatch(editBooking({ bookingId: booking.id, partialBooking: booking }));
+    // dispatch(editBooking({ bookingId: booking.id, partialBooking: booking }));
+    console.log('edit booking');
   };
 
   return (
