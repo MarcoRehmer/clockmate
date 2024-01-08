@@ -2,27 +2,25 @@
 import { RangeSelector } from '../RangeSelector/RangeSelector';
 import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Activity } from '@/app/core/types';
-import { useDispatch } from 'react-redux';
 import { CreateBookingDialog } from '../CreateBookingDialog/CreateBookingDialog';
 import { DateTime } from 'luxon';
 import { TableFilter } from '../../Dashboard';
 
-export const BookingTableOptions = (props: { onFilterChanged: (filter: TableFilter) => void }) => {
+export const BookingTableOptions = (props: { onActivityAdded: (activity: Omit<Activity, 'id'>) => void, onFilterChanged: (filter: TableFilter) => void; }) => {
   const [createBookingOpen, setCreateBookingOpen] = useState(false);
 
   const handleAddNewBooking = () => setCreateBookingOpen(true);
-  const handleNewBookingClose = (booking: Omit<Activity, 'id'> | undefined) => {
-    if (booking) {
-      // dispatch(addBooking(booking));
-
+  const handleNewBookingClose = (activity: Omit<Activity, 'id'> | undefined) => {
+    if (activity) {
+      props.onActivityAdded(activity);
     }
 
     setCreateBookingOpen(false);
   };
 
-  const changeRange = (selectedRange: { from: DateTime; to: DateTime }) => {
+  const changeRange = (selectedRange: { from: DateTime; to: DateTime; }) => {
     props.onFilterChanged({
       rangeFrom: selectedRange.from.toFormat('yyyy-MM-dd') || '',
       rangeTo: selectedRange.to.toFormat('yyyy-MM-dd') || '',

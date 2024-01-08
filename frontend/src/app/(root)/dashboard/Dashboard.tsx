@@ -49,9 +49,9 @@ export const Dashboard = () => {
     const fetchCurrent = async () => await api.activities.getCurrentActivity();
 
     fetchCurrent()
-      .then((result) => result && setCurrentActivity(mapBookingDtoToBooking(result)))
+      .then((result) => setCurrentActivity((result && mapBookingDtoToBooking(result)) || undefined))
       .catch((err) => console.error('could not fetch current activity', err));
-  }, [api.activities]);
+  }, [api.activities, reload]);
 
   /* Handler */
   const handleFilterChanged = (filter: TableFilter) => {
@@ -59,22 +59,54 @@ export const Dashboard = () => {
   };
 
   const handleDeleteActivity = async (id: number) => {
-    await api.activities
-      .delete(id)
-      .then(() => console.log('delete succeeded')) // TODO: improve status handling
-      .catch((err) => console.error('delete failed', err));
+    await api.activities.delete(id).catch((err) => console.error('delete failed', err));
 
     setReload(true);
   };
 
   const handleEditActivity = async (id: number, activity: Activity) => {
-    await api.activities
-      .update(id, mapToUpdateActivity(activity))
-      .then(() => console.log('update succeeded')) // TODO: improve status handling
-      .catch((err) => console.error('update failed', err));
+    await api.activities.update(id, mapToUpdateActivity(activity));
 
     setReload(true); // TODO: check, why effect runs twice
   };
+
+  const handleActivityAdded = async (activity: Omit<Activity, 'id'>) => {
+    await api.activities
+      .create({
+        startedAt: activity.startedAt.toISO() || '',
+        finishedAt: activity.finishedAt?.toISO() || undefined,
+        remarks: activity.remarks,
+      })
+      .catch((err) => console.error('add activity failed', err));
+
+    setReload(true);
+  };
+
+  async function handleStopwatchStart(input: Omit<Activity, 'id'>) {
+    await handleActivityAdded(input);
+  }
+
+  async function handleStopwatchStop(activityId: number) {
+    await api.activities
+      .update(activityId, { finishedAt: DateTime.now().toISO() })
+      .catch(() => console.error('error while stopping activity with ID ', activityId));
+
+    setReload(true);
+  }
+
+  async function handleStopwatchDiscard(activityId: number) {
+    await api.activities
+      .delete(activityId)
+      .catch(() => console.error('error while discard activity with ID ', activityId));
+
+    setReload(true);
+  }
+
+  async function handleStopwatchSwitchTask(currentRunningActivityId: number, input: Omit<Activity, 'id'>) {
+    await handleStopwatchStop(currentRunningActivityId);
+
+    await handleStopwatchStart(input);
+  }
 
   return (
     <div
@@ -100,12 +132,18 @@ export const Dashboard = () => {
             },
           }}
         >
-          <CurrentRunningCard currentActivity={currentActivity} />
+          <CurrentRunningCard
+            currentActivity={currentActivity}
+            onStart={handleStopwatchStart}
+            onStop={handleStopwatchStop}
+            onSwitchTask={handleStopwatchSwitchTask}
+            onDiscard={handleStopwatchDiscard}
+          />
         </Box>
       </Box>
 
       <Card>
-        <BookingTableOptions onFilterChanged={handleFilterChanged} />
+        <BookingTableOptions onFilterChanged={handleFilterChanged} onActivityAdded={handleActivityAdded} />
         <BookingTable
           activities={activities}
           filter={tableFilter}

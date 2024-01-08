@@ -3,11 +3,12 @@ package main
 import (
 	"clockmate/backend/controllers"
 	models "clockmate/backend/models"
+	"log"
+	"os"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/lpernett/godotenv"
-	"log"
-	"os"
 )
 
 func main() {
@@ -32,6 +33,7 @@ func main() {
 	{
 		// activities
 		v1.GET("/activities", controllers.FindActivities)
+		v1.GET("/activities/current", controllers.CurrentActivity)
 		v1.POST("/activities", controllers.CreateActivity)
 		v1.PUT("/activities/:id", controllers.UpdateActivity)
 		v1.DELETE("/activities/:id", controllers.DeleteActivity)

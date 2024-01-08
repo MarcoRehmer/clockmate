@@ -89,8 +89,10 @@ export const apiClient: ApiClient = {
         throw new Error(`error while deleting booking with ID ${activityId}`);
       }
     },
-    getCurrentActivity: function (): Promise<ActivityDto | undefined> {
-      return Promise.resolve(undefined);
+    getCurrentActivity: async (): Promise<ActivityDto | undefined> => {
+      const { data } = await (await getAxiosClient()).get(`/activities/current`);
+
+      return data;
     },
   },
   users: {

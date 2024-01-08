@@ -2,9 +2,9 @@ export interface ApiClient {
   activities: {
     getActivities(query?: ActivitiesQueryDto): Promise<ReadonlyArray<ActivityDto>>;
     getCurrentActivity(): Promise<ActivityDto | undefined>;
-    create(booking: CreateActivityDto): Promise<ActivityDto>;
-    update(bookingId: number, booking: UpdateActivityDto): Promise<ActivityDto>;
-    delete(bookingId: number): Promise<number>;
+    create(activity: CreateActivityDto): Promise<ActivityDto>;
+    update(activityId: number, activity: UpdateActivityDto): Promise<ActivityDto>;
+    delete(activityId: number): Promise<number>;
   };
   auth: {
     login(username: string, passwordHash: string): Promise<boolean>;

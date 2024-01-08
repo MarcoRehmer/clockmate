@@ -3,12 +3,17 @@ import { Box, Card, IconButton, Popover } from '@mui/material';
 import { Stopwatch } from '../../components/Stopwatch/Stopwatch';
 import Typography from '@mui/material/Typography';
 import { KeyboardArrowDown } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import {Activity} from "@/app/core/types";
+import { Activity } from '@/app/core/types';
 
-export const CurrentRunningCard = (props: {currentActivity: Activity | undefined}) => {
+export const CurrentRunningCard = (props: {
+  currentActivity: Activity | undefined;
+  onStart: (input: Omit<Activity, 'id'>) => void;
+  onSwitchTask: (currentRunningActivityId: number, input: Omit<Activity, 'id'>) => void;
+  onStop: (activityId: number) => void;
+  onDiscard: (activityId: number) => void;
+}) => {
   const [detailAnchorEl, setDetailAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(detailAnchorEl);
 
@@ -22,7 +27,13 @@ export const CurrentRunningCard = (props: {currentActivity: Activity | undefined
 
   return (
     <Card sx={{ width: 300 }}>
-      <Stopwatch />
+      <Stopwatch
+        currentActivity={props.currentActivity}
+        onStart={props.onStart}
+        onStop={props.onStop}
+        onSwitchTask={props.onSwitchTask}
+        onDiscard={props.onDiscard}
+      />
       <div className="flex">
         <Typography
           sx={{
