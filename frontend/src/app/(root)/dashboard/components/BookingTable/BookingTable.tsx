@@ -1,34 +1,27 @@
 'use client';
-import { IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/app/store/store';
-import { useEffect, useState } from 'react';
+import { IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { DeleteBookingDialog } from '../DeleteBookingDialog/DeleteBookingDialog';
 import { BookingRowMenu } from '../BookingRowMenu/BookingRowMenu';
 import { EditBookingDialog } from '../EditBookingDialog/EditBookingDialog';
 import { Activity } from '@/app/core/types';
-import { getBookings } from '@/app/store/bookings/slices/getBookings';
-import { deleteBooking } from '@/app/store/bookings/slices/deletBooking';
-import { editBooking } from '@/app/store/bookings/slices/editBooking';
-import { selectCurrentBookings } from '@/app/store/bookings/bookingSelectors';
-import { DateTime } from 'luxon';
 import React from 'react';
-import { createTheme } from '@mui/material/styles';
+
 import Typography from '@mui/material/Typography';
 
-export const BookingTable = () => {
-  const activities = useSelector(selectCurrentBookings);
+interface BookingTableProps {
+  activities: Array<Activity>;
+  filter: { rangeFrom: string; rangeTo: string };
+  onDeleteActivity: (id: number) => void;
+  onEditActivity: (id: number, activity: Activity) => void;
+}
+
+export const BookingTable = (props: BookingTableProps) => {
   const [rowMenuAnchor, setRowMenuAnchor] = useState<HTMLElement | null>(null);
-  const [selectedBooking, setSelectedBooking] = useState<Activity | undefined>(undefined);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
-
-  // TODO: move to better init location
-  const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(getBookings());
-  }, [dispatch]);
 
   const handleRowAction = (action: 'edit' | 'delete') => {
     switch (action) {
@@ -41,14 +34,6 @@ export const BookingTable = () => {
       default:
         console.log('unknown action');
     }
-  };
-
-  const handleDeleteBooking = () => {
-    selectedBooking && dispatch(deleteBooking(selectedBooking.id));
-  };
-
-  const handleEditBooking = (booking: Activity) => {
-    dispatch(editBooking({ bookingId: booking.id, partialBooking: booking }));
   };
 
   return (
@@ -64,9 +49,9 @@ export const BookingTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {activities.map((row, index) => (
+            {props.activities.map((row, index) => (
               <React.Fragment key={row.id}>
-                {index === 0 || (index > 0 && row.startedAt.day !== activities[index - 1].startedAt.day) ? (
+                {index === 0 || (index > 0 && row.startedAt.day !== props.activities[index - 1].startedAt.day) ? (
                   <TableRow>
                     <TableCell colSpan={4}>
                       <Typography sx={{ color: 'text.primary' }}>
@@ -100,7 +85,7 @@ export const BookingTable = () => {
                       aria-label="menu"
                       onClick={(event) => {
                         setRowMenuAnchor(event.currentTarget);
-                        setSelectedBooking(row);
+                        setSelectedActivity(row);
                       }}
                     >
                       <MoreVertIcon />
@@ -113,25 +98,25 @@ export const BookingTable = () => {
         </Table>
       </TableContainer>
 
-      {selectedBooking && (
+      {selectedActivity && (
         <BookingRowMenu anchorEl={rowMenuAnchor} setAnchor={setRowMenuAnchor} handleRowAction={handleRowAction} />
       )}
 
-      {selectedBooking && deleteDialogOpen && (
+      {selectedActivity && deleteDialogOpen && (
         <DeleteBookingDialog
           openDialog={deleteDialogOpen}
           setOpenDialog={setDeleteDialogOpen}
-          rowId={selectedBooking.id}
-          handleDeleteBooking={handleDeleteBooking}
+          rowId={selectedActivity.id}
+          handleDeleteBooking={() => props.onDeleteActivity(selectedActivity.id)}
         />
       )}
 
-      {selectedBooking && editDialogOpen && (
+      {selectedActivity && editDialogOpen && (
         <EditBookingDialog
           openDialog={editDialogOpen}
           setOpenDialog={setEditDialogOpen}
-          booking={selectedBooking}
-          onBookingEdited={handleEditBooking}
+          booking={selectedActivity}
+          onBookingEdited={(activity) => props.onEditActivity(selectedActivity.id, activity)}
         />
       )}
     </>

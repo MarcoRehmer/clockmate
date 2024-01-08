@@ -3,16 +3,19 @@ import { Box, Card, IconButton, Popover } from '@mui/material';
 import { Stopwatch } from '../../components/Stopwatch/Stopwatch';
 import Typography from '@mui/material/Typography';
 import { KeyboardArrowDown } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
-import { selectCurrentActiveBooking } from '@/app/store/bookings/bookingSelectors';
 import { useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
+import { Activity } from '@/app/core/types';
 
-export const CurrentRunningCard = () => {
+export const CurrentRunningCard = (props: {
+  currentActivity: Activity | undefined;
+  onStart: (input: Omit<Activity, 'id'>) => void;
+  onSwitchTask: (currentRunningActivityId: number, input: Omit<Activity, 'id'>) => void;
+  onStop: (activityId: number) => void;
+  onDiscard: (activityId: number) => void;
+}) => {
   const [detailAnchorEl, setDetailAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(detailAnchorEl);
-
-  const currentActiveBooking = useSelector(selectCurrentActiveBooking);
 
   const openDetails = (target: HTMLButtonElement) => {
     setDetailAnchorEl(target);
@@ -24,7 +27,13 @@ export const CurrentRunningCard = () => {
 
   return (
     <Card sx={{ width: 300 }}>
-      <Stopwatch />
+      <Stopwatch
+        currentActivity={props.currentActivity}
+        onStart={props.onStart}
+        onStop={props.onStop}
+        onSwitchTask={props.onSwitchTask}
+        onDiscard={props.onDiscard}
+      />
       <div className="flex">
         <Typography
           sx={{
@@ -59,7 +68,7 @@ export const CurrentRunningCard = () => {
             Remarks
           </Typography>
           <Typography sx={{ color: 'text.secondary' }} className="grow">
-            {currentActiveBooking?.remarks}
+            {props.currentActivity?.remarks}
           </Typography>
 
           <IconButton sx={{ alignSelf: 'flex-end' }} onClick={() => console.log('edit')}>

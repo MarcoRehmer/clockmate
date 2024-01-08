@@ -24,13 +24,11 @@ export const apiClient: ApiClient = {
   activities: {
     getActivities: async (params?: ActivitiesQueryDto): Promise<ReadonlyArray<ActivityDto>> => {
       // query.clientId && params.push(['clientId', query.clientId.toString()]);
-
       // query.clientId && params.append('clientId', query.clientId.toString());
       // query.projectId && params.append('projectId', query.projectId.toString());
       // query.rangeFrom && params.append('rangeFrom', query.rangeFrom);
       // query.rangeTo && params.append('rangeTo', query.rangeTo);
       // query.visibleValues && params.append('visibleValues', query.visibleValues);
-
       const { data } = await (
         await getAxiosClient()
       ).get('/activities', {
@@ -90,6 +88,11 @@ export const apiClient: ApiClient = {
       } else {
         throw new Error(`error while deleting booking with ID ${activityId}`);
       }
+    },
+    getCurrentActivity: async (): Promise<ActivityDto | undefined> => {
+      const { data } = await (await getAxiosClient()).get(`/activities/current`);
+
+      return data;
     },
   },
   users: {

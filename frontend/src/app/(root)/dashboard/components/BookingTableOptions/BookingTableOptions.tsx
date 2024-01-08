@@ -4,37 +4,27 @@ import { IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
 import { Activity } from '@/app/core/types';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/app/store/store';
-import { addBooking } from '@/app/store/bookings/slices/addBooking';
 import { CreateBookingDialog } from '../CreateBookingDialog/CreateBookingDialog';
 import { DateTime } from 'luxon';
-import { changeSelectedRange } from '@/app/store/bookings/bookingState';
-import { getBookings } from '@/app/store/bookings/slices/getBookings';
+import { TableFilter } from '../../Dashboard';
 
-export const BookingTableOptions = () => {
-  const dispatch = useDispatch<AppDispatch>();
+export const BookingTableOptions = (props: { onActivityAdded: (activity: Omit<Activity, 'id'>) => void, onFilterChanged: (filter: TableFilter) => void; }) => {
   const [createBookingOpen, setCreateBookingOpen] = useState(false);
 
   const handleAddNewBooking = () => setCreateBookingOpen(true);
-  const handleNewBookingClose = (booking: Omit<Activity, 'id'> | undefined) => {
-    if (booking) {
-      dispatch(addBooking(booking));
+  const handleNewBookingClose = (activity: Omit<Activity, 'id'> | undefined) => {
+    if (activity) {
+      props.onActivityAdded(activity);
     }
 
     setCreateBookingOpen(false);
   };
 
-  const changeRange = (selectedRange: { from: DateTime; to: DateTime }) => {
-    dispatch(
-      changeSelectedRange({
-        from: selectedRange.from.toFormat('yyyy-MM-dd') || '',
-        to: selectedRange.to.toFormat('yyyy-MM-dd') || '',
-      })
-    );
-
-    // TODO: find a way to trigger getBookings automatically after ChangeSelectedRange is dispatched
-    dispatch(getBookings());
+  const changeRange = (selectedRange: { from: DateTime; to: DateTime; }) => {
+    props.onFilterChanged({
+      rangeFrom: selectedRange.from.toFormat('yyyy-MM-dd') || '',
+      rangeTo: selectedRange.to.toFormat('yyyy-MM-dd') || '',
+    });
   };
 
   return (

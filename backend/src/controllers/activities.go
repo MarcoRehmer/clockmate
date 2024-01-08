@@ -3,10 +3,11 @@ package controllers
 import (
 	"clockmate/backend/models"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"gorm.io/gorm/clause"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm/clause"
 )
 
 func parseDateParam(c *gin.Context, queryKey string, defaultDate time.Time) (string, bool) {
@@ -66,7 +67,23 @@ func FindActivities(c *gin.Context) {
 	dbQuery.Find(&activities)
 
 	c.JSON(http.StatusOK, activities)
-	return
+}
+
+// CurrentActivity POST /activities/current
+func CurrentActivity(c *gin.Context) {
+	userId, err := ExtractTokenUserID(c)
+	if err != nil {
+		return
+	}
+
+	var currentActivity models.Activity
+	tx := models.DB.Where("finished_at IS NULL").Where(models.Activity{UserID: userId}).First(&currentActivity)
+
+	if tx.Error != nil {
+		c.JSON(http.StatusOK, nil)
+	} else {
+		c.JSON(http.StatusOK, currentActivity)
+	}
 }
 
 // CreateActivity POST /activities

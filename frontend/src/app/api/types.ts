@@ -1,9 +1,10 @@
 export interface ApiClient {
   activities: {
     getActivities(query?: ActivitiesQueryDto): Promise<ReadonlyArray<ActivityDto>>;
-    create(booking: CreateActivityDto): Promise<ActivityDto>;
-    update(bookingId: number, booking: UpdateActivityDto): Promise<ActivityDto>;
-    delete(bookingId: number): Promise<number>;
+    getCurrentActivity(): Promise<ActivityDto | undefined>;
+    create(activity: CreateActivityDto): Promise<ActivityDto>;
+    update(activityId: number, activity: UpdateActivityDto): Promise<ActivityDto>;
+    delete(activityId: number): Promise<number>;
   };
   auth: {
     login(username: string, passwordHash: string): Promise<boolean>;
@@ -41,7 +42,13 @@ export interface CreateActivityDto {
   clientId?: number;
 }
 
-export type UpdateActivityDto = Partial<Omit<ActivityDto, 'activityID'>>;
+export type UpdateActivityDto = Partial<{
+  startedAt: string | null;
+  finishedAt: string | null;
+  remarks: string | null;
+  projectId: number | null;
+  clientId: number | null;
+}>;
 
 export interface UserInfoDto {
   userID: number;
