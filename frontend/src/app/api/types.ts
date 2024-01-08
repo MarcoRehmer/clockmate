@@ -13,7 +13,23 @@ export interface ApiClient {
   users: {
     current(): Promise<UserInfoDto>;
   };
+  reports: { summary(filter: SummaryFilterDto): Promise<SummaryDto> };
   settings: {};
+}
+
+export interface SummaryFilterDto {
+  projects?: ReadonlyArray<number>;
+  clients?: ReadonlyArray<number>;
+}
+
+interface SummaryValue {
+  hours: number;
+  minutes: number;
+}
+export interface SummaryDto {
+  today: SummaryValue;
+  week: SummaryValue;
+  month: SummaryValue;
 }
 
 export interface ActivitiesQueryDto {

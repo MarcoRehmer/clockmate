@@ -5,11 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Next.js: Frontend",
+            "type": "pwa-node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/frontend",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": ["run", "dev"],
+            "port": 3000,
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        },
+        {
             "name": "Debug API",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "${workspaceFolder}/backend/src"
-        },
+        }
     ]
 }

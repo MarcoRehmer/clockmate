@@ -1,4 +1,11 @@
-import { ActivitiesQueryDto, ActivityDto, ApiClient, CreateActivityDto } from '@/app/api/types';
+import {
+  ActivitiesQueryDto,
+  ActivityDto,
+  ApiClient,
+  CreateActivityDto,
+  SummaryDto,
+  SummaryFilterDto,
+} from '@/app/api/types';
 import { setToken } from '../auth/session';
 import { getAxiosClient } from '@/app/api/axiosClient';
 
@@ -8,7 +15,6 @@ export const apiClient: ApiClient = {
       // TODO hash password here
       const resp = await (await getAxiosClient()).post('/login', { email, password }, { withCredentials: false });
       // TODO: dont send token in clear text through the network!!!
-
       if (resp.status !== 200) {
         return false;
       }
@@ -105,5 +111,13 @@ export const apiClient: ApiClient = {
       return response.data;
     },
   },
+
   settings: {},
+  reports: {
+    summary: async (filter: SummaryFilterDto): Promise<SummaryDto> => {
+      const { data } = await (await getAxiosClient()).get('/reports/summary');
+      console.log('summary data', data);
+      return data;
+    },
+  },
 };
