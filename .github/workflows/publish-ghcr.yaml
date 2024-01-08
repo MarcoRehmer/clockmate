@@ -21,24 +21,3 @@ jobs:
           docker login --username marcorehmer --password ${{ secrets.GH_PAT }} ghcr.io
           docker build ./backend --tag ghcr.io/marcorehmer/clockmate-backend:latest
           docker push ghcr.io/marcorehmer/clockmate-backend:latest
-
-on:
-  push
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout des Codes
-        uses: actions/checkout@v3
-
-      - name: Install Frontend Dependencies
-        working-directory: frontend
-        run: |
-          npm install
-          
-      - name: Build NextJS Frontend
-        working-directory: frontend
-        run: |
-          npm run build
