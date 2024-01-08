@@ -3,13 +3,14 @@ package controllers
 import (
 	"clockmate/backend/models"
 	"errors"
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 )
 
 func Login(c *gin.Context) {
@@ -40,7 +41,6 @@ func Login(c *gin.Context) {
 	}
 
 	c.String(http.StatusOK, token)
-	return
 }
 
 func ExtractTokenUserID(c *gin.Context) (uint, error) {

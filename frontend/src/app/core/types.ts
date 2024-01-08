@@ -20,3 +20,9 @@ export interface Project {
   id: number;
   name: string;
 }
+
+export interface UserSummary {
+  today: { hours: number; minutes: number };
+  week: { hours: number; minutes: number };
+  month: { hours: number; minutes: number };
+}

@@ -43,6 +43,9 @@ func main() {
 
 		// auth
 		v1.POST("/login", controllers.Login)
+
+		// reports
+		v1.GET("/reports/summary", controllers.FetchSummary)
 	}
 
 	err = r.Run()

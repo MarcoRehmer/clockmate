@@ -6,7 +6,7 @@ import { BookingTableOptions } from '@/app/(root)/dashboard/components/BookingTa
 import { BookingTable } from '@/app/(root)/dashboard/components/BookingTable/BookingTable';
 import React, { useContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
-import { Activity } from '@/app/core/types';
+import { Activity, UserSummary } from '@/app/core/types';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
 import { ApiContext } from '@/app/provider/appProvider';
 import { mapToUpdateActivity } from '@/app/api/mapper/map-partial-activity';
@@ -27,8 +27,13 @@ export const Dashboard = () => {
     rangeTo: DateTime.now().endOf('month').toFormat('yyyy-MM-dd'),
   });
   const [activities, setActivities] = useState<Array<Activity>>([]);
-  const [reload, setReload] = useState(false);
+  const [summary, setSummary] = useState<UserSummary>({
+    today: { hours: 0, minutes: 0 },
+    week: { hours: 0, minutes: 0 },
+    month: { hours: 0, minutes: 0 },
+  });
   const [currentActivity, setCurrentActivity] = useState<Activity | undefined>(undefined);
+  const [reload, setReload] = useState(false);
 
   /* Contexts */
   const api = useContext(ApiContext);
@@ -52,6 +57,14 @@ export const Dashboard = () => {
       .then((result) => setCurrentActivity((result && mapBookingDtoToBooking(result)) || undefined))
       .catch((err) => console.error('could not fetch current activity', err));
   }, [api.activities, reload]);
+
+  useEffect(() => {
+    const fetchSummary = async () => await api.reports.summary({});
+
+    fetchSummary()
+      .then((result) => setSummary(result))
+      .catch(() => console.log('error while fetching summary'));
+  }, [api.reports, reload]);
 
   /* Handler */
   const handleFilterChanged = (filter: TableFilter) => {
@@ -123,7 +136,7 @@ export const Dashboard = () => {
         }}
       >
         <div className="grow">
-          <UserSummaryCard />
+          <UserSummaryCard summary={summary} />
         </div>
         <Box
           sx={{
