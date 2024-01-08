@@ -14,7 +14,7 @@ export const UserSummaryCard = (props: { summary: UserSummary }) => {
       : 'Hello';
 
   const formatSummaryValue = (value: { hours: number; minutes: number }): string =>
-    `${value.hours || 0}:${`${value.minutes || 0}`.padEnd(2, '0')}`;
+    `${value.hours || 0}:${`${value.minutes || 0}`.padStart(2, '0')}`;
 
   return (
     <Card sx={{ pt: 8, pb: 10 }}>
