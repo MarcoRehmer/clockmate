@@ -1,15 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  FilledInput,
-  FormControl,
-  IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
-  TextField,
-} from '@mui/material';
+import { Button, FormControl, FormGroup, IconButton, Input, InputAdornment, InputLabel } from '@mui/material';
 import React, { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -20,7 +9,7 @@ export const LoginForm = ({ loginRequested }: { loginRequested: (email: string, 
 
   return (
     <>
-      <form>
+      <FormGroup onKeyDown={({ key }) => key === 'Enter' && loginRequested(email, password)}>
         <div style={{ display: 'flex', flexDirection: 'column', rowGap: '1rem' }}>
           <FormControl variant="standard">
             <InputLabel htmlFor="email">E-Mail</InputLabel>
@@ -52,9 +41,9 @@ export const LoginForm = ({ loginRequested }: { loginRequested: (email: string, 
               }
             ></Input>
           </FormControl>
-            <Button onClick={() => loginRequested(email, password)}>Login</Button>
+          <Button onClick={() => loginRequested(email, password)}>Login</Button>
         </div>
-      </form>
+      </FormGroup>
     </>
   );
 };
