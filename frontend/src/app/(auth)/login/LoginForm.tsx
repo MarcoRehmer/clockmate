@@ -16,7 +16,7 @@ export const LoginForm = ({
   errorMessage,
 }: {
   loginRequested: (email: string, password: string) => void;
-  errorMessage: string | undefined;
+  errorMessage?: string;
 }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,7 +39,7 @@ export const LoginForm = ({
   return (
     <>
       <FormGroup onKeyDown={({ key }) => key === 'Enter' && onLoginSubmitted()}>
-        <FormHelperText error={!errorMessage}>{errorMessage}</FormHelperText>
+        <FormHelperText error={!!errorMessage}>{errorMessage}</FormHelperText>
         <div style={{ display: 'flex', flexDirection: 'column', rowGap: '1rem' }}>
           <FormControl variant="standard" error={emptyUsernameError}>
             <InputLabel htmlFor="email">E-Mail</InputLabel>

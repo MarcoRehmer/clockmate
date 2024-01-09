@@ -20,9 +20,11 @@ async function encryptPassword(password: string): Promise<string> {
 export default function Index() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
 
   const loginRedirect = async (email: string, password: string) => {
     setLoading(true);
+    setErrorMessage(undefined);
     try {
       const hashedPassword = await encryptPassword(password);
 
@@ -33,8 +35,8 @@ export default function Index() {
       }
     } catch (e) {
       if (isAxiosError(e)) {
-        if (e.code === '401') {
-          // show "login failed"
+        if (e.response?.status === 401) {
+          setErrorMessage('invalid username or password');
         } else {
           // show "something went wrong"
         }
@@ -62,7 +64,7 @@ export default function Index() {
           <Typography variant="h6" sx={{ color: 'primary.main', textAlign: 'center', mb: 2 }}>
             Welcome to Clockmate
           </Typography>
-          <LoginForm loginRequested={loginRedirect} />
+          <LoginForm loginRequested={loginRedirect} errorMessage={errorMessage} />
           {loading && (
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <CircularProgress />
