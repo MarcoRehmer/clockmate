@@ -116,7 +116,6 @@ export const apiClient: ApiClient = {
   reports: {
     summary: async (filter: SummaryFilterDto): Promise<SummaryDto> => {
       const { data } = await (await getAxiosClient()).get('/reports/summary');
-      console.log('summary data', data);
       return data;
     },
   },
