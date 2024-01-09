@@ -1,5 +1,5 @@
 'use client';
-import { Box, Card } from '@mui/material';
+import { Alert, Box, Card, Snackbar, Typography } from '@mui/material';
 import { UserSummaryCard } from '@/app/(root)/dashboard/components/UserSummaryCard';
 import { CurrentRunningCard } from '@/app/(root)/dashboard/components/CurrentRunningCard';
 import { BookingTableOptions } from '@/app/(root)/dashboard/components/BookingTableOptions/BookingTableOptions';
@@ -34,6 +34,9 @@ export const Dashboard = () => {
   });
   const [currentActivity, setCurrentActivity] = useState<Activity | undefined>(undefined);
   const [reload, setReload] = useState(false);
+  const [snackMessage, setSnackMessage] = useState<{ status: 'success' | 'error'; message: string } | undefined>(
+    undefined
+  );
 
   /* Contexts */
   const api = useContext(ApiContext);
@@ -72,98 +75,144 @@ export const Dashboard = () => {
   };
 
   const handleDeleteActivity = async (id: number) => {
-    await api.activities.delete(id).catch((err) => console.error('delete failed', err));
+    try {
+      await api.activities.delete(id);
 
-    setReload(true);
+      setSnackMessage({ status: 'success', message: 'Activity deleted' });
+      setReload(true);
+    } catch (e) {
+      setSnackMessage({ status: 'error', message: 'error while deleting activity' });
+    }
   };
 
   const handleEditActivity = async (id: number, activity: Activity) => {
-    await api.activities.update(id, mapToUpdateActivity(activity));
+    try {
+      await api.activities.update(id, mapToUpdateActivity(activity));
 
-    setReload(true); // TODO: check, why effect runs twice
+      setSnackMessage({ status: 'success', message: 'Activity updated' });
+
+      setReload(true);
+    } catch (error) {
+      setSnackMessage({ status: 'error', message: 'error while editing activity' });
+    }
   };
 
   const handleActivityAdded = async (activity: Omit<Activity, 'id'>) => {
-    await api.activities
-      .create({
+    try {
+      await api.activities.create({
         startedAt: activity.startedAt.toISO() || '',
         finishedAt: activity.finishedAt?.toISO() || undefined,
         remarks: activity.remarks,
-      })
-      .catch((err) => console.error('add activity failed', err));
+      });
 
-    setReload(true);
+      setSnackMessage({ status: 'success', message: 'Activity added' });
+      setReload(true);
+    } catch (error) {
+      setSnackMessage({ status: 'error', message: 'error while adding activity' });
+    }
   };
 
-  async function handleStopwatchStart(input: Omit<Activity, 'id'>) {
-    await handleActivityAdded(input);
-  }
+  const handleStopwatchStart = async (input: Omit<Activity, 'id'>) => {
+    try {
+      await api.activities.create({
+        startedAt: input.startedAt.toISO() || '',
+        remarks: input.remarks,
+      });
+      setReload(true);
+      setSnackMessage({ status: 'success', message: 'Stopwtach started' });
+    } catch (error) {
+      setSnackMessage({ status: 'error', message: 'error while starting stopwatch' });
+    }
+  };
 
   async function handleStopwatchStop(activityId: number) {
-    await api.activities
-      .update(activityId, { finishedAt: DateTime.now().toISO() })
-      .catch(() => console.error('error while stopping activity with ID ', activityId));
+    try {
+      await api.activities.update(activityId, { finishedAt: DateTime.now().toISO() });
 
-    setReload(true);
+      setSnackMessage({ status: 'success', message: 'Activity stopped' });
+      setReload(true);
+    } catch (error) {
+      setSnackMessage({ status: 'error', message: 'error while stopping stopwatch' });
+    }
   }
 
   async function handleStopwatchDiscard(activityId: number) {
-    await api.activities
-      .delete(activityId)
-      .catch(() => console.error('error while discard activity with ID ', activityId));
+    try {
+      await api.activities.delete(activityId);
 
-    setReload(true);
+      setSnackMessage({ status: 'success', message: 'Activity discarded' });
+      setReload(true);
+    } catch (error) {
+      setSnackMessage({ status: 'error', message: 'error while discarding activity' });
+    }
   }
 
   async function handleStopwatchSwitchTask(currentRunningActivityId: number, input: Omit<Activity, 'id'>) {
-    await handleStopwatchStop(currentRunningActivityId);
+    try {
+      await handleStopwatchStop(currentRunningActivityId);
 
-    await handleStopwatchStart(input);
+      await handleStopwatchStart(input);
+      setSnackMessage({ status: 'success', message: 'Switched to new activity' });
+    } catch (error) {
+      setSnackMessage({ status: 'error', message: 'error while switching activity' });
+    }
   }
 
   return (
-    <div
-      style={{
-        marginTop: -60,
-      }}
-    >
-      <Box
-        className="flex mb-4 gap-4"
-        sx={{
-          '@media (max-width: 780px)': {
-            flexWrap: 'wrap',
-          },
+    <>
+      <div
+        style={{
+          marginTop: -60,
         }}
       >
-        <div className="grow">
-          <UserSummaryCard summary={summary} />
-        </div>
         <Box
+          className="flex mb-4 gap-4"
           sx={{
-            '@media (max-width:780px)': {
-              flexGrow: 1,
+            '@media (max-width: 780px)': {
+              flexWrap: 'wrap',
             },
           }}
         >
-          <CurrentRunningCard
-            currentActivity={currentActivity}
-            onStart={handleStopwatchStart}
-            onStop={handleStopwatchStop}
-            onSwitchTask={handleStopwatchSwitchTask}
-            onDiscard={handleStopwatchDiscard}
-          />
+          <div className="grow">
+            <UserSummaryCard summary={summary} />
+          </div>
+          <Box
+            sx={{
+              '@media (max-width:780px)': {
+                flexGrow: 1,
+              },
+            }}
+          >
+            <CurrentRunningCard
+              currentActivity={currentActivity}
+              onStart={handleStopwatchStart}
+              onStop={handleStopwatchStop}
+              onSwitchTask={handleStopwatchSwitchTask}
+              onDiscard={handleStopwatchDiscard}
+            />
+          </Box>
         </Box>
-      </Box>
 
-      <Card>
-        <BookingTableOptions onFilterChanged={handleFilterChanged} onActivityAdded={handleActivityAdded} />
-        <BookingTable
-          activities={activities}
-          filter={tableFilter}
-          onDeleteActivity={handleDeleteActivity}
-          onEditActivity={handleEditActivity}
-        />
-      </Card>
-    </div>
+        <Card>
+          <BookingTableOptions onFilterChanged={handleFilterChanged} onActivityAdded={handleActivityAdded} />
+          <BookingTable
+            activities={activities}
+            filter={tableFilter}
+            onDeleteActivity={handleDeleteActivity}
+            onEditActivity={handleEditActivity}
+          />
+        </Card>
+      </div>
+      <Snackbar
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={snackMessage !== undefined}
+        onClose={() => setSnackMessage(undefined)}
+      >
+        <Alert onClose={() => setSnackMessage(undefined)} severity={snackMessage?.status} sx={{ width: '100%' }}>
+          <Typography>{snackMessage?.message}</Typography>
+        </Alert>
+      </Snackbar>
+    </>
   );
 };

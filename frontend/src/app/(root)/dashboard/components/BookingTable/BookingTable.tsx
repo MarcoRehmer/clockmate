@@ -39,7 +39,7 @@ export const BookingTable = (props: BookingTableProps) => {
 
   const calcDuration = (startedAt: DateTime, finishedAt: DateTime) => {
     const diff = finishedAt.diff(startedAt);
-    return `${Math.floor(diff.as('hours'))}:${`${Math.floor(diff.as('minutes') % 60)}`.padStart(2, '0')}`;
+    return `${Math.floor(diff.as('hours'))}:${`${Math.ceil(diff.as('minutes') % 60)}`.padStart(2, '0')}`;
   };
 
   const calcDayDuration = (activities: Array<Activity>) => {
@@ -49,7 +49,7 @@ export const BookingTable = (props: BookingTableProps) => {
       return prev;
     }, 0);
 
-    return `${Math.floor(sumMinutes / 60)}:${`${Math.floor(sumMinutes % 60)}`.padStart(2, '0')}`;
+    return `${Math.floor(sumMinutes / 60)}:${`${Math.ceil(sumMinutes % 60)}`.padStart(2, '0')}`;
   };
 
   return (
