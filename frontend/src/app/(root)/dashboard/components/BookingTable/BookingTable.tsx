@@ -71,8 +71,8 @@ export const BookingTable = (props: BookingTableProps) => {
                   {/* Duration cell */}
                   <TableCell
                     sx={{
-                      color: 'text.secondary',
-                      width: 100,
+                      width: 110,
+                      color: row.finishedAt === undefined ? 'primary.main' : 'text.secondary',
                     }}
                   >
                     <div>
@@ -81,7 +81,7 @@ export const BookingTable = (props: BookingTableProps) => {
                       </Typography>
                       <Box sx={{ display: 'flex', columnGap: 0.5, flexDirection: 'row' }}>
                         <span>{row.startedAt.toFormat('HH:mm')}</span>-
-                        <span>{row.finishedAt?.toFormat('HH:mm') || '-'}</span>
+                        <span>{row.finishedAt?.toFormat('HH:mm') || ''}</span>
                       </Box>
                     </div>
                   </TableCell>
