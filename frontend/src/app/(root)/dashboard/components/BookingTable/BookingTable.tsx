@@ -42,6 +42,16 @@ export const BookingTable = (props: BookingTableProps) => {
     return `${Math.floor(diff.as('hours'))}:${`${Math.floor(diff.as('minutes') % 60)}`.padStart(2, '0')}`;
   };
 
+  const calcDayDuration = (activities: Array<Activity>) => {
+    const sumMinutes = activities.reduce((prev, curr) => {
+      const diff = (curr.finishedAt || DateTime.now()).diff(curr.startedAt);
+      prev += diff.as('minutes');
+      return prev;
+    }, 0);
+
+    return `${Math.floor(sumMinutes / 60)}:${`${Math.floor(sumMinutes % 60)}`.padStart(2, '0')}`;
+  };
+
   return (
     <>
       <TableContainer>
@@ -59,9 +69,18 @@ export const BookingTable = (props: BookingTableProps) => {
                 {index === 0 || (index > 0 && row.startedAt.day !== props.activities[index - 1].startedAt.day) ? (
                   <TableRow>
                     <TableCell colSpan={4} sx={{ paddingTop: 1.5, paddingBottom: 1.5 }}>
-                      <Typography sx={{ color: 'text.primary' }}>
-                        {row.startedAt.toFormat('EEEE, dd.MM.yyyy')}
-                      </Typography>
+                      <Box sx={{ display: 'flex', columnGap: 1 }}>
+                        <Typography sx={{ color: 'text.primary' }}>
+                          {row.startedAt.toFormat('EEEE, dd.MM.yyyy')}
+                        </Typography>
+                        <Typography sx={{ color: 'text.secondary' }}>-</Typography>
+                        <Typography sx={{ color: 'text.secondary' }}>
+                          {calcDayDuration(
+                            props.activities.filter((activity) => activity.startedAt.day === row.startedAt.day)
+                          )}
+                          {' h'}
+                        </Typography>
+                      </Box>
                     </TableCell>
                   </TableRow>
                 ) : (
