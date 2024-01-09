@@ -45,7 +45,8 @@ export const CurrentRunningCard = (props: {
           }}
           className="grow"
         ></Typography>
-        <IconButton onClick={(event) => openDetails(event.currentTarget)}>
+
+        <IconButton sx={{ visibility: 'hidden' }} onClick={(event) => openDetails(event.currentTarget)}>
           <KeyboardArrowDown />
         </IconButton>
       </div>
