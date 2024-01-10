@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Button,
+  ButtonBase,
   Card,
   CardContent,
   CardHeader,
@@ -11,12 +12,22 @@ import {
   IconButton,
   TextField,
   Typography,
+  styled,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import { useState } from 'react';
 import { EditableLabel } from './EditableLabel';
 import { ChangePasswordForm } from './ChangePasswordForm';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { sleep } from '@/app/utils/sleep';
+
+const ImageButton = styled(ButtonBase)({
+  position: 'relative',
+  width: 120,
+  height: 120,
+  borderRadius: '50%',
+  overflow: 'hidden',
+});
 
 export const UserProfile = () => {
   const [mailAddress, setMailAddress] = useState('max.mustermann@exmaple.com');
@@ -51,7 +62,29 @@ export const UserProfile = () => {
           <Grid container rowSpacing={4} columnSpacing={4}>
             {/* Avatar and Name */}
             <Grid md={2} xs={12}>
-              <Avatar sx={{ width: 100, height: 100 }} />
+              <ImageButton>
+                <Avatar
+                  sx={{ width: 120, height: 120 }}
+                  src="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Fimages.vexels.com%2Fmedia%2Fusers%2F3%2F145908%2Fraw%2F52eabf633ca6414e60a7677b0b917d92-male-avatar-maker.jpg&sp=1704903082T37e0f2b538a4a5ad1c6829068baa19e237a53e602dc4a3812a344580c9876250"
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 60,
+                    height: 60,
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(0, 0, 0, .2)',
+                  }}
+                >
+                  <AddAPhotoIcon sx={{ color: 'white' }} />
+                </Box>
+              </ImageButton>
             </Grid>
             <Grid md={10} xs={12}>
               <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}>
