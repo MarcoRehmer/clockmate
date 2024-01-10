@@ -165,11 +165,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div
-        style={{
-          marginTop: -60,
-        }}
-      >
+      <div className={'header-offset'}>
         <Box
           sx={{
             mb: 2,
