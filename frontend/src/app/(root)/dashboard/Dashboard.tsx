@@ -10,7 +10,6 @@ import { Activity, UserSummary } from '@/app/core/types';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
 import { ApiContext } from '@/app/provider/appProvider';
 import { mapToUpdateActivity } from '@/app/api/mapper/map-partial-activity';
-import { sleep } from '@/app/utils/sleep';
 
 interface DashboardOptions {
   filter: {
@@ -165,7 +164,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className={'header-offset'}>
+      <div>
         <Box
           sx={{
             mb: 2,

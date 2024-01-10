@@ -34,7 +34,7 @@ export const AppHeader = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ height: 96, p: 1 }}>
+    <AppBar position="static" sx={{ height: 96, p: 1, marginBottom: '-60px' }}>
       <Toolbar>
         <Typography sx={{ color: 'white', cursor: 'pointer' }} variant="h4" onClick={navigateToRoot}>
           Clockmate
