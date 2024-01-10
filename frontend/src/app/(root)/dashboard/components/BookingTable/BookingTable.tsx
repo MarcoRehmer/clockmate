@@ -69,7 +69,7 @@ export const BookingTable = (props: BookingTableProps) => {
         <Table style={{ tableLayout: 'auto' }} size="small">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ width: 120 }}>Duration</TableCell>
+              <TableCell sx={{ width: 90 }}>Duration</TableCell>
               <TableCell>Remarks</TableCell>
               <TableCell></TableCell>
             </TableRow>

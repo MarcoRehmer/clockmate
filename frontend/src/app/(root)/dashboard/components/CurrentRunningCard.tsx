@@ -34,7 +34,7 @@ export const CurrentRunningCard = (props: {
         onSwitchTask={props.onSwitchTask}
         onDiscard={props.onDiscard}
       />
-      <div className="flex">
+      <Box sx={{ display: 'flex' }}>
         <Typography
           sx={{
             alignSelf: 'center',
@@ -42,14 +42,14 @@ export const CurrentRunningCard = (props: {
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
+            flexGrow: 1,
           }}
-          className="grow"
         ></Typography>
 
         <IconButton sx={{ visibility: 'hidden' }} onClick={(event) => openDetails(event.currentTarget)}>
           <KeyboardArrowDown />
         </IconButton>
-      </div>
+      </Box>
 
       <Popover
         anchorOrigin={{
@@ -65,12 +65,8 @@ export const CurrentRunningCard = (props: {
         onClose={closeDetails}
       >
         <Box sx={{ p: 2, minWidth: 300, display: 'flex', flexDirection: 'column' }}>
-          <Typography sx={{ color: 'text.main' }} className="grow">
-            Remarks
-          </Typography>
-          <Typography sx={{ color: 'text.secondary' }} className="grow">
-            {props.currentActivity?.remarks}
-          </Typography>
+          <Typography sx={{ color: 'text.main', flexGrow: 1 }}>Remarks</Typography>
+          <Typography sx={{ color: 'text.secondary', flexGrow: 1 }}>{props.currentActivity?.remarks}</Typography>
 
           <IconButton sx={{ alignSelf: 'flex-end' }} onClick={() => console.log('edit')}>
             <EditIcon />

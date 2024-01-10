@@ -1,6 +1,6 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { IconButton } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import { useState } from 'react';
 import { DateTime } from 'luxon';
 import Typography from '@mui/material/Typography';
@@ -26,7 +26,7 @@ export const RangeSelector = ({
   };
 
   return (
-    <div className="flex">
+    <Box sx={{ display: 'flex' }}>
       <IconButton aria-label="previous entry" onClick={previousMonth}>
         <ChevronLeftIcon />
       </IconButton>
@@ -37,6 +37,6 @@ export const RangeSelector = ({
       <IconButton aria-label="next entry" onClick={nextMonth}>
         <ChevronRightIcon />
       </IconButton>
-    </div>
+    </Box>
   );
 };

@@ -171,16 +171,18 @@ export const Dashboard = () => {
         }}
       >
         <Box
-          className="flex mb-4 gap-4"
           sx={{
+            mb: 2,
+            columnGap: 2,
+            display: 'flex',
             '@media (max-width: 780px)': {
               flexWrap: 'wrap',
             },
           }}
         >
-          <div className="grow">
+          <Box sx={{ flexGrow: 1 }}>
             <UserSummaryCard summary={summary} loading={initialLoading} />
-          </div>
+          </Box>
           <Box
             sx={{
               '@media (max-width:780px)': {

@@ -8,7 +8,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY src ./src
 COPY public ./public
-COPY package.json next.config.js tailwind.config.js postcss.config.js tsconfig.json ./
+COPY package.json next.config.js tsconfig.json ./
 
 RUN npm run build
 

@@ -19,47 +19,47 @@ export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean 
   return (
     <Card sx={{ pt: 8, pb: 10 }}>
       <Box sx={{ mt: 2, mb: 2 }}>
-        <div className="flex">
+        <Box sx={{ display: 'flex' }}>
           {props.loading ? (
             <Skeleton variant="circular" sx={{ width: 64, height: 64, mr: 4 }} />
           ) : (
             <Avatar sx={{ width: 64, height: 64, mr: 4 }} />
           )}
 
-          <div className="flex flex-col justify-between">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
             <Typography fontSize="large" sx={{ marginBottom: 1 }}>
               {greeterText}, User
             </Typography>
 
             {/*summary values*/}
-            <div className="flex gap-x-8 flex-wrap">
-              <div className="flex gap-2">
+            <Box sx={{ display: 'flex', columnGap: 4, flexWrap: 'wrap' }}>
+              <Box sx={{ display: 'flex', columnGap: 1 }}>
                 <Typography sx={{ color: 'text.primary' }}>Today:</Typography>
                 {props.loading ? (
                   <Skeleton variant="text" sx={{ width: 60 }} />
                 ) : (
                   <Typography sx={{ color: 'text.secondary' }}>{formatSummaryValue(props.summary.today)} h</Typography>
                 )}
-              </div>
-              <div className="flex gap-2">
+              </Box>
+              <Box sx={{ display: 'flex', columnGap: 1 }}>
                 <Typography sx={{ color: 'text.primary' }}>Week:</Typography>
                 {props.loading ? (
                   <Skeleton variant="text" sx={{ width: 60 }} />
                 ) : (
                   <Typography sx={{ color: 'text.secondary' }}>{formatSummaryValue(props.summary.week)} h</Typography>
                 )}
-              </div>
-              <div className="flex gap-2">
+              </Box>
+              <Box sx={{ display: 'flex', columnGap: 1 }}>
                 <Typography sx={{ color: 'text.primary' }}>Month:</Typography>
                 {props.loading ? (
                   <Skeleton variant="text" sx={{ width: 60 }} />
                 ) : (
                   <Typography sx={{ color: 'text.secondary' }}>{formatSummaryValue(props.summary.month)} h</Typography>
                 )}
-              </div>
-            </div>
-          </div>
-        </div>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Card>
   );
