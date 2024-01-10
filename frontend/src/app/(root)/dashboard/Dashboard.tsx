@@ -10,6 +10,7 @@ import { Activity, UserSummary } from '@/app/core/types';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
 import { ApiContext } from '@/app/provider/appProvider';
 import { mapToUpdateActivity } from '@/app/api/mapper/map-partial-activity';
+import { sleep } from '@/app/utils/sleep';
 
 interface DashboardOptions {
   filter: {
@@ -37,20 +38,24 @@ export const Dashboard = () => {
   const [snackMessage, setSnackMessage] = useState<{ status: 'success' | 'error'; message: string } | undefined>(
     undefined
   );
+  const [initialLoading, setInitialLoading] = useState(true);
 
   /* Contexts */
   const api = useContext(ApiContext);
 
   /* Effects */
   useEffect(() => {
-    const fetchData = async () =>
-      (await api.activities.getActivities(tableFilter)).map((activity) => mapBookingDtoToBooking(activity));
+    const fetchData = async () => {
+      return (await api.activities.getActivities(tableFilter)).map((activity) => mapBookingDtoToBooking(activity));
+    };
 
     fetchData()
-      .then((result) => setActivities(result))
+      .then((result) => {
+        setActivities(result);
+        setReload(false);
+        setInitialLoading(false);
+      })
       .catch((err) => console.error('error while fetching data', err));
-
-    setReload(false);
   }, [api.activities, tableFilter, reload]);
 
   useEffect(() => {
@@ -174,7 +179,7 @@ export const Dashboard = () => {
           }}
         >
           <div className="grow">
-            <UserSummaryCard summary={summary} />
+            <UserSummaryCard summary={summary} loading={initialLoading} />
           </div>
           <Box
             sx={{
@@ -200,6 +205,7 @@ export const Dashboard = () => {
             filter={tableFilter}
             onDeleteActivity={handleDeleteActivity}
             onEditActivity={handleEditActivity}
+            loading={initialLoading}
           />
         </Card>
       </div>

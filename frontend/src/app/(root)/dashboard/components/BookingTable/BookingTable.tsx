@@ -1,5 +1,15 @@
 'use client';
-import { Box, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { DeleteBookingDialog } from '../DeleteBookingDialog/DeleteBookingDialog';
@@ -16,6 +26,7 @@ interface BookingTableProps {
   filter: { rangeFrom: string; rangeTo: string };
   onDeleteActivity: (id: number) => void;
   onEditActivity: (id: number, activity: Activity) => void;
+  loading: boolean;
 }
 
 export const BookingTable = (props: BookingTableProps) => {
@@ -58,76 +69,95 @@ export const BookingTable = (props: BookingTableProps) => {
         <Table style={{ tableLayout: 'auto' }} size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Duration</TableCell>
+              <TableCell sx={{ width: 120 }}>Duration</TableCell>
               <TableCell>Remarks</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.activities.map((row, index) => (
-              <React.Fragment key={row.id}>
-                {index === 0 || (index > 0 && row.startedAt.day !== props.activities[index - 1].startedAt.day) ? (
-                  <TableRow>
-                    <TableCell colSpan={4} sx={{ paddingTop: 1.5, paddingBottom: 1.5 }}>
-                      <Box sx={{ display: 'flex', columnGap: 1 }}>
-                        <Typography sx={{ color: 'text.primary' }}>
-                          {row.startedAt.toFormat('EEEE, dd.MM.yyyy')}
-                        </Typography>
-                        <Typography sx={{ color: 'text.secondary' }}>-</Typography>
-                        <Typography sx={{ color: 'text.secondary' }}>
-                          {calcDayDuration(
-                            props.activities.filter((activity) => activity.startedAt.day === row.startedAt.day)
-                          )}
-                          {' h'}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ) : (
-                  <></>
-                )}
-                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  {/* Duration cell */}
-                  <TableCell
-                    sx={{
-                      width: 110,
-                      color: row.finishedAt === undefined ? 'primary.main' : 'text.secondary',
-                    }}
-                  >
-                    <div>
-                      <Typography fontSize="large" sx={{ textAlign: 'center' }}>
-                        {calcDuration(row.startedAt, row.finishedAt || DateTime.now())}
-                      </Typography>
-                      <Box sx={{ display: 'flex', columnGap: 0.5, flexDirection: 'row' }}>
-                        <span>{row.startedAt.toFormat('HH:mm')}</span>-
-                        <span>{row.finishedAt?.toFormat('HH:mm') || ''}</span>
-                      </Box>
-                    </div>
-                  </TableCell>
+            {props.loading
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <React.Fragment key={index}>
+                    {index % 3 === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={4}>
+                          <Skeleton variant="text" sx={{ width: '100%', height: 24 }} />
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell>
+                          <Skeleton variant="text" sx={{ height: 32 }} />
+                        </TableCell>
+                        <TableCell colSpan={2}>
+                          <Skeleton variant="text" sx={{ height: 32 }} />
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
+                ))
+              : props.activities.map((row, index) => (
+                  <React.Fragment key={row.id}>
+                    {index === 0 || (index > 0 && row.startedAt.day !== props.activities[index - 1].startedAt.day) ? (
+                      <TableRow>
+                        <TableCell colSpan={4} sx={{ paddingTop: 1.5, paddingBottom: 1.5 }}>
+                          <Box sx={{ display: 'flex', columnGap: 1 }}>
+                            <Typography sx={{ color: 'text.primary' }}>
+                              {row.startedAt.toFormat('EEEE, dd.MM.yyyy')}
+                            </Typography>
+                            <Typography sx={{ color: 'text.secondary' }}>-</Typography>
+                            <Typography sx={{ color: 'text.secondary' }}>
+                              {calcDayDuration(
+                                props.activities.filter((activity) => activity.startedAt.day === row.startedAt.day)
+                              )}
+                              {' h'}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      <></>
+                    )}
+                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      {/* Duration cell */}
+                      <TableCell
+                        sx={{
+                          color: row.finishedAt === undefined ? 'primary.main' : 'text.secondary',
+                        }}
+                      >
+                        <div>
+                          <Typography fontSize="large" sx={{ textAlign: 'center' }}>
+                            {calcDuration(row.startedAt, row.finishedAt || DateTime.now())}
+                          </Typography>
+                          <Box sx={{ display: 'flex', columnGap: 0.5, flexDirection: 'row' }}>
+                            <span>{row.startedAt.toFormat('HH:mm')}</span>-
+                            <span>{row.finishedAt?.toFormat('HH:mm') || ''}</span>
+                          </Box>
+                        </div>
+                      </TableCell>
 
-                  {/* Remarks Cell */}
-                  <TableCell>
-                    <Typography fontSize="medium" sx={{ color: 'text.secondary' }}>
-                      {' '}
-                      {row.remarks}
-                    </Typography>
-                  </TableCell>
+                      {/* Remarks Cell */}
+                      <TableCell>
+                        <Typography fontSize="medium" sx={{ color: 'text.secondary' }}>
+                          {row.remarks}
+                        </Typography>
+                      </TableCell>
 
-                  {/* Conetxt Menu Cell */}
-                  <TableCell sx={{ padding: 0, width: '1rem' }}>
-                    <IconButton
-                      aria-label="menu"
-                      onClick={(event) => {
-                        setRowMenuAnchor(event.currentTarget);
-                        setSelectedActivity(row);
-                      }}
-                    >
-                      <MoreVertIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              </React.Fragment>
-            ))}
+                      {/* Conetxt Menu Cell */}
+                      <TableCell sx={{ padding: 0, width: '1rem' }}>
+                        <IconButton
+                          aria-label="menu"
+                          onClick={(event) => {
+                            setRowMenuAnchor(event.currentTarget);
+                            setSelectedActivity(row);
+                          }}
+                        >
+                          <MoreVertIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  </React.Fragment>
+                ))}
           </TableBody>
         </Table>
       </TableContainer>
