@@ -5,16 +5,19 @@ import Typography from '@mui/material/Typography';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { deleteToken } from '@/app/auth/session';
 
 export const AppHeader = () => {
+  const isAdmin = false;
+
   const router = useRouter();
 
   const navigateToSettings = () => {
-    router.push('/settings');
+    router.push('/profile');
   };
 
   const logOut = async () => {
@@ -28,12 +31,14 @@ export const AppHeader = () => {
         <Typography variant="h4" component="div" sx={{ color: 'white', flexGrow: 1 }}>
           Clockmate
         </Typography>
-        {/*<Typography component="div" sx={{ alignSelf: 'baseline', flexGrow: 1 }} color="white">*/}
-        {/*  Dashboard*/}
-        {/*</Typography>*/}
-        {/*<IconButton sx={{ color: 'white' }} onClick={() => navigateToSettings()}>*/}
-        {/*  <SettingsIcon />*/}
-        {/*</IconButton>*/}
+        {isAdmin && (
+          <IconButton sx={{ color: 'white' }} onClick={() => navigateToSettings()}>
+            <AdminPanelSettingsIcon />
+          </IconButton>
+        )}
+        <IconButton sx={{ color: 'white' }} onClick={() => navigateToSettings()}>
+          <SettingsIcon />
+        </IconButton>
         <IconButton sx={{ color: 'white' }} onClick={() => logOut()}>
           <LogoutIcon />
         </IconButton>
