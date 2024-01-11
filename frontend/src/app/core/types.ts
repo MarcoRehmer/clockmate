@@ -26,3 +26,11 @@ export interface UserSummary {
   week: { hours: number; minutes: number };
   month: { hours: number; minutes: number };
 }
+
+export interface UserInfo {
+  userID: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  active: boolean;
+}
