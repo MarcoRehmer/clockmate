@@ -5,7 +5,7 @@ interface ChangePasswordFormProps {
   onPasswordChanged: (
     currentPassword: string,
     newPassword: string
-  ) => Promise<{ success: true } | { success: false; wrongCurrentPassword: boolean; message: string }>;
+  ) => Promise<{ success: true } | { success: false; wrongCurrentPassword: boolean }>;
 }
 
 export const ChangePasswordForm = ({ onPasswordChanged }: ChangePasswordFormProps) => {

@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Alert,
   Avatar,
   Box,
   Button,
@@ -10,16 +11,18 @@ import {
   CardHeader,
   Divider,
   IconButton,
+  Snackbar,
   TextField,
   Typography,
   styled,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { EditableLabel } from './EditableLabel';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { sleep } from '@/app/utils/sleep';
+import { ApiContext } from '@/app/provider/appProvider';
 
 const ImageButton = styled(ButtonBase)({
   position: 'relative',
@@ -33,6 +36,9 @@ export const UserProfile = () => {
   const [mailAddress, setMailAddress] = useState('max.mustermann@exmaple.com');
   const [firstName, setFirstName] = useState('Max');
   const [lastName, setLastName] = useState('Mustermann');
+  const [errorMessage, setErrorMessage] = useState<{ title: string; cause: string } | undefined>(undefined);
+
+  const api = useContext(ApiContext);
 
   function handleMailAdressChanged(newValue: string): void {
     setMailAddress(newValue);
@@ -49,9 +55,14 @@ export const UserProfile = () => {
   const handleChangePasswordRequest = async (
     currentPassword: string,
     newPassword: string
-  ): Promise<{ success: true } | { success: false; wrongCurrentPassword: boolean; message: string }> => {
-    await sleep(1500);
-    return Promise.resolve({ success: true });
+  ): Promise<{ success: true } | { success: false; wrongCurrentPassword: boolean }> => {
+    try {
+      await api.users.changePassword(currentPassword, newPassword);
+      return { success: true };
+    } catch (error) {
+      setErrorMessage({ title: 'Password could not be changed', cause: 'Server Error' });
+      return { success: false, wrongCurrentPassword: false };
+    }
   };
 
   return (
@@ -63,10 +74,7 @@ export const UserProfile = () => {
             {/* Avatar and Name */}
             <Grid md={2} xs={12}>
               <ImageButton>
-                <Avatar
-                  sx={{ width: 120, height: 120 }}
-                  src="https://www.startpage.com/av/proxy-image?piurl=https%3A%2F%2Fimages.vexels.com%2Fmedia%2Fusers%2F3%2F145908%2Fraw%2F52eabf633ca6414e60a7677b0b917d92-male-avatar-maker.jpg&sp=1704903082T37e0f2b538a4a5ad1c6829068baa19e237a53e602dc4a3812a344580c9876250"
-                />
+                <Avatar sx={{ width: 120, height: 120 }} src="https://i.pravatar.cc/150?img=21" />
                 <Box
                   sx={{
                     position: 'absolute',
@@ -79,7 +87,7 @@ export const UserProfile = () => {
                     width: 60,
                     height: 60,
                     borderRadius: '50%',
-                    backgroundColor: 'rgba(0, 0, 0, .2)',
+                    backgroundColor: 'rgba(0, 0, 0, .5)',
                   }}
                 >
                   <AddAPhotoIcon sx={{ color: 'white' }} />
@@ -141,6 +149,17 @@ export const UserProfile = () => {
           </Grid>
         </CardContent>
       </Card>
+      <Snackbar
+        autoHideDuration={3000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        open={errorMessage !== undefined}
+        onClose={() => setErrorMessage(undefined)}
+      >
+        <Alert onClose={() => setErrorMessage(undefined)} severity="error" sx={{ width: '100%' }}>
+          <Typography>{errorMessage?.title}</Typography>
+          <Typography fontSize="small">{errorMessage?.cause}</Typography>
+        </Alert>
+      </Snackbar>
     </>
   );
 };

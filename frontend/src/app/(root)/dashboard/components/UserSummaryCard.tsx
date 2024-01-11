@@ -23,7 +23,7 @@ export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean 
           {props.loading ? (
             <Skeleton variant="circular" sx={{ width: 64, height: 64, mr: 4 }} />
           ) : (
-            <Avatar sx={{ width: 64, height: 64, mr: 4 }} />
+            <Avatar sx={{ width: 64, height: 64, mr: 4 }} src="https://i.pravatar.cc/150?img=21" />
           )}
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>

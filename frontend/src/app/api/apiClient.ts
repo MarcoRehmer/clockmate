@@ -5,6 +5,7 @@ import {
   CreateActivityDto,
   SummaryDto,
   SummaryFilterDto,
+  UserInfoDto,
 } from '@/app/api/types';
 import { setToken } from '../auth/session';
 import { getAxiosClient } from '@/app/api/axiosClient';
@@ -109,6 +110,12 @@ export const apiClient: ApiClient = {
       }
 
       return response.data;
+    },
+    updateProfile: function (userId: number, user: Partial<Omit<UserInfoDto, 'userID'>>): Promise<UserInfoDto> {
+      throw new Error('Function not implemented.');
+    },
+    changePassword: function (currentPassword: string, newPassword: string): Promise<boolean> {
+      throw new Error('Function not implemented.');
     },
   },
 
