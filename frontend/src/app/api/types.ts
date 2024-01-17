@@ -14,6 +14,7 @@ export interface ApiClient {
     current(): Promise<UserInfoDto>;
     updateProfile(userId: number, user: Partial<Omit<UserInfoDto, 'userID'>>): Promise<UserInfoDto>;
     changePassword(currentPassword: string, newPassword: string): Promise<boolean>;
+    uploadAvatar(): Promise<void>;
   };
   reports: { summary(filter: SummaryFilterDto): Promise<SummaryDto> };
   settings: {};

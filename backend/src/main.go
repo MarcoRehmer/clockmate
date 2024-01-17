@@ -40,6 +40,7 @@ func main() {
 
 		// users
 		v1.GET("/users/current", controllers.CurrentUser)
+		v1.PUT("/users/:id", controllers.ChangeUserInfo)
 
 		// auth
 		v1.POST("/login", controllers.Login)

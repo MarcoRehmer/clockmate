@@ -17,12 +17,13 @@ import {
   styled,
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { EditableLabel } from './EditableLabel';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { sleep } from '@/app/utils/sleep';
-import { ApiContext } from '@/app/provider/appProvider';
+import { ApiContext, AppContext } from '@/app/provider/appProvider';
+import { UserInfo } from '@/app/core/types';
 
 const ImageButton = styled(ButtonBase)({
   position: 'relative',
@@ -33,24 +34,67 @@ const ImageButton = styled(ButtonBase)({
 });
 
 export const UserProfile = () => {
-  const [mailAddress, setMailAddress] = useState('max.mustermann@exmaple.com');
-  const [firstName, setFirstName] = useState('Max');
-  const [lastName, setLastName] = useState('Mustermann');
   const [errorMessage, setErrorMessage] = useState<{ title: string; cause: string } | undefined>(undefined);
+  const [currentUserInfo, setCurrentUserInfo] = useState<UserInfo>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const api = useContext(ApiContext);
 
-  function handleMailAdressChanged(newValue: string): void {
-    setMailAddress(newValue);
+  useEffect(() => {
+    const fetchUserInfo = async () => await api.users.current();
+
+    setLoading(true);
+    fetchUserInfo().then((value) => {
+      setCurrentUserInfo(value);
+      setLoading(false);
+    });
+  }, [api]);
+
+  async function handleMailAdressChanged(newValue: string) {
+    try {
+      const userID = extractUserId();
+
+      await api.users.updateProfile(userID, { email: newValue });
+      updateCurrentUserInfo({ email: newValue });
+    } catch (error: any) {
+      setErrorMessage({ title: 'E-Mail Address could not be changed', cause: error.message });
+    }
   }
 
-  function handleFirstNameChanged(newValue: string): void {
-    setFirstName(newValue);
+  async function handleFirstNameChanged(newValue: string) {
+    try {
+      const userID = extractUserId();
+
+      await api.users.updateProfile(userID, { firstName: newValue });
+      updateCurrentUserInfo({ firstName: newValue });
+    } catch (error: any) {
+      setErrorMessage({ title: 'First Name could not be changed', cause: error.message });
+    }
   }
 
-  function handleLastNameChanged(newValue: string): void {
-    setLastName(newValue);
+  async function handleLastNameChanged(newValue: string) {
+    try {
+      const userID = extractUserId();
+
+      await api.users.updateProfile(userID, { lastName: newValue });
+      updateCurrentUserInfo({ lastName: newValue });
+    } catch (error: any) {
+      setErrorMessage({ title: 'Last Name could not be changed', cause: error.message });
+    }
   }
+
+  const extractUserId = (): number => {
+    if (currentUserInfo === undefined) {
+      throw new Error('UserID not provided');
+    }
+
+    return currentUserInfo.userID;
+  };
+
+  // TODO: use reducer here
+  const updateCurrentUserInfo = (userInfo: Partial<UserInfo>) => {
+    currentUserInfo && setCurrentUserInfo({ ...currentUserInfo, ...userInfo });
+  };
 
   const handleChangePasswordRequest = async (
     currentPassword: string,
@@ -98,12 +142,12 @@ export const UserProfile = () => {
               <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}>
                 <EditableLabel
                   caption="First Name"
-                  value={firstName}
+                  value={currentUserInfo?.firstName || ''}
                   onValueSaved={(newValue) => handleFirstNameChanged(newValue)}
                 />
                 <EditableLabel
                   caption="Last Name"
-                  value={lastName}
+                  value={currentUserInfo?.lastName || ''}
                   onValueSaved={(newValue) => handleLastNameChanged(newValue)}
                 />
               </Box>
@@ -123,7 +167,7 @@ export const UserProfile = () => {
                 <Box>
                   <EditableLabel
                     caption="E-Mail Address"
-                    value={mailAddress}
+                    value={currentUserInfo?.email || ''}
                     onValueSaved={(newValue) => handleMailAdressChanged(newValue)}
                   />
                 </Box>

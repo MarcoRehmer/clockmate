@@ -111,10 +111,14 @@ export const apiClient: ApiClient = {
 
       return response.data;
     },
-    updateProfile: function (userId: number, user: Partial<Omit<UserInfoDto, 'userID'>>): Promise<UserInfoDto> {
+    updateProfile: async (userId: number, userInfo: Partial<Omit<UserInfoDto, 'userID'>>): Promise<UserInfoDto> => {
+      const { data } = await (await getAxiosClient()).put(`/users/${userId}`, userInfo);
+      return data;
+    },
+    changePassword: (currentPassword: string, newPassword: string): Promise<boolean> => {
       throw new Error('Function not implemented.');
     },
-    changePassword: function (currentPassword: string, newPassword: string): Promise<boolean> {
+    uploadAvatar: () => {
       throw new Error('Function not implemented.');
     },
   },

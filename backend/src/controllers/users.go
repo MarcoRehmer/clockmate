@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"clockmate/backend/models"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func CurrentUser(c *gin.Context) {
@@ -28,4 +29,27 @@ func CurrentUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, userInfo)
+}
+
+func ChangeUserInfo(c *gin.Context) {
+	userId, err := ExtractTokenUserID(c)
+	if err != nil {
+		return
+	}
+
+	var currentUser models.User
+
+	if err = models.DB.First(&currentUser, userId).Error; err != nil {
+		c.Status(http.StatusForbidden)
+		return
+	}
+
+	// validate input
+	var input models.UserInfo
+	if err = c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	models.DB.Model(&currentUser).Updates(input)
 }
