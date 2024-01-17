@@ -18,6 +18,9 @@ export const ChangePasswordForm = ({ onPasswordChanged }: ChangePasswordFormProp
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDiscardChanges = () => {
+    setNewPassword('');
+    setOldPassword('');
+    setNewPasswordAgain('');
     setIsEditing(false);
   };
 
@@ -40,6 +43,9 @@ export const ChangePasswordForm = ({ onPasswordChanged }: ChangePasswordFormProp
     if (result.success === false) {
       setIsWrongCurrentPassword(result.wrongCurrentPassword);
     } else {
+      setNewPassword('');
+      setOldPassword('');
+      setNewPasswordAgain('');
       setIsEditing(false);
     }
 

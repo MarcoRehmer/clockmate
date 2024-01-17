@@ -20,3 +20,8 @@ type UserInfo struct {
 	LastName  string `json:"lastName"`
 	Active    bool   `json:"active"`
 }
+
+type ChangePasswordInput struct {
+	CurrentPassword string `json:"currentPassword"`
+	NewPassword     string `json:"newPassword"`
+}

@@ -24,6 +24,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { sleep } from '@/app/utils/sleep';
 import { ApiContext, AppContext } from '@/app/provider/appProvider';
 import { UserInfo } from '@/app/core/types';
+import { encryptPassword } from '@/app/utils/encrypt-password';
 
 const ImageButton = styled(ButtonBase)({
   position: 'relative',
@@ -34,7 +35,9 @@ const ImageButton = styled(ButtonBase)({
 });
 
 export const UserProfile = () => {
-  const [errorMessage, setErrorMessage] = useState<{ title: string; cause: string } | undefined>(undefined);
+  const [statusMessage, setStatusMessage] = useState<
+    { title: string; cause: string; servity: 'error' | 'success' } | undefined
+  >(undefined);
   const [currentUserInfo, setCurrentUserInfo] = useState<UserInfo>();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -57,7 +60,7 @@ export const UserProfile = () => {
       await api.users.updateProfile(userID, { email: newValue });
       updateCurrentUserInfo({ email: newValue });
     } catch (error: any) {
-      setErrorMessage({ title: 'E-Mail Address could not be changed', cause: error.message });
+      setStatusMessage({ title: 'E-Mail Address could not be changed', cause: error.message, servity: 'error' });
     }
   }
 
@@ -68,7 +71,7 @@ export const UserProfile = () => {
       await api.users.updateProfile(userID, { firstName: newValue });
       updateCurrentUserInfo({ firstName: newValue });
     } catch (error: any) {
-      setErrorMessage({ title: 'First Name could not be changed', cause: error.message });
+      setStatusMessage({ title: 'First Name could not be changed', cause: error.message, servity: 'error' });
     }
   }
 
@@ -79,7 +82,7 @@ export const UserProfile = () => {
       await api.users.updateProfile(userID, { lastName: newValue });
       updateCurrentUserInfo({ lastName: newValue });
     } catch (error: any) {
-      setErrorMessage({ title: 'Last Name could not be changed', cause: error.message });
+      setStatusMessage({ title: 'Last Name could not be changed', cause: error.message, servity: 'error' });
     }
   }
 
@@ -101,10 +104,14 @@ export const UserProfile = () => {
     newPassword: string
   ): Promise<{ success: true } | { success: false; wrongCurrentPassword: boolean }> => {
     try {
-      await api.users.changePassword(currentPassword, newPassword);
+      const hashedCurrentPassword = await encryptPassword(currentPassword);
+      const hashedNewPassword = await encryptPassword(newPassword);
+
+      await api.users.changePassword(hashedCurrentPassword, hashedNewPassword);
+      setStatusMessage({ title: 'Password changed', cause: 'Password successfully changed!', servity: 'success' });
       return { success: true };
     } catch (error) {
-      setErrorMessage({ title: 'Password could not be changed', cause: 'Server Error' });
+      setStatusMessage({ title: 'Password could not be changed', cause: 'Server Error', servity: 'error' });
       return { success: false, wrongCurrentPassword: false };
     }
   };
@@ -196,12 +203,12 @@ export const UserProfile = () => {
       <Snackbar
         autoHideDuration={3000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        open={errorMessage !== undefined}
-        onClose={() => setErrorMessage(undefined)}
+        open={statusMessage !== undefined}
+        onClose={() => setStatusMessage(undefined)}
       >
-        <Alert onClose={() => setErrorMessage(undefined)} severity="error" sx={{ width: '100%' }}>
-          <Typography>{errorMessage?.title}</Typography>
-          <Typography fontSize="small">{errorMessage?.cause}</Typography>
+        <Alert onClose={() => setStatusMessage(undefined)} severity={statusMessage?.servity} sx={{ width: '100%' }}>
+          <Typography>{statusMessage?.title}</Typography>
+          <Typography fontSize="small">{statusMessage?.cause}</Typography>
         </Alert>
       </Snackbar>
     </>

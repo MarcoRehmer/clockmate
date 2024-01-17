@@ -115,8 +115,9 @@ export const apiClient: ApiClient = {
       const { data } = await (await getAxiosClient()).put(`/users/${userId}`, userInfo);
       return data;
     },
-    changePassword: (currentPassword: string, newPassword: string): Promise<boolean> => {
-      throw new Error('Function not implemented.');
+    changePassword: async (currentPassword: string, newPassword: string): Promise<boolean> => {
+      const { data } = await (await getAxiosClient()).post('/users/change-password', { currentPassword, newPassword });
+      return data;
     },
     uploadAvatar: () => {
       throw new Error('Function not implemented.');
