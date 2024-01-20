@@ -119,13 +119,22 @@ export const apiClient: ApiClient = {
       const { data } = await (await getAxiosClient()).post('/users/change-password', { currentPassword, newPassword });
       return data;
     },
-    uploadAvatar: async () => {
-      await (await getAxiosClient()).post('/');
+    uploadAvatar: async (file: File): Promise<string> => {
+      const formData = new FormData();
+      formData.append('file', file);
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await (await getAxiosClient()).post('/users/avatar', formData, config);
+      return data;
     },
-    getAvatarUrl: async (userID?: number) => {
+    getAvatarUrl: async (avatarID?: string) => {
       // TODO Refactor: user global state to avoid multiple http calls
       const userInfo = await apiClient.users.current();
-      const url = `${(await getAxiosClient()).getUri()}/users/avatar/${userID || userInfo.userID}`;
+      const url = `${(await getAxiosClient()).getUri()}/users/avatar/${avatarID || userInfo.avatarImageID}`;
       return url;
     },
   },

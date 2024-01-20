@@ -71,7 +71,7 @@ export const UserProfile = () => {
     fetchAvatarUrl().then((url) => setAvatarUrl(url));
 
     Promise.all([fetchUserInfo, fetchAvatarUrl]).then(() => setLoading(false));
-  }, [api]);
+  }, [api.users]);
 
   async function handleMailAdressChanged(newValue: string) {
     try {
@@ -136,6 +136,10 @@ export const UserProfile = () => {
     }
   };
 
+  async function handleAvatarUrlChange(id: string) {
+    setAvatarUrl(await api.users.getAvatarUrl(id));
+  }
+
   return (
     <>
       <Card sx={{ margin: 'auto', maxWidth: '900px' }} className={'header-offset'}>
@@ -168,6 +172,7 @@ export const UserProfile = () => {
               {uploadAvatarDialogOpen && (
                 <UploadAvatarDialog
                   open={uploadAvatarDialogOpen}
+                  changeAvatarUrl={(id) => handleAvatarUrlChange(id)}
                   handleClose={() => setUploadAvatarDialogOpen(false)}
                 />
               )}

@@ -7,6 +7,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Skeleton,
   styled,
 } from '@mui/material';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
@@ -16,27 +17,34 @@ import { ApiContext } from '@/app/provider/appProvider';
 interface UploadAvatarDialogProps {
   open: boolean;
   handleClose: () => void;
+  changeAvatarUrl: (avatarID: string) => void;
 }
 
-export const UploadAvatarDialog = ({ open, handleClose }: UploadAvatarDialogProps) => {
+export const UploadAvatarDialog = ({ open, handleClose, changeAvatarUrl }: UploadAvatarDialogProps) => {
   const [file, setFile] = useState<File | undefined>(undefined);
   const [uploading, setUploading] = useState<boolean>(false);
-  const [reloadUserAvatar, setReloadUserAvatar] = useState<boolean>(true);
+  // const [reloadUserAvatar, setReloadUserAvatar] = useState<boolean>(false);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   const api = useContext(ApiContext);
 
   useEffect(() => {
     const fetchAvatarUrl = async () => await api.users.getAvatarUrl();
-
-    fetchAvatarUrl().then((url) => setAvatarUrl(url));
-  }, [api, reloadUserAvatar]);
+    console.log('effect called');
+    fetchAvatarUrl().then((url) => {
+      setAvatarUrl(url);
+    });
+  }, [api.users]);
 
   async function handleUploadAvatar() {
     setUploading(true);
 
     try {
-      await api.users.uploadAvatar();
+      if (file) {
+        const avatarID = await api.users.uploadAvatar(file);
+        setAvatarUrl(await api.users.getAvatarUrl(avatarID));
+        changeAvatarUrl(avatarID);
+      }
     } catch (error) {
       console.error('error upload avatar image', error);
     }
@@ -49,7 +57,11 @@ export const UploadAvatarDialog = ({ open, handleClose }: UploadAvatarDialogProp
       <DialogTitle>Upload Avatar</DialogTitle>
       <DialogContent>
         <div>
-          <Avatar sx={{ width: '250px', height: '250px', margin: '1rem' }} src={avatarUrl} />
+          {avatarUrl !== undefined ? (
+            <Avatar sx={{ width: '250px', height: '250px', margin: '1rem' }} src={avatarUrl} />
+          ) : (
+            <Skeleton variant="rounded" sx={{ width: '250px', height: '250px', borderRadius: '50%', margin: '1rem' }} />
+          )}
           {file ? file.name : 'No file selected...'}
           <Box sx={{ display: 'flex', columnGap: '1rem', justifyContent: 'center', mt: '1rem' }}>
             <Button component="label" variant="contained" disabled={uploading}>
@@ -57,6 +69,7 @@ export const UploadAvatarDialog = ({ open, handleClose }: UploadAvatarDialogProp
               <input
                 hidden
                 type="file"
+                accept="image/jpeg"
                 onChange={(val: ChangeEvent<HTMLInputElement>) => val.target.files && setFile(val.target.files[0])}
               />
             </Button>
