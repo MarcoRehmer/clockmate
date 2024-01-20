@@ -6,10 +6,11 @@ import { BookingTableOptions } from '@/app/(root)/dashboard/components/BookingTa
 import { BookingTable } from '@/app/(root)/dashboard/components/BookingTable/BookingTable';
 import React, { useContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
-import { Activity, UserSummary } from '@/app/core/types';
+import { Activity, UserInfo, UserSummary } from '@/app/core/types';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
 import { ApiContext } from '@/app/provider/appProvider';
 import { mapToUpdateActivity } from '@/app/api/mapper/map-partial-activity';
+import { UserInfoDto } from '@/app/api/types';
 
 interface DashboardOptions {
   filter: {
@@ -39,6 +40,7 @@ export const Dashboard = () => {
   );
   const [initialLoading, setInitialLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
+  const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
 
   /* Contexts */
   const api = useContext(ApiContext);
@@ -57,9 +59,12 @@ export const Dashboard = () => {
       })
       .catch((err) => console.error('error while fetching data', err));
 
-    const fetchAvatarUrl = async () => await api.users.getAvatarUrl();
-
-    fetchAvatarUrl().then((url) => setAvatarUrl(url));
+    const fetchUserInfo = async () => await api.users.current();
+    const fetchAvatarUrl = async (avatarID?: string) => await api.users.getAvatarUrl(avatarID);
+    fetchUserInfo().then((usr) => {
+      fetchAvatarUrl(usr.avatarImageID).then((url) => setAvatarUrl(url));
+      setUserInfo(usr);
+    });
   }, [api.activities, tableFilter, reload, api.users]);
 
   useEffect(() => {
@@ -181,7 +186,12 @@ export const Dashboard = () => {
           }}
         >
           <Box sx={{ flexGrow: 1 }}>
-            <UserSummaryCard summary={summary} loading={initialLoading} avatarUrl={avatarUrl} />
+            <UserSummaryCard
+              summary={summary}
+              loading={initialLoading}
+              avatarUrl={avatarUrl}
+              userFullName={userInfo && `${userInfo.firstName} ${userInfo.lastName}`}
+            />
           </Box>
           <Box
             sx={{

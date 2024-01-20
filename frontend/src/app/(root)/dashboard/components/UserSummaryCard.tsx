@@ -6,9 +6,12 @@ import { DateTime } from 'luxon';
 import { UserSummary } from '@/app/core/types';
 import { AppContext } from '@/app/provider/appProvider';
 
-export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean; avatarUrl?: string }) => {
-  const appContext = useContext(AppContext);
-
+export const UserSummaryCard = (props: {
+  summary: UserSummary;
+  loading: boolean;
+  avatarUrl?: string;
+  userFullName?: string;
+}) => {
   const greeterText =
     DateTime.now() < DateTime.fromObject({ hour: 12 })
       ? 'Good Morning'
@@ -31,7 +34,7 @@ export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean;
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
             <Typography fontSize="large" sx={{ marginBottom: 1 }}>
-              {greeterText}, {appContext.userInfo?.firstName || 'User'}
+              {greeterText}, {props.userFullName || 'User'}
             </Typography>
 
             {/*summary values*/}
