@@ -38,6 +38,7 @@ export const Dashboard = () => {
     undefined
   );
   const [initialLoading, setInitialLoading] = useState(true);
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   /* Contexts */
   const api = useContext(ApiContext);
@@ -55,7 +56,11 @@ export const Dashboard = () => {
         setInitialLoading(false);
       })
       .catch((err) => console.error('error while fetching data', err));
-  }, [api.activities, tableFilter, reload]);
+
+    const fetchAvatarUrl = async () => await api.users.getAvatarUrl();
+
+    fetchAvatarUrl().then((url) => setAvatarUrl(url));
+  }, [api.activities, tableFilter, reload, api.users]);
 
   useEffect(() => {
     const fetchCurrent = async () => await api.activities.getCurrentActivity();
@@ -176,7 +181,7 @@ export const Dashboard = () => {
           }}
         >
           <Box sx={{ flexGrow: 1 }}>
-            <UserSummaryCard summary={summary} loading={initialLoading} />
+            <UserSummaryCard summary={summary} loading={initialLoading} avatarUrl={avatarUrl} />
           </Box>
           <Box
             sx={{

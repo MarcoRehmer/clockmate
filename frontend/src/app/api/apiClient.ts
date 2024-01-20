@@ -119,8 +119,14 @@ export const apiClient: ApiClient = {
       const { data } = await (await getAxiosClient()).post('/users/change-password', { currentPassword, newPassword });
       return data;
     },
-    uploadAvatar: () => {
-      throw new Error('Function not implemented.');
+    uploadAvatar: async () => {
+      await (await getAxiosClient()).post('/');
+    },
+    getAvatarUrl: async (userID?: number) => {
+      // TODO Refactor: user global state to avoid multiple http calls
+      const userInfo = await apiClient.users.current();
+      const url = `${(await getAxiosClient()).getUri()}/users/avatar/${userID || userInfo.userID}`;
+      return url;
     },
   },
 

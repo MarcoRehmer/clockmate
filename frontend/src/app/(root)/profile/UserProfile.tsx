@@ -25,6 +25,7 @@ import { sleep } from '@/app/utils/sleep';
 import { ApiContext, AppContext } from '@/app/provider/appProvider';
 import { UserInfo } from '@/app/core/types';
 import { encryptPassword } from '@/app/utils/encrypt-password';
+import { UploadAvatarDialog } from './UploadAvatarDialog';
 
 const ImageButton = styled(ButtonBase)({
   position: 'relative',
@@ -34,12 +35,26 @@ const ImageButton = styled(ButtonBase)({
   overflow: 'hidden',
 });
 
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
 export const UserProfile = () => {
   const [statusMessage, setStatusMessage] = useState<
     { title: string; cause: string; servity: 'error' | 'success' } | undefined
   >(undefined);
   const [currentUserInfo, setCurrentUserInfo] = useState<UserInfo>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [uploadAvatarDialogOpen, setUploadAvatarDialogOpen] = useState<boolean>(false);
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   const api = useContext(ApiContext);
 
@@ -47,10 +62,15 @@ export const UserProfile = () => {
     const fetchUserInfo = async () => await api.users.current();
 
     setLoading(true);
+
     fetchUserInfo().then((value) => {
       setCurrentUserInfo(value);
-      setLoading(false);
     });
+
+    const fetchAvatarUrl = async () => await api.users.getAvatarUrl();
+    fetchAvatarUrl().then((url) => setAvatarUrl(url));
+
+    Promise.all([fetchUserInfo, fetchAvatarUrl]).then(() => setLoading(false));
   }, [api]);
 
   async function handleMailAdressChanged(newValue: string) {
@@ -124,8 +144,9 @@ export const UserProfile = () => {
           <Grid container rowSpacing={4} columnSpacing={4}>
             {/* Avatar and Name */}
             <Grid md={2} xs={12}>
-              <ImageButton>
-                <Avatar sx={{ width: 120, height: 120 }} src="https://i.pravatar.cc/150?img=21" />
+              <ImageButton onClick={() => setUploadAvatarDialogOpen(true)}>
+                <VisuallyHiddenInput type="file" />
+                <Avatar sx={{ width: 120, height: 120 }} src={avatarUrl} />
                 <Box
                   sx={{
                     position: 'absolute',
@@ -144,6 +165,12 @@ export const UserProfile = () => {
                   <AddAPhotoIcon sx={{ color: 'white' }} />
                 </Box>
               </ImageButton>
+              {uploadAvatarDialogOpen && (
+                <UploadAvatarDialog
+                  open={uploadAvatarDialogOpen}
+                  handleClose={() => setUploadAvatarDialogOpen(false)}
+                />
+              )}
             </Grid>
             <Grid md={10} xs={12}>
               <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: 4 }}>

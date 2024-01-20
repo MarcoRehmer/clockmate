@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
 import { UserSummary } from '@/app/core/types';
 import { AppContext } from '@/app/provider/appProvider';
 
-export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean }) => {
+export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean; avatarUrl?: string }) => {
   const appContext = useContext(AppContext);
 
   const greeterText =
@@ -26,7 +26,7 @@ export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean 
           {props.loading ? (
             <Skeleton variant="circular" sx={{ width: 64, height: 64, mr: 4 }} />
           ) : (
-            <Avatar sx={{ width: 64, height: 64, mr: 4 }} src="https://i.pravatar.cc/150?img=21" />
+            <Avatar sx={{ width: 64, height: 64, mr: 4 }} src={props.avatarUrl} />
           )}
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>

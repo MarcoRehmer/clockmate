@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"clockmate/backend/models"
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -82,4 +84,25 @@ func ChangePassword(c *gin.Context) {
 	models.DB.Model(&currentUser).Updates(models.User{Password: input.NewPassword})
 	c.Status(http.StatusOK)
 	c.Value(true)
+}
+
+func UploadAvatar(c *gin.Context) {
+
+}
+
+func GetAvatar(c *gin.Context) {
+	var user models.User
+	if err := models.DB.First(&user, c.Param("id")).Error; err != nil {
+		c.Status(http.StatusForbidden)
+		return
+	}
+
+	body, err := os.ReadFile(fmt.Sprintf("media/avatars/%v.png", user.AvatarImageID))
+	if err != nil {
+		fmt.Printf("Error read image: %v", err)
+		c.Status(http.StatusNotFound)
+		return
+	}
+
+	c.Data(http.StatusOK, "image/png", body)
 }
