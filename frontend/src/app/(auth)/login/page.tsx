@@ -5,22 +5,17 @@ import { useRouter } from 'next/navigation';
 import { api } from '@/app/api/api';
 import { Alert, Box, Card, CircularProgress, Fade, Snackbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { isAxiosError } from 'axios';
-
-async function encryptPassword(password: string): Promise<string> {
-  const passwordBuffer = new TextEncoder().encode(password);
-
-  const hashBuffer = await crypto.subtle.digest('SHA-256', passwordBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((byte) => byte.toString(16).padStart(2, '0')).join('');
-}
+import { AppContext } from '@/app/provider/appProvider';
+import { encryptPassword } from '@/app/utils/encrypt-password';
 
 export default function Index() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
   const [serverError, setServerError] = useState(false);
+  const appContext = useContext(AppContext);
 
   const loginRedirect = async (email: string, password: string) => {
     setLoading(true);
@@ -31,6 +26,9 @@ export default function Index() {
       const response = await api.auth.login(email, hashedPassword);
 
       if (response) {
+        const userInfo = await api.users.current();
+        appContext.setUserInfo(userInfo);
+
         router.replace('/dashboard');
       }
     } catch (e) {

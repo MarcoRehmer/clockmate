@@ -5,6 +5,7 @@ import {
   CreateActivityDto,
   SummaryDto,
   SummaryFilterDto,
+  UserInfoDto,
 } from '@/app/api/types';
 import { setToken } from '../auth/session';
 import { getAxiosClient } from '@/app/api/axiosClient';
@@ -109,6 +110,32 @@ export const apiClient: ApiClient = {
       }
 
       return response.data;
+    },
+    updateProfile: async (userId: number, userInfo: Partial<Omit<UserInfoDto, 'userID'>>): Promise<UserInfoDto> => {
+      const { data } = await (await getAxiosClient()).put(`/users/${userId}`, userInfo);
+      return data;
+    },
+    changePassword: async (currentPassword: string, newPassword: string): Promise<boolean> => {
+      const { data } = await (await getAxiosClient()).post('/users/change-password', { currentPassword, newPassword });
+      return data;
+    },
+    uploadAvatar: async (file: File): Promise<string> => {
+      const formData = new FormData();
+      formData.append('file', file);
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await (await getAxiosClient()).post('/users/avatar', formData, config);
+      return data;
+    },
+    getAvatarUrl: async (avatarID?: string) => {
+      // TODO Refactor: user global state to avoid multiple http calls
+      const userInfo = await apiClient.users.current();
+      const url = `${(await getAxiosClient()).getUri()}/users/avatar/${avatarID || userInfo.avatarImageID}`;
+      return url;
     },
   },
 

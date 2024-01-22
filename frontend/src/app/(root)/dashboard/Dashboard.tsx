@@ -6,11 +6,11 @@ import { BookingTableOptions } from '@/app/(root)/dashboard/components/BookingTa
 import { BookingTable } from '@/app/(root)/dashboard/components/BookingTable/BookingTable';
 import React, { useContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
-import { Activity, UserSummary } from '@/app/core/types';
+import { Activity, UserInfo, UserSummary } from '@/app/core/types';
 import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
 import { ApiContext } from '@/app/provider/appProvider';
 import { mapToUpdateActivity } from '@/app/api/mapper/map-partial-activity';
-import { sleep } from '@/app/utils/sleep';
+import { UserInfoDto } from '@/app/api/types';
 
 interface DashboardOptions {
   filter: {
@@ -39,6 +39,8 @@ export const Dashboard = () => {
     undefined
   );
   const [initialLoading, setInitialLoading] = useState(true);
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
+  const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
 
   /* Contexts */
   const api = useContext(ApiContext);
@@ -56,7 +58,14 @@ export const Dashboard = () => {
         setInitialLoading(false);
       })
       .catch((err) => console.error('error while fetching data', err));
-  }, [api.activities, tableFilter, reload]);
+
+    const fetchUserInfo = async () => await api.users.current();
+    const fetchAvatarUrl = async (avatarID?: string) => await api.users.getAvatarUrl(avatarID);
+    fetchUserInfo().then((usr) => {
+      fetchAvatarUrl(usr.avatarImageID).then((url) => setAvatarUrl(url));
+      setUserInfo(usr);
+    });
+  }, [api.activities, tableFilter, reload, api.users]);
 
   useEffect(() => {
     const fetchCurrent = async () => await api.activities.getCurrentActivity();
@@ -165,11 +174,7 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div
-        style={{
-          marginTop: -60,
-        }}
-      >
+      <div>
         <Box
           sx={{
             mb: 2,
@@ -181,7 +186,12 @@ export const Dashboard = () => {
           }}
         >
           <Box sx={{ flexGrow: 1 }}>
-            <UserSummaryCard summary={summary} loading={initialLoading} />
+            <UserSummaryCard
+              summary={summary}
+              loading={initialLoading}
+              avatarUrl={avatarUrl}
+              userFullName={userInfo && `${userInfo.firstName} ${userInfo.lastName}`}
+            />
           </Box>
           <Box
             sx={{

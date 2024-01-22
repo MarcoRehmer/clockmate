@@ -1,11 +1,17 @@
 'use client';
 import { Avatar, Box, Card, Skeleton } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { DateTime } from 'luxon';
 import { UserSummary } from '@/app/core/types';
+import { AppContext } from '@/app/provider/appProvider';
 
-export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean }) => {
+export const UserSummaryCard = (props: {
+  summary: UserSummary;
+  loading: boolean;
+  avatarUrl?: string;
+  userFullName?: string;
+}) => {
   const greeterText =
     DateTime.now() < DateTime.fromObject({ hour: 12 })
       ? 'Good Morning'
@@ -23,12 +29,12 @@ export const UserSummaryCard = (props: { summary: UserSummary; loading: boolean 
           {props.loading ? (
             <Skeleton variant="circular" sx={{ width: 64, height: 64, mr: 4 }} />
           ) : (
-            <Avatar sx={{ width: 64, height: 64, mr: 4 }} />
+            <Avatar sx={{ width: 64, height: 64, mr: 4 }} src={props.avatarUrl} />
           )}
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
             <Typography fontSize="large" sx={{ marginBottom: 1 }}>
-              {greeterText}, User
+              {greeterText}, {props.userFullName || 'User'}
             </Typography>
 
             {/*summary values*/}

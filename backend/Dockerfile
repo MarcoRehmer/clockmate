@@ -12,8 +12,8 @@ FROM golang:1.21-alpine
 
 WORKDIR /app
 
-COPY --from=build /clockmate-backend /clockmate-backend
+COPY --from=build /clockmate-backend /app/clockmate-backend
 
 EXPOSE 8080
 
-CMD ["/clockmate-backend"]
+CMD ["/app/clockmate-backend"]
