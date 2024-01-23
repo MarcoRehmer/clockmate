@@ -120,16 +120,18 @@ export const BookingTable = (props: BookingTableProps) => {
                     )}
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                       {/* Duration cell */}
-                      <TableCell
-                        sx={{
-                          color: row.finishedAt === undefined ? 'primary.main' : 'text.secondary',
-                        }}
-                      >
+                      <TableCell>
                         <div>
-                          <Typography fontSize="large" sx={{ textAlign: 'center' }}>
+                          <Typography
+                            fontSize="large"
+                            sx={{
+                              textAlign: 'center',
+                              color: row.finishedAt === undefined ? 'primary.main' : 'text.main',
+                            }}
+                          >
                             {calcDuration(row.startedAt, row.finishedAt || DateTime.now())}
                           </Typography>
-                          <Box sx={{ display: 'flex', columnGap: 0.5, flexDirection: 'row' }}>
+                          <Box sx={{ display: 'flex', columnGap: 0.5, flexDirection: 'row', color: 'text.secondary' }}>
                             <span>{row.startedAt.toFormat('HH:mm')}</span>-
                             <span>{row.finishedAt?.toFormat('HH:mm') || ''}</span>
                           </Box>
@@ -138,9 +140,15 @@ export const BookingTable = (props: BookingTableProps) => {
 
                       {/* Remarks Cell */}
                       <TableCell>
-                        <Typography fontSize="medium" sx={{ color: 'text.secondary' }}>
-                          {row.remarks}
-                        </Typography>
+                        <Typography sx={{ color: 'text.main' }}>{row.remarks || '-'}</Typography>
+
+                        <Box sx={{ display: 'flex', columnGap: '0.5rem' }}>
+                          <Typography sx={{ color: 'text.secondary', fontSize: '0.90rem' }}>My Client</Typography>
+                          <Typography sx={{ color: 'text.secondary', fontSize: '0.90rem' }}>/</Typography>
+                          <Typography sx={{ color: 'text.secondary', fontSize: '0.90rem' }}>
+                            Project Client 1
+                          </Typography>
+                        </Box>
                       </TableCell>
 
                       {/* Conetxt Menu Cell */}
