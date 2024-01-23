@@ -3,11 +3,23 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import CloseIcon from '@mui/icons-material/Close';
 import CallSplitIcon from '@mui/icons-material/CallSplit';
 import StopIcon from '@mui/icons-material/Stop';
-import { Box, Button, IconButton, Popover, TextField, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import {
+  Box,
+  Button,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Popover,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { DateTime } from 'luxon';
-import { Activity } from '@/app/core/types';
+import { Activity, Client, Project } from '@/app/core/types';
+import { AppContext } from '@/app/provider/appProvider';
 
 export const Stopwatch = (props: {
   currentActivity: Activity | undefined;
@@ -20,6 +32,10 @@ export const Stopwatch = (props: {
   const [popoverAnchorEl, setPopoverAnchorEl] = useState<null | HTMLElement>(null);
   const [remarks, setRemarks] = useState('');
   const [popoverMode, setPopoverMode] = useState<'start' | 'switch'>('start');
+  const [selectedProject, setSelectedProject] = useState<Project | undefined>(undefined);
+  const [selectedClient, setSelectedClient] = useState<Client | undefined>(undefined);
+
+  const appContext = useContext(AppContext);
 
   const popoverOpen = Boolean(popoverAnchorEl);
 
@@ -111,8 +127,53 @@ export const Stopwatch = (props: {
         <Typography sx={{ p: 2, pb: 0 }} variant="h6">
           {popoverMode === 'switch' ? 'Switch Task' : 'Start Task'}
         </Typography>
-        <Box sx={{ p: 2, pt: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-          <TextField placeholder="Remarks" value={remarks} onChange={(event) => setRemarks(event.target.value)} />
+        <Box sx={{ p: 2, pt: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-end', rowGap: 2 }}>
+          <FormControl variant="standard" sx={{ width: '100%' }}>
+            <InputLabel id="client-select-label">Client</InputLabel>
+            <Select
+              labelId="client-select-label"
+              label="Client"
+              onChange={(event) =>
+                setSelectedClient(appContext.clients.find((client) => client.clientID === event.target.value))
+              }
+            >
+              <MenuItem value={0}>
+                <em>None</em>
+              </MenuItem>
+              {appContext.clients.map((client) => (
+                <MenuItem key={client.clientID} value={client.clientID}>
+                  {client.name}
+                  {JSON.stringify(client)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl variant="standard" sx={{ width: '100%' }}>
+            <InputLabel id="project-select-label">Project</InputLabel>
+            <Select
+              labelId="project-select-label"
+              label="Project"
+              onChange={(event) =>
+                setSelectedProject(appContext.projects.find((project) => project.projectID === event.target.value))
+              }
+            >
+              <MenuItem value={0}>
+                <em>None</em>
+              </MenuItem>
+              {appContext.projects.map((project) => (
+                <MenuItem key={project.projectID} value={project.projectID}>
+                  {project.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <TextField
+            label="Remarks"
+            value={remarks}
+            onChange={(event) => setRemarks(event.target.value)}
+            variant="standard"
+          />
           <Button onClick={handleRunStopwatchClick}>{popoverMode === 'start' ? 'Start' : 'Switch'}</Button>
         </Box>
       </Popover>

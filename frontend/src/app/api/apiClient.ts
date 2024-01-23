@@ -76,8 +76,8 @@ export const apiClient: ApiClient = {
       // TODO: add error handling
       // TODO: error handling with redirect to login page if not authenticated
     },
-    create: async function (booking: CreateActivityDto): Promise<ActivityDto> {
-      const { data } = await (await getAxiosClient()).post('/activities', { ...booking });
+    create: async function (activity: CreateActivityDto): Promise<ActivityDto> {
+      const { data } = await (await getAxiosClient()).post('/activities', { ...activity });
       return data;
 
       // TODO: add error handling

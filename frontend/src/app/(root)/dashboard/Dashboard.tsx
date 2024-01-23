@@ -112,11 +112,14 @@ export const Dashboard = () => {
   };
 
   const handleActivityAdded = async (activity: Omit<Activity, 'id'>) => {
+    console.log('activity', activity);
     try {
       await api.activities.create({
         startedAt: activity.startedAt.toISO() || '',
         finishedAt: activity.finishedAt?.toISO() || undefined,
         remarks: activity.remarks,
+        projectID: activity.projectID,
+        clientID: activity.clientID,
       });
 
       setSnackMessage({ status: 'success', message: 'Activity added' });

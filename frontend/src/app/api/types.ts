@@ -65,16 +65,16 @@ export interface CreateActivityDto {
   startedAt: string;
   finishedAt?: string;
   remarks?: string;
-  projectId?: number;
-  clientId?: number;
+  projectID?: number;
+  clientID?: number;
 }
 
 export type UpdateActivityDto = Partial<{
   startedAt: string | null;
   finishedAt: string | null;
   remarks: string | null;
-  projectId: number | null;
-  clientId: number | null;
+  projectID: number | null;
+  clientID: number | null;
 }>;
 
 export interface UserInfoDto {
