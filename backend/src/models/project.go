@@ -9,3 +9,10 @@ type Project struct {
 	ClientID    *uint
 	Client      Client `gorm:"foreignKey:ClientID"`
 }
+
+type ProjectInput struct {
+	Title       string  `json:"title"`
+	Description *string `json:"description"`
+	Active      bool    `json:"active"`
+	ClientID    *uint   `json:"clientID"`
+}

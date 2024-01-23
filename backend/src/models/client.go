@@ -6,3 +6,9 @@ type Client struct {
 	ClientNumber *string `json:"clientNumber" gorm:"type:varchar(50)"`
 	Active       bool    `json:"active" default:"true" gorm:"default:false"`
 }
+
+type ClientInput struct {
+	Name         string  `json:"name" binding:"required"`
+	ClientNumber *string `json:"clientNumber"`
+	Active       bool    `json:"active" binding:"required"`
+}

@@ -31,6 +31,9 @@ func main() {
 
 	v1 := r.Group("/api")
 	{
+		// auth
+		v1.POST("/login", controllers.Login)
+
 		// activities
 		v1.GET("/activities", controllers.FindActivities)
 		v1.GET("/activities/current", controllers.CurrentActivity)
@@ -45,11 +48,22 @@ func main() {
 		v1.GET("/users/avatar/:id", controllers.GetAvatar)
 		v1.POST("/users/avatar", controllers.UploadAvatar)
 
-		// auth
-		v1.POST("/login", controllers.Login)
-
 		// reports
 		v1.GET("/reports/summary", controllers.FetchSummary)
+
+		// clients
+		v1.GET("/clients", controllers.GetAllClients)
+		v1.GET("/clients/:id", controllers.GetClient)
+		v1.POST("/clients", controllers.CreateClient)
+		v1.PUT("/clients/:id", controllers.UpdateClient)
+		v1.DELETE("/clients/:id", controllers.DeleteClient)
+
+		// projects
+		v1.GET("/projects", controllers.GetAllProjects)
+		v1.GET("/projects/:id", controllers.GetProject)
+		v1.POST("/projects", controllers.CreateProject)
+		v1.PUT("/projects/:id", controllers.UpdateProject)
+		v1.DELETE("/projects/:id", controllers.DeleteProject)
 	}
 
 	err = r.Run()
