@@ -7,7 +7,7 @@ type Project struct {
 	Description *string `gorm:"type:text"`
 	Active      bool    `gorm:"type:boolean" default:"true"`
 	ClientID    *uint
-	Client      Client `gorm:"foreignKey:ClientID"`
+	Client      Client
 }
 
 type ProjectInput struct {
