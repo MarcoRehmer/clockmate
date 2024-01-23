@@ -66,6 +66,11 @@ func main() {
 		v1.DELETE("/projects/:id", controllers.DeleteProject)
 	}
 
+	admin := v1.Group("/admin")
+	{
+		admin.POST("/users", controllers.CreateUser)
+	}
+
 	err = r.Run()
 	if err != nil {
 		return

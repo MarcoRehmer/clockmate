@@ -52,6 +52,8 @@ func CreateClient(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot create entity"})
 		return
 	}
+
+	c.Status(http.StatusOK)
 }
 
 // UpdateClient PUT /clients/:id
