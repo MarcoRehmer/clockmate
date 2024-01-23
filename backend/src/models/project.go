@@ -3,11 +3,11 @@ package models
 // Project database model
 type Project struct {
 	ProjectID   uint    `gorm:"primaryKey"`
-	Title       string  `gorm:"type:VARCHAR(100);not null"`
-	Description *string `gorm:"type:text"`
-	Active      bool    `gorm:"type:boolean" default:"true"`
-	ClientID    *uint
-	Client      Client
+	Title       string  `json:"title" gorm:"type:VARCHAR(100);not null"`
+	Description *string `json:"description" gorm:"type:text"`
+	Active      bool    `json:"active" gorm:"type:boolean" default:"true"`
+	ClientID    *uint   `json:"clientID"`
+	Client      Client  `json:"-"`
 }
 
 type ProjectInput struct {

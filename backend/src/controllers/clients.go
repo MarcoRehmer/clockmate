@@ -15,9 +15,10 @@ func GetAllClients(c *gin.Context) {
 	var clients []models.Client
 
 	err := models.DB.Where(&models.Client{Active: true}).Find(&clients).Error
-	if errors.Is(err, gorm.ErrRecordNotFound) {
+	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 		fmt.Printf("error get clients: %v", err)
 		c.Status(http.StatusInternalServerError)
+		return
 	}
 	c.JSON(http.StatusOK, clients)
 }
