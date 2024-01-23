@@ -10,12 +10,12 @@ type Activity struct {
 	Remarks    *string    `json:"remarks"`
 	StartedAt  time.Time  `json:"startedAt" gorm:"not null"`
 	FinishedAt *time.Time `json:"finishedAt"`
-	User       User
-	UserID     uint
-	Client     Client
-	ClientID   uint
-	Project    Project
-	ProjectID  uint
+	User       User       `json:"-"`
+	UserID     uint       `json:"userID"`
+	Client     Client     `json:"-"`
+	ClientID   *uint      `json:"clientID"`
+	Project    Project    `json:"-"`
+	ProjectID  *uint      `json:"projectID"`
 }
 
 type CreateActivityInput struct {

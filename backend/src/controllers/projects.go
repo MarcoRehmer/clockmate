@@ -33,7 +33,6 @@ func GetProject(c *gin.Context) {
 func CreateProject(c *gin.Context) {
 	var input models.ProjectInput
 
-	// fmt.Printf("Input Body: %v\n", c.Request.Body)
 	// body, _ := io.ReadAll(c.Request.Body)
 	// println(string(body))
 
@@ -44,10 +43,10 @@ func CreateProject(c *gin.Context) {
 	}
 
 	tx := models.DB.Model(&models.Project{}).Create(&models.Project{
-		Title:       input.Title,
-		Description: input.Description,
-		ClientID:    input.ClientID,
-		Active:      input.Active,
+		Title: input.Title,
+		// Description: input.Description,
+		// ClientID:    input.ClientID,
+		Active: input.Active,
 	})
 
 	if tx.Error != nil {

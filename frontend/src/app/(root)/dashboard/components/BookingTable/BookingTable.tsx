@@ -20,6 +20,7 @@ import React from 'react';
 
 import Typography from '@mui/material/Typography';
 import { DateTime } from 'luxon';
+import { AppContext } from '@/app/provider/appProvider';
 
 interface BookingTableProps {
   activities: Array<Activity>;
@@ -34,6 +35,8 @@ export const BookingTable = (props: BookingTableProps) => {
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
+
+  const appContext = useContext(AppContext);
 
   const handleRowAction = (action: 'edit' | 'delete') => {
     switch (action) {
@@ -142,12 +145,20 @@ export const BookingTable = (props: BookingTableProps) => {
                       <TableCell>
                         <Typography sx={{ color: 'text.main' }}>{row.remarks || '-'}</Typography>
 
-                        <Box sx={{ display: 'flex', columnGap: '0.5rem' }}>
-                          <Typography sx={{ color: 'text.secondary', fontSize: '0.90rem' }}>My Client</Typography>
-                          <Typography sx={{ color: 'text.secondary', fontSize: '0.90rem' }}>/</Typography>
-                          <Typography sx={{ color: 'text.secondary', fontSize: '0.90rem' }}>
-                            Project Client 1
-                          </Typography>
+                        <Box
+                          sx={{ display: 'flex', columnGap: '0.5rem', color: 'text.secondary', fontSize: '0.90rem' }}
+                        >
+                          {row.clientID && (
+                            <span>{appContext.clients.find((client) => client.clientID === row.clientID)?.name}</span>
+                          )}
+
+                          {row.projectID && !!row.clientID && <span>{'/'}</span>}
+
+                          {row.projectID && (
+                            <span>
+                              {appContext.projects.find((project) => project.projectID === row.projectID)?.title}
+                            </span>
+                          )}
                         </Box>
                       </TableCell>
 

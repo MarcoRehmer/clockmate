@@ -26,6 +26,8 @@ func main() {
 	corsConfig.AllowCredentials = true
 
 	r.Use(cors.New(corsConfig))
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
 
 	models.ConnectDatabase()
 

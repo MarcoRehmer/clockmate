@@ -57,6 +57,7 @@ export const UserProfile = () => {
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   const api = useContext(ApiContext);
+  const appContext = useContext(AppContext);
 
   useEffect(() => {
     const fetchUserInfo = async () => await api.users.current();

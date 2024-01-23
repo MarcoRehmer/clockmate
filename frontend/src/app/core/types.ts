@@ -4,21 +4,23 @@ export interface Activity {
   id: number;
   startedAt: DateTime;
   finishedAt?: DateTime;
-  clientId?: number;
-  projectId?: number;
+  clientID?: number;
+  projectID?: number;
   remarks?: string;
 }
 
 export interface Client {
-  id: number;
+  clientID: number;
   name: string;
   clientNumber?: string;
-  projects: ReadonlyArray<Project>;
+  // projects: ReadonlyArray<Project>;
 }
 
 export interface Project {
-  id: number;
-  name: string;
+  projectID: number;
+  title: string;
+  description: string;
+  clientID: number;
 }
 
 export interface UserSummary {

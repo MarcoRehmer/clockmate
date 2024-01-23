@@ -7,7 +7,7 @@ import { BookingTable } from '@/app/(root)/dashboard/components/BookingTable/Boo
 import React, { useContext, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import { Activity, UserInfo, UserSummary } from '@/app/core/types';
-import { mapBookingDtoToBooking } from '@/app/api/mapper/map-booking-dto-to-booking';
+import { mapActivityDtoToActivity } from '@/app/api/mapper/map-booking-dto-to-booking';
 import { ApiContext } from '@/app/provider/appProvider';
 import { mapToUpdateActivity } from '@/app/api/mapper/map-partial-activity';
 import { UserInfoDto } from '@/app/api/types';
@@ -48,7 +48,7 @@ export const Dashboard = () => {
   /* Effects */
   useEffect(() => {
     const fetchData = async () => {
-      return (await api.activities.getActivities(tableFilter)).map((activity) => mapBookingDtoToBooking(activity));
+      return (await api.activities.getActivities(tableFilter)).map((activity) => mapActivityDtoToActivity(activity));
     };
 
     fetchData()
@@ -71,7 +71,7 @@ export const Dashboard = () => {
     const fetchCurrent = async () => await api.activities.getCurrentActivity();
 
     fetchCurrent()
-      .then((result) => setCurrentActivity((result && mapBookingDtoToBooking(result)) || undefined))
+      .then((result) => setCurrentActivity((result && mapActivityDtoToActivity(result)) || undefined))
       .catch((err) => console.error('could not fetch current activity', err));
   }, [api.activities, reload]);
 

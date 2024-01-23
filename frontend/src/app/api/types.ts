@@ -1,3 +1,5 @@
+import { Client, Project } from '../core/types';
+
 export interface ApiClient {
   activities: {
     getActivities(query?: ActivitiesQueryDto): Promise<ReadonlyArray<ActivityDto>>;
@@ -18,7 +20,12 @@ export interface ApiClient {
     getAvatarUrl(avatarID?: string): Promise<string>;
   };
   reports: { summary(filter: SummaryFilterDto): Promise<SummaryDto> };
-  settings: {};
+  projects: {
+    getAll(): Promise<Array<Project>>;
+  };
+  clients: {
+    getAll(): Promise<Array<Client>>;
+  };
 }
 
 export interface SummaryFilterDto {
@@ -41,8 +48,8 @@ export interface ActivitiesQueryDto {
   rangeTo?: string;
   orderBy?: { prop: string; direction: 'asc' | 'desc' };
   visibleValues?: ReadonlyArray<string>;
-  projectId?: number;
-  clientId?: number;
+  projectID?: number;
+  clientID?: number;
 }
 
 export interface ActivityDto {
@@ -50,8 +57,8 @@ export interface ActivityDto {
   startedAt: string;
   finishedAt?: string;
   remarks?: string;
-  projectId?: number;
-  clientId?: number;
+  projectID?: number;
+  clientID?: number;
 }
 
 export interface CreateActivityDto {
