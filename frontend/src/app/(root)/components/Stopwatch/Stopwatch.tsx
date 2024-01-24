@@ -28,6 +28,8 @@ export const Stopwatch = (props: {
   onStop: (activityId: number) => void;
   onDiscard: (activityId: number) => void;
 }) => {
+  const appContext = useContext(AppContext);
+
   // TODO: refactoring to useReducer
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [popoverAnchorEl, setPopoverAnchorEl] = useState<null | HTMLElement>(null);
@@ -35,8 +37,6 @@ export const Stopwatch = (props: {
   const [popoverMode, setPopoverMode] = useState<'start' | 'switch'>('start');
   const [selectedProject, setSelectedProject] = useState<Project | undefined>(undefined);
   const [selectedClient, setSelectedClient] = useState<Client | undefined>(undefined);
-
-  const appContext = useContext(AppContext);
 
   const popoverOpen = Boolean(popoverAnchorEl);
 
@@ -94,6 +94,25 @@ export const Stopwatch = (props: {
 
   const resetForm = () => {
     setRemarks('');
+  };
+
+  const filterProjectsByClient = (clientID?: number) => {
+    const visibleProjects = clientID
+      ? appContext.projects.filter((project) => project.clientID === clientID || !project.clientID)
+      : appContext.projects;
+    if (selectedProject !== undefined && !visibleProjects.includes(selectedProject)) {
+      setSelectedProject(undefined);
+    }
+
+    return visibleProjects;
+  };
+
+  const selectClientByProject = (project?: Project) => {
+    if (project === undefined || project.clientID === undefined) {
+      return;
+    }
+
+    setSelectedClient(appContext.clients.find((client) => client.clientID === project.clientID));
   };
 
   return (
@@ -165,14 +184,16 @@ export const Stopwatch = (props: {
               labelId="project-select-label"
               label="Project"
               value={selectedProject?.projectID || ''}
-              onChange={(event) =>
-                setSelectedProject(appContext.projects.find((project) => project.projectID === event.target.value))
-              }
+              onChange={(event) => {
+                const project = appContext.projects.find((project) => project.projectID === event.target.value);
+                setSelectedProject(project);
+                selectClientByProject(project);
+              }}
             >
               <MenuItem value={''}>
                 <em>None</em>
               </MenuItem>
-              {appContext.projects.map((project) => (
+              {filterProjectsByClient(selectedClient?.clientID).map((project) => (
                 <MenuItem key={project.projectID} value={project.projectID}>
                   {project.title}
                 </MenuItem>

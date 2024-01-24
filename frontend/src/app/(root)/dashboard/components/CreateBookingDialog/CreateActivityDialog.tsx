@@ -18,12 +18,12 @@ import styles from './create-booking-dialog.module.scss';
 import { DateTime } from 'luxon';
 import { AppContext } from '@/app/provider/appProvider';
 
-interface CreateBookingDialogProps {
+interface CreateActivityDialogProps {
   open: boolean;
   handleClose: (booking: Omit<Activity, 'id'> | undefined) => void;
 }
 
-export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogProps) => {
+export const CreateActivityDialog = ({ open, handleClose }: CreateActivityDialogProps) => {
   const [remarks, setRemarks] = useState('');
   const [bookingDate, setBookingDate] = useState(DateTime.now());
   const [startedAt, setStartedAt] = useState<DateTime>(DateTime.now());
@@ -43,13 +43,32 @@ export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogPr
     });
   };
 
+  const filterProjectsByClient = (clientID?: number) => {
+    const visibleProjects = clientID
+      ? appContext.projects.filter((project) => project.clientID === clientID || !project.clientID)
+      : appContext.projects;
+    if (selectedProject !== undefined && !visibleProjects.includes(selectedProject)) {
+      setSelectedProject(undefined);
+    }
+
+    return visibleProjects;
+  };
+
+  const selectClientByProject = (project?: Project) => {
+    if (project === undefined || project.clientID === undefined) {
+      return;
+    }
+
+    setSelectedClient(appContext.clients.find((client) => client.clientID === project.clientID));
+  };
+
   return (
     <Dialog open={open} onClose={() => handleClose(undefined)}>
-      <DialogTitle>Create new Booking</DialogTitle>
+      <DialogTitle>Create new Activity</DialogTitle>
       <DialogContent>
         <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', rowGap: 2, width: '35ch' }}>
           <DatePicker
-            label="booking date"
+            label="activity date"
             defaultValue={DateTime.now()}
             value={bookingDate}
             onChange={(value) => setBookingDate(value || DateTime.now())}
@@ -76,6 +95,7 @@ export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogPr
             <Select
               labelId="client-select-label"
               label="Client"
+              value={selectedClient?.clientID || ''}
               onChange={(event) =>
                 setSelectedClient(appContext.clients.find((client) => client.clientID === event.target.value))
               }
@@ -96,14 +116,17 @@ export const CreateBookingDialog = ({ open, handleClose }: CreateBookingDialogPr
             <Select
               labelId="project-select-label"
               label="Project"
-              onChange={(event) =>
-                setSelectedProject(appContext.projects.find((project) => project.projectID === event.target.value))
-              }
+              value={selectedProject?.projectID || ''}
+              onChange={(event) => {
+                const project = appContext.projects.find((project) => project.projectID === event.target.value);
+                setSelectedProject(project);
+                selectClientByProject(project);
+              }}
             >
               <MenuItem value={undefined}>
                 <em>None</em>
               </MenuItem>
-              {appContext.projects.map((project) => (
+              {filterProjectsByClient(selectedClient?.clientID).map((project) => (
                 <MenuItem key={project.projectID} value={project.projectID}>
                   {project.title}
                 </MenuItem>
