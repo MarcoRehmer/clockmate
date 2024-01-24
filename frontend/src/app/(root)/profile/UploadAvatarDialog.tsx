@@ -8,7 +8,6 @@ import {
   DialogContent,
   DialogTitle,
   Skeleton,
-  styled,
 } from '@mui/material';
 import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
@@ -30,7 +29,6 @@ export const UploadAvatarDialog = ({ open, handleClose, changeAvatarUrl }: Uploa
 
   useEffect(() => {
     const fetchAvatarUrl = async () => await api.users.getAvatarUrl();
-    console.log('effect called');
     fetchAvatarUrl().then((url) => {
       setAvatarUrl(url);
     });

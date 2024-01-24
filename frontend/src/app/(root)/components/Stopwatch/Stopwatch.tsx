@@ -28,6 +28,7 @@ export const Stopwatch = (props: {
   onStop: (activityId: number) => void;
   onDiscard: (activityId: number) => void;
 }) => {
+  // TODO: refactoring to useReducer
   const [currentTime, setCurrentTime] = useState('00:00:00');
   const [popoverAnchorEl, setPopoverAnchorEl] = useState<null | HTMLElement>(null);
   const [remarks, setRemarks] = useState('');
@@ -57,8 +58,18 @@ export const Stopwatch = (props: {
 
   const handleRunStopwatchClick = () => {
     props.currentActivity === undefined
-      ? props.onStart({ startedAt: DateTime.now(), remarks })
-      : props.onSwitchTask(props.currentActivity.id, { startedAt: DateTime.now(), remarks });
+      ? props.onStart({
+          startedAt: DateTime.now(),
+          remarks,
+          projectID: selectedProject?.projectID,
+          clientID: selectedClient?.clientID,
+        })
+      : props.onSwitchTask(props.currentActivity.id, {
+          startedAt: DateTime.now(),
+          remarks,
+          projectID: selectedProject?.projectID,
+          clientID: selectedClient?.clientID,
+        });
     handlePopoverClose();
   };
 
@@ -74,7 +85,6 @@ export const Stopwatch = (props: {
     resetForm();
     setPopoverMode('switch');
     setPopoverAnchorEl(event.currentTarget);
-    // handlePopoverClose();
   };
 
   const handleDiscardClick = () => {
@@ -133,17 +143,17 @@ export const Stopwatch = (props: {
             <Select
               labelId="client-select-label"
               label="Client"
+              value={selectedClient?.clientID || ''}
               onChange={(event) =>
                 setSelectedClient(appContext.clients.find((client) => client.clientID === event.target.value))
               }
             >
-              <MenuItem value={0}>
+              <MenuItem value={''}>
                 <em>None</em>
               </MenuItem>
               {appContext.clients.map((client) => (
                 <MenuItem key={client.clientID} value={client.clientID}>
                   {client.name}
-                  {JSON.stringify(client)}
                 </MenuItem>
               ))}
             </Select>
@@ -154,11 +164,12 @@ export const Stopwatch = (props: {
             <Select
               labelId="project-select-label"
               label="Project"
+              value={selectedProject?.projectID || ''}
               onChange={(event) =>
                 setSelectedProject(appContext.projects.find((project) => project.projectID === event.target.value))
               }
             >
-              <MenuItem value={0}>
+              <MenuItem value={''}>
                 <em>None</em>
               </MenuItem>
               {appContext.projects.map((project) => (

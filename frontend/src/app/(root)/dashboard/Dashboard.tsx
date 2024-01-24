@@ -134,6 +134,8 @@ export const Dashboard = () => {
       await api.activities.create({
         startedAt: input.startedAt.toISO() || '',
         remarks: input.remarks,
+        projectID: input.projectID,
+        clientID: input.clientID,
       });
       setReload(true);
       setSnackMessage({ status: 'success', message: 'Stopwtach started' });
