@@ -4,15 +4,12 @@ import {
   Alert,
   Avatar,
   Box,
-  Button,
   ButtonBase,
   Card,
   CardContent,
   CardHeader,
   Divider,
-  IconButton,
   Snackbar,
-  TextField,
   Typography,
   styled,
 } from '@mui/material';
@@ -21,7 +18,6 @@ import { useContext, useEffect, useState } from 'react';
 import { EditableLabel } from './EditableLabel';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import { sleep } from '@/app/utils/sleep';
 import { ApiContext, AppContext } from '@/app/provider/appProvider';
 import { UserInfo } from '@/app/core/types';
 import { encryptPassword } from '@/app/utils/encrypt-password';
@@ -57,6 +53,7 @@ export const UserProfile = () => {
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
 
   const api = useContext(ApiContext);
+  const appContext = useContext(AppContext);
 
   useEffect(() => {
     const fetchUserInfo = async () => await api.users.current();

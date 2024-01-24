@@ -20,6 +20,7 @@ import React from 'react';
 
 import Typography from '@mui/material/Typography';
 import { DateTime } from 'luxon';
+import { AppContext } from '@/app/provider/appProvider';
 
 interface BookingTableProps {
   activities: Array<Activity>;
@@ -34,6 +35,8 @@ export const BookingTable = (props: BookingTableProps) => {
   const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [editDialogOpen, setEditDialogOpen] = useState<boolean>(false);
+
+  const appContext = useContext(AppContext);
 
   const handleRowAction = (action: 'edit' | 'delete') => {
     switch (action) {
@@ -70,7 +73,7 @@ export const BookingTable = (props: BookingTableProps) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ width: 90 }}>Duration</TableCell>
-              <TableCell>Remarks</TableCell>
+              <TableCell>Activity</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -120,16 +123,18 @@ export const BookingTable = (props: BookingTableProps) => {
                     )}
                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                       {/* Duration cell */}
-                      <TableCell
-                        sx={{
-                          color: row.finishedAt === undefined ? 'primary.main' : 'text.secondary',
-                        }}
-                      >
+                      <TableCell>
                         <div>
-                          <Typography fontSize="large" sx={{ textAlign: 'center' }}>
+                          <Typography
+                            fontSize="large"
+                            sx={{
+                              textAlign: 'center',
+                              color: row.finishedAt === undefined ? 'primary.main' : 'text.main',
+                            }}
+                          >
                             {calcDuration(row.startedAt, row.finishedAt || DateTime.now())}
                           </Typography>
-                          <Box sx={{ display: 'flex', columnGap: 0.5, flexDirection: 'row' }}>
+                          <Box sx={{ display: 'flex', columnGap: 0.5, flexDirection: 'row', color: 'text.secondary' }}>
                             <span>{row.startedAt.toFormat('HH:mm')}</span>-
                             <span>{row.finishedAt?.toFormat('HH:mm') || ''}</span>
                           </Box>
@@ -138,9 +143,23 @@ export const BookingTable = (props: BookingTableProps) => {
 
                       {/* Remarks Cell */}
                       <TableCell>
-                        <Typography fontSize="medium" sx={{ color: 'text.secondary' }}>
-                          {row.remarks}
-                        </Typography>
+                        <Typography sx={{ color: 'text.main' }}>{row.remarks || '-'}</Typography>
+
+                        <Box
+                          sx={{ display: 'flex', columnGap: '0.5rem', color: 'text.secondary', fontSize: '0.90rem' }}
+                        >
+                          {row.clientID && (
+                            <span>{appContext.clients.find((client) => client.clientID === row.clientID)?.name}</span>
+                          )}
+
+                          {row.projectID && !!row.clientID && <span>{'/'}</span>}
+
+                          {row.projectID && (
+                            <span>
+                              {appContext.projects.find((project) => project.projectID === row.projectID)?.title}
+                            </span>
+                          )}
+                        </Box>
                       </TableCell>
 
                       {/* Conetxt Menu Cell */}

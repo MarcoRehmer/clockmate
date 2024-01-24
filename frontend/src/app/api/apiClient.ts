@@ -9,6 +9,7 @@ import {
 } from '@/app/api/types';
 import { setToken } from '../auth/session';
 import { getAxiosClient } from '@/app/api/axiosClient';
+import { Client, Project } from '../core/types';
 
 export const apiClient: ApiClient = {
   auth: {
@@ -75,8 +76,8 @@ export const apiClient: ApiClient = {
       // TODO: add error handling
       // TODO: error handling with redirect to login page if not authenticated
     },
-    create: async function (booking: CreateActivityDto): Promise<ActivityDto> {
-      const { data } = await (await getAxiosClient()).post('/activities', { ...booking });
+    create: async function (activity: CreateActivityDto): Promise<ActivityDto> {
+      const { data } = await (await getAxiosClient()).post('/activities', { ...activity });
       return data;
 
       // TODO: add error handling
@@ -139,7 +140,18 @@ export const apiClient: ApiClient = {
     },
   },
 
-  settings: {},
+  projects: {
+    getAll: async () => {
+      const { data } = await (await getAxiosClient()).get<Array<Project>>('/projects');
+      return data;
+    },
+  },
+  clients: {
+    getAll: async () => {
+      const { data } = await (await getAxiosClient()).get<Array<Client>>('/clients');
+      return data;
+    },
+  },
   reports: {
     summary: async (filter: SummaryFilterDto): Promise<SummaryDto> => {
       const { data } = await (await getAxiosClient()).get('/reports/summary');

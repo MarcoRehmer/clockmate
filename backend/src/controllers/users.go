@@ -35,6 +35,32 @@ func CurrentUser(c *gin.Context) {
 	c.JSON(http.StatusOK, userInfo)
 }
 
+// TODO: move to admin controllers
+func CreateUser(c *gin.Context) {
+	var input models.UserInput
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		fmt.Printf("error while bind JSON: %v\n", err)
+		c.Status(http.StatusBadRequest)
+		return
+	}
+
+	tx := models.DB.Model(&models.User{}).Create(&models.User{
+		Email:     input.Email,
+		Password:  input.Password,
+		FirstName: input.FirstName,
+		LastName:  input.LastName,
+		Active:    input.Active,
+	})
+
+	if tx.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot create entity"})
+		return
+	}
+
+	c.Status(http.StatusOK)
+}
+
 func ChangeUserInfo(c *gin.Context) {
 	userId, err := ExtractTokenUserID(c)
 	if err != nil {

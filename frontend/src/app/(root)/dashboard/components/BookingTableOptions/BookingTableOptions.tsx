@@ -4,7 +4,7 @@ import { Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
 import { Activity } from '@/app/core/types';
-import { CreateBookingDialog } from '../CreateBookingDialog/CreateBookingDialog';
+import { CreateActivityDialog } from '../CreateBookingDialog/CreateActivityDialog';
 import { DateTime } from 'luxon';
 import { TableFilter } from '../../Dashboard';
 
@@ -43,7 +43,7 @@ export const BookingTableOptions = (props: {
           </IconButton>
         </div>
       </Box>
-      {createBookingOpen && <CreateBookingDialog open={createBookingOpen} handleClose={handleNewBookingClose} />}
+      {createBookingOpen && <CreateActivityDialog open={createBookingOpen} handleClose={handleNewBookingClose} />}
     </>
   );
 };

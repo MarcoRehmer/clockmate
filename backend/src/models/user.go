@@ -13,6 +13,15 @@ type User struct {
 	AvatarImageID string     `json:"avatarImageID"`
 }
 
+type UserInput struct {
+	Username  string `json:"username" gorm:"unique"`
+	Email     string `json:"email" gorm:"size:255;not null;unique"`
+	Password  string `json:"password" gorm:"size:255;not null"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Active    bool   `json:"active" default:"true"`
+}
+
 type UserInfo struct {
 	UserID        uint   `json:"userID"`
 	Username      string `json:"username"`
