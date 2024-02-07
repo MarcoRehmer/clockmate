@@ -26,6 +26,9 @@ export interface ApiClient {
   clients: {
     getAll(): Promise<Array<Client>>;
   };
+  extensions: {
+    load(id: string): Promise<string>;
+  };
 }
 
 export interface SummaryFilterDto {

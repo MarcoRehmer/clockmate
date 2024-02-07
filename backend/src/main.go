@@ -66,6 +66,9 @@ func main() {
 		v1.POST("/projects", controllers.CreateProject)
 		v1.PUT("/projects/:id", controllers.UpdateProject)
 		v1.DELETE("/projects/:id", controllers.DeleteProject)
+
+		// extensions
+		v1.GET("/extensions/:id", controllers.LoadExtension)
 	}
 
 	admin := v1.Group("/admin")

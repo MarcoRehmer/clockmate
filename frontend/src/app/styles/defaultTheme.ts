@@ -32,7 +32,7 @@ export const defaultTheme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 20,
+          borderRadius: 8,
           boxShadow: 'rgba(0, 0, 0, 0.08) 0px 3.5px 5.5px 0px',
 
           '@media (max-width:600px)': {

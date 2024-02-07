@@ -1,3 +1,4 @@
+import { getAxiosClient } from '@/app/api/axiosClient';
 import {
   ActivitiesQueryDto,
   ActivityDto,
@@ -8,7 +9,6 @@ import {
   UserInfoDto,
 } from '@/app/api/types';
 import { setToken } from '../auth/session';
-import { getAxiosClient } from '@/app/api/axiosClient';
 import { Client, Project } from '../core/types';
 
 export const apiClient: ApiClient = {
@@ -155,6 +155,12 @@ export const apiClient: ApiClient = {
   reports: {
     summary: async (filter: SummaryFilterDto): Promise<SummaryDto> => {
       const { data } = await (await getAxiosClient()).get('/reports/summary');
+      return data;
+    },
+  },
+  extensions: {
+    load: async (id: string): Promise<string> => {
+      const { data } = await (await getAxiosClient()).get(`/extensions/${id}`);
       return data;
     },
   },

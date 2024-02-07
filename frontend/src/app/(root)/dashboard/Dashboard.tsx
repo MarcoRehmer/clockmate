@@ -1,16 +1,17 @@
 'use client';
-import { Alert, Box, Card, Snackbar, Typography } from '@mui/material';
-import { UserSummaryCard } from '@/app/(root)/dashboard/components/UserSummaryCard';
-import { CurrentRunningCard } from '@/app/(root)/dashboard/components/CurrentRunningCard';
-import { BookingTableOptions } from '@/app/(root)/dashboard/components/BookingTableOptions/BookingTableOptions';
 import { BookingTable } from '@/app/(root)/dashboard/components/BookingTable/BookingTable';
-import React, { useContext, useEffect, useState } from 'react';
-import { DateTime } from 'luxon';
-import { Activity, UserInfo, UserSummary } from '@/app/core/types';
+import { BookingTableOptions } from '@/app/(root)/dashboard/components/BookingTableOptions/BookingTableOptions';
+import { CurrentRunningCard } from '@/app/(root)/dashboard/components/CurrentRunningCard';
+import { UserSummaryCard } from '@/app/(root)/dashboard/components/UserSummaryCard';
 import { mapActivityDtoToActivity } from '@/app/api/mapper/map-booking-dto-to-booking';
-import { ApiContext } from '@/app/provider/appProvider';
 import { mapToUpdateActivity } from '@/app/api/mapper/map-partial-activity';
-import { UserInfoDto } from '@/app/api/types';
+import { Activity, UserInfo, UserSummary } from '@/app/core/types';
+import { ApiContext } from '@/app/provider/appProvider';
+import { Alert, Box, Card, Snackbar, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
+import { DateTime } from 'luxon';
+import Script from 'next/script';
+import React, { useContext, useEffect, useState } from 'react';
 
 interface DashboardOptions {
   filter: {
@@ -41,9 +42,38 @@ export const Dashboard = () => {
   const [initialLoading, setInitialLoading] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(undefined);
+  const [extension, setExtension] = useState<{ script: string; name: string } | undefined>(undefined);
 
   /* Contexts */
   const api = useContext(ApiContext);
+
+  const litElement = `
+  import {LitElement, css, html} from 'lit';
+
+export class SimpleGreeting extends LitElement {
+  static properties = {
+    name: {},
+  };
+  // Define scoped styles right with your component, in plain CSS
+  static styles = css\`
+    :host {
+      color: blue;
+    }
+  \`;
+
+  constructor() {
+    super();
+    // Declare reactive properties
+    this.name = 'World';
+  }
+
+  // Render the UI as a function of component state
+  render() {
+    return html\`<p>Hello, \${this.name}!</p>\`;
+  }
+}
+customElements.define('simple-greeting', SimpleGreeting);
+  `;
 
   /* Effects */
   useEffect(() => {
@@ -65,7 +95,12 @@ export const Dashboard = () => {
       fetchAvatarUrl(usr.avatarImageID).then((url) => setAvatarUrl(url));
       setUserInfo(usr);
     });
-  }, [api.activities, tableFilter, reload, api.users]);
+
+    const fetchExtension = async () => await api.extensions.load('foo');
+    fetchExtension().then((ext) => {
+      setExtension({ name: 'hello-marco', script: ext });
+    });
+  }, [api.activities, tableFilter, reload, api.users, api.extensions]);
 
   useEffect(() => {
     const fetchCurrent = async () => await api.activities.getCurrentActivity();
@@ -215,16 +250,34 @@ export const Dashboard = () => {
           </Box>
         </Box>
 
-        <Card>
-          <BookingTableOptions onFilterChanged={handleFilterChanged} onActivityAdded={handleActivityAdded} />
-          <BookingTable
-            activities={activities}
-            filter={tableFilter}
-            onDeleteActivity={handleDeleteActivity}
-            onEditActivity={handleEditActivity}
-            loading={initialLoading}
-          />
-        </Card>
+        <Grid container spacing={2}>
+          <Grid xs={8}>
+            <Card>
+              <BookingTableOptions onFilterChanged={handleFilterChanged} onActivityAdded={handleActivityAdded} />
+              <BookingTable
+                activities={activities}
+                filter={tableFilter}
+                onDeleteActivity={handleDeleteActivity}
+                onEditActivity={handleEditActivity}
+                loading={initialLoading}
+              />
+            </Card>
+          </Grid>
+
+          <Grid xs={4}>
+            <Card>
+              <>
+                {React.createElement('test-esm-greeter', { name: 'Bob', counter: 3 })}
+                {/* <ui5-button>My First Button</ui5-button> */}
+
+                <Script type="module" id="blabla">
+                  {litElement}
+                </Script>
+                {React.createElement('simple-greeting', { name: 'Marco' })}
+              </>
+            </Card>
+          </Grid>
+        </Grid>
       </div>
       <Snackbar
         autoHideDuration={3000}
